@@ -292,6 +292,7 @@ Stack trace:
 #21 /var/www/qpartners.club/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(64): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}()
 #22 /var/www/qpartners.club/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Session\Middleware\StartSession->handle()
 #23 /var/www/qpartners.club/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(33): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}()
+
 #24 /var/www/qpartners.club/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}()
 #25 /var/www/qpartners.club/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle()
 #26 /var/www/qpartners.club/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(33): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}()
