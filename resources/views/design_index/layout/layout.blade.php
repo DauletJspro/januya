@@ -35,7 +35,6 @@ use \Illuminate\Support\Facades\Session;
         </div>
     </div>
     <div class="w1">
-        @include('design_index.layout.header')
         <div class="mt-search-popup">
             <div class="mt-holder">
                 <a href="#" class="search-close"><span></span><span></span></a>
@@ -52,7 +51,7 @@ use \Illuminate\Support\Facades\Session;
         </div>
 
         @yield('content')
-        @include('design_index.layout.footer')
+//        @include('design_index.layout.footer')
     </div>
     <span id="back-top" class="fa fa-arrow-up"></span>
 </div>

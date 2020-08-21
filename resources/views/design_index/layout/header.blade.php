@@ -27,8 +27,8 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
                             <span style="
                              padding:0 14px 0 14px;
                              color: white;
-                             {{ $key <= count($subsidiary) ? 'border-right: 1px solid lightgrey;' : ''}}
-                                    ">{{$subsidiary->name}}</span>
+                            // {{($key <=  count($subsidiary)) ? 'border-right: 1px solid lightgrey;' : ''}}
+                            //        ">{{$subsidiary->name}}</span>
                         </a>
                     @endforeach
                 </div>
@@ -91,7 +91,7 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
                     <a href="{{ route('basket.show') }}" class="mt-sh-cart" id="basket-box">
                         <span class="icon-handbag"></span>
                         <strong>Ваша корзина</strong>
-                        <span>{{isset($items) ? count($items) : 0}} продукта &nbsp; <i class="fa fa-dollar"></i>{{$totalPrice}}</span>
+//                        <span>{{isset($items) ? count($items) : 0}} продукта &nbsp; <i class="fa fa-dollar"></i>{{$totalPrice}}</span>
                     </a>
                     <ul class="mt-icon-list">
                         <li class="hidden-lg hidden-md">

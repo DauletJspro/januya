@@ -60,6 +60,7 @@ class IndexController extends Controller
         $creams = Product::where(['category_id' => Category::CREAM])->get();
 
 
+	return view('welcome');
         return view('design_index.index.index',
             [
                 'products' => $products,
