@@ -76,7 +76,7 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
                         <?php $totalPrice += $total ? $total->product_price : 0; ?>
                     <?php endforeach ?>
                     @endif
-                    <a href="{{ route('basket.show') }}" class="mt-sh-cart" id="basket-box">
+                    <a href="{{ route('basket.show') }}" class="mt-sh-cart hidden" id="basket-box">
                         <span class="icon-handbag"></span>
                         <strong>Ваша корзина</strong>
                         <span>{{isset($items) ? count($items) : 0}} продукта &nbsp; <i class="fa fa-dollar"></i>{{$totalPrice}}</span>
@@ -91,12 +91,12 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
                         </li>
                         <li></li>
                         <li><a style="color: red;" href="{{route('favorite.showUserItem')}}"
-                               class="icon-heart"><span id="favoriteCount">{{count($favorites)}}</span></a></li>
+                               class="icon-heart hidden"><span id="favoriteCount">{{count($favorites)}}</span></a></li>
                     </ul>
                     <nav id="nav">
-                        <ul>
+                        <ul class="hidden">
                             <li>
-                                <a class="drop-link" href="">О НАС<i class="fa fa-angle-down"
+                                <a  class="drop-link" href="">О НАС<i class="fa fa-angle-down"
                                                                      aria-hidden="true"></i></a>
                                 <div class="s-drop">
                                     <ul>
