@@ -12,6 +12,7 @@ class Users extends Model implements AuthenticatableContract
 {
     use Authenticatable;
 
+    protected $table = 'users';
     protected $primaryKey = 'user_id';
     protected $fillable = ['email', 'password', 'login', 'user_id'];
 
@@ -19,8 +20,8 @@ class Users extends Model implements AuthenticatableContract
     const CLIENT = 2;
     const MODERATOR = 3;
 
-    use SoftDeletes;
-    protected $dates = ['deleted_at'];
+//    use SoftDeletes;
+//    protected $dates = ['deleted_at'];
 
 
     public static function parentFollowers($parent_id)

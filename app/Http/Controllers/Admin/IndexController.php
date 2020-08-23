@@ -26,160 +26,163 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
-        $request->profit_all = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '!=', 2)
-            ->where('operation_type_id', '!=', 3)
-            ->where('operation_type_id', '!=', 28)
-            ->where('operation_type_id', '!=', 29)
-            ->sum('money');
+//        $request->profit_all = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '!=', 2)
+//            ->where('operation_type_id', '!=', 3)
+//            ->where('operation_type_id', '!=', 28)
+//            ->where('operation_type_id', '!=', 29)
+//            ->sum('money');
+//
+//        $request->profit_today = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '!=', 2)
+//            ->where('operation_type_id', '!=', 3)
+//            ->where('operation_type_id', '!=', 28)
+//            ->where('operation_type_id', '!=', 29)
+//            ->where('created_at', '>', date("Y-m-d"))
+//            ->sum('money');
+//
+//        $request->profit_last_week = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '!=', 2)
+//            ->where('operation_type_id', '!=', 3)
+//            ->where('operation_type_id', '!=', 28)
+//            ->where('operation_type_id', '!=', 29)
+//            ->where('created_at', '>', date("Y-m-d", strtotime("-7 day")))
+//            ->sum('money');
+//
+//        $request->profit_last_month = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '!=', 2)
+//            ->where('operation_type_id', '!=', 3)
+//            ->where('operation_type_id', '!=', 28)
+//            ->where('operation_type_id', '!=', 29)
+//            ->where('created_at', '>', date("Y-m-d", strtotime("-30 day")))
+//            ->sum('money');
+//
+//        $request->passive_profit_all = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 3)
+//            ->sum('money');
+//
+//        $request->passive_profit_today = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 3)
+//            ->where('created_at', '>', date("Y-m-d"))
+//            ->sum('money');
+//
+//        $request->passive_profit_last_week = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 3)
+//            ->where('created_at', '>', date("Y-m-d", strtotime("-7 day")))
+//            ->sum('money');
+//
+//        $request->passive_profit_last_month = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 3)
+//            ->where('created_at', '>', date("Y-m-d", strtotime("-30 day")))
+//            ->sum('money');
+//
+//
+//        $request->home_profit_all = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 32)
+//            ->sum('money');
+//
+//        $request->home_profit_today = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 32)
+//            ->where('created_at', '>', date("Y-m-d"))
+//            ->sum('money');
+//
+//        $request->home_profit_last_week = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 32)
+//            ->where('created_at', '>', date("Y-m-d", strtotime("-7 day")))
+//            ->sum('money');
+//
+//        $request->home_profit_last_month = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 32)
+//            ->where('created_at', '>', date("Y-m-d", strtotime("-30 day")))
+//            ->sum('money');
+//
+//
+//        $request->auto_profit_all = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 27)
+//            ->sum('money');
+//
+//        $request->auto_profit_today = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 27)
+//            ->where('created_at', '>', date("Y-m-d"))
+//            ->sum('money');
+//
+//        $request->auto_profit_last_week = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 27)
+//            ->where('created_at', '>', date("Y-m-d", strtotime("-7 day")))
+//            ->sum('money');
+//
+//        $request->auto_profit_last_month = UserOperation::where('recipient_id', Auth::user()->user_id)
+//            ->where('operation_id', 1)
+//            ->where('operation_type_id', '=', 27)
+//            ->where('created_at', '>', date("Y-m-d", strtotime("-30 day")))
+//            ->sum('money');
+//
+//
+//        $request->my_shareholder_money = Users::where('user_id', '=', Auth::user()->user_id)->sum('user_share');
+//        $request->shareholder_money_all = Users::where('user_share', '>', 0)->sum('user_share');
+//
+//        $request->shareholder_profit_today = UserOperation::where('operation_type_id', 5)
+//            //  ->where('created_at','>',date("Y-m-d"))
+//            ->sum('money');
+//
+//        $request->shareholder_count = Users::where('users.user_share', '>', 0)->count();
+//
+//        $request->user_share_sum = Users::where('users.user_share', '>', 0)->sum('users.user_share');
+//
+//        if ($request->shareholder_profit_today != 0 && $request->user_share_sum != 0)
+//            $request->shareholder_average_mount = round($request->shareholder_profit_today / $request->user_share_sum, 2);
+//        else $request->shareholder_average_mount = 0;
+//
+//
+//        $request->my_shareholder_money2 = Users::where('user_id', '=', Auth::user()->user_id)->sum('user_share2');
+//        $request->shareholder_money_all2 = Users::where('user_share2', '>', 0)->sum('user_share2');
+//
+//        $request->shareholder_profit_today2 = UserOperation::where('operation_type_id', 25)
+//            // ->where('created_at','>',date("Y-m-d"))
+//            ->sum('money');
+//
+//        $request->shareholder_count2 = Users::where('users.user_share2', '>', 0)->count();
+//
+//        $request->user_share_sum2 = Users::where('users.user_share2', '>', 0)->sum('users.user_share2');
+//
+//        if ($request->shareholder_profit_today2 != 0 && $request->user_share_sum2 != 0)
+//            $request->shareholder_average_mount2 = round($request->shareholder_profit_today2 / $request->user_share_sum2, 2);
+//        else $request->shareholder_average_mount2 = 0;
+//
+//
+//        $request->currency = Currency::where('currency_id', 2)->first();
+//
+//        $request->packet = UserPacket::leftJoin('users', 'users.user_id', '=', 'user_packet.user_id')
+//            ->leftJoin('packet', 'packet.packet_id', '=', 'user_packet.packet_id')
+//            ->where('user_packet.user_id', Auth::user()->user_id)
+//            ->orderBy('packet.sort_num')
+//            ->get();
+//
+//        $request->out_money = UserOperation::where('operation_type_id', 12)
+//            ->where('recipient_id', Auth::user()->user_id)
+//            ->sum('money');
+//
+//        $request->send_money = UserOperation::where('operation_type_id', 28)->where('recipient_id', Auth::user()->user_id)->sum('money');
 
-        $request->profit_today = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '!=', 2)
-            ->where('operation_type_id', '!=', 3)
-            ->where('operation_type_id', '!=', 28)
-            ->where('operation_type_id', '!=', 29)
-            ->where('created_at', '>', date("Y-m-d"))
-            ->sum('money');
+        //return view('admin.index.index', ['row' => $request]);
 
-        $request->profit_last_week = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '!=', 2)
-            ->where('operation_type_id', '!=', 3)
-            ->where('operation_type_id', '!=', 28)
-            ->where('operation_type_id', '!=', 29)
-            ->where('created_at', '>', date("Y-m-d", strtotime("-7 day")))
-            ->sum('money');
+        return 'Вы успешно зарегистрировались, но сайт находиться в стадий разработки, ожидайте!';
 
-        $request->profit_last_month = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '!=', 2)
-            ->where('operation_type_id', '!=', 3)
-            ->where('operation_type_id', '!=', 28)
-            ->where('operation_type_id', '!=', 29)
-            ->where('created_at', '>', date("Y-m-d", strtotime("-30 day")))
-            ->sum('money');
-
-        $request->passive_profit_all = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 3)
-            ->sum('money');
-
-        $request->passive_profit_today = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 3)
-            ->where('created_at', '>', date("Y-m-d"))
-            ->sum('money');
-
-        $request->passive_profit_last_week = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 3)
-            ->where('created_at', '>', date("Y-m-d", strtotime("-7 day")))
-            ->sum('money');
-
-        $request->passive_profit_last_month = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 3)
-            ->where('created_at', '>', date("Y-m-d", strtotime("-30 day")))
-            ->sum('money');
-
-
-        $request->home_profit_all = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 32)
-            ->sum('money');
-
-        $request->home_profit_today = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 32)
-            ->where('created_at', '>', date("Y-m-d"))
-            ->sum('money');
-
-        $request->home_profit_last_week = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 32)
-            ->where('created_at', '>', date("Y-m-d", strtotime("-7 day")))
-            ->sum('money');
-
-        $request->home_profit_last_month = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 32)
-            ->where('created_at', '>', date("Y-m-d", strtotime("-30 day")))
-            ->sum('money');
-
-
-        $request->auto_profit_all = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 27)
-            ->sum('money');
-
-        $request->auto_profit_today = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 27)
-            ->where('created_at', '>', date("Y-m-d"))
-            ->sum('money');
-
-        $request->auto_profit_last_week = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 27)
-            ->where('created_at', '>', date("Y-m-d", strtotime("-7 day")))
-            ->sum('money');
-
-        $request->auto_profit_last_month = UserOperation::where('recipient_id', Auth::user()->user_id)
-            ->where('operation_id', 1)
-            ->where('operation_type_id', '=', 27)
-            ->where('created_at', '>', date("Y-m-d", strtotime("-30 day")))
-            ->sum('money');
-
-
-        $request->my_shareholder_money = Users::where('user_id', '=', Auth::user()->user_id)->sum('user_share');
-        $request->shareholder_money_all = Users::where('user_share', '>', 0)->sum('user_share');
-
-        $request->shareholder_profit_today = UserOperation::where('operation_type_id', 5)
-            //  ->where('created_at','>',date("Y-m-d"))
-            ->sum('money');
-
-        $request->shareholder_count = Users::where('users.user_share', '>', 0)->count();
-
-        $request->user_share_sum = Users::where('users.user_share', '>', 0)->sum('users.user_share');
-
-        if ($request->shareholder_profit_today != 0 && $request->user_share_sum != 0)
-            $request->shareholder_average_mount = round($request->shareholder_profit_today / $request->user_share_sum, 2);
-        else $request->shareholder_average_mount = 0;
-
-
-        $request->my_shareholder_money2 = Users::where('user_id', '=', Auth::user()->user_id)->sum('user_share2');
-        $request->shareholder_money_all2 = Users::where('user_share2', '>', 0)->sum('user_share2');
-
-        $request->shareholder_profit_today2 = UserOperation::where('operation_type_id', 25)
-            // ->where('created_at','>',date("Y-m-d"))
-            ->sum('money');
-
-        $request->shareholder_count2 = Users::where('users.user_share2', '>', 0)->count();
-
-        $request->user_share_sum2 = Users::where('users.user_share2', '>', 0)->sum('users.user_share2');
-
-        if ($request->shareholder_profit_today2 != 0 && $request->user_share_sum2 != 0)
-            $request->shareholder_average_mount2 = round($request->shareholder_profit_today2 / $request->user_share_sum2, 2);
-        else $request->shareholder_average_mount2 = 0;
-
-
-        $request->currency = Currency::where('currency_id', 2)->first();
-
-        $request->packet = UserPacket::leftJoin('users', 'users.user_id', '=', 'user_packet.user_id')
-            ->leftJoin('packet', 'packet.packet_id', '=', 'user_packet.packet_id')
-            ->where('user_packet.user_id', Auth::user()->user_id)
-            ->orderBy('packet.sort_num')
-            ->get();
-
-        $request->out_money = UserOperation::where('operation_type_id', 12)
-            ->where('recipient_id', Auth::user()->user_id)
-            ->sum('money');
-
-        $request->send_money = UserOperation::where('operation_type_id', 28)->where('recipient_id', Auth::user()->user_id)->sum('money');
-
-        return view('admin.index.index', ['row' => $request]);
     }
 
     public function callFriend(Request $request)
