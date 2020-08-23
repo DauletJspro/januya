@@ -51,7 +51,7 @@ use \Illuminate\Support\Facades\Session;
         </div>
 
         @yield('content')
-       @include('design_index.layout.footer')
+{{--       @include('design_index.layout.footer')--}}
     </div>
     <span id="back-top" class="fa fa-arrow-up"></span>
 </div>
