@@ -82,9 +82,9 @@
             </div>
 
             @if(Auth::user()->role_id == 3)
-                @include('admin.layout.sidebar-admin')
+{{--                @include('admin.layout.sidebar-admin')--}}
             @else
-                @include('admin.layout.sidebar')
+{{--                @include('admin.layout.sidebar')--}}
             @endif
 
         </section>

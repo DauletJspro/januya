@@ -296,7 +296,7 @@ Route::group([
     'middleware' => 'web',
     'namespace' => 'Index',
 ], function () {
-    Route::get('/', 'IndexController@index');
+    //Route::get('/', 'IndexController@index');
     Route::get('/opportunity', 'IndexController@opportunity');
     Route::get('gallery', 'IndexController@gallery')->name('gallery.show');
     Route::get('gallery-detail/{id}', 'IndexController@galleryDetail')->name('gallery-detail.show');

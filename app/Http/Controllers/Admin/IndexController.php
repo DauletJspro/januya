@@ -178,10 +178,8 @@ class IndexController extends Controller
 //            ->sum('money');
 //
 //        $request->send_money = UserOperation::where('operation_type_id', 28)->where('recipient_id', Auth::user()->user_id)->sum('money');
-
-        //return view('admin.index.index', ['row' => $request]);
-
-        return 'Вы успешно зарегистрировались, но сайт находиться в стадий разработки, ожидайте!';
+//        return view('admin.index.index', ['row' => $request]);
+        return view('admin.index.index');
 
     }
 

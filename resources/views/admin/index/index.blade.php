@@ -7,30 +7,32 @@
 
 @section('content')
 
-    @include('admin.index.profit')
+    <div class="alert alert-success">Вы успешно зарегистрировались, но сайт находиться в стадий разработки, ожидайте!</div>
 
-    @include('admin.index.home-profit')
+{{--    @include('admin.index.profit')--}}
+
+{{--    @include('admin.index.home-profit')--}}
 
     {{--@include('admin.index.auto-profit')--}}
 
     {{--@include('admin.index.passive-profit')--}}
 
-    @include('admin.index.money')
+{{--    @include('admin.index.money')--}}
 
-    @if(Auth::user()->role_id == 1)
-        @include('admin.index.statistics')
-    @endif
+{{--    @if(Auth::user()->role_id == 1)--}}
+{{--        @include('admin.index.statistics')--}}
+{{--    @endif--}}
 
-    @if(\App\Models\UserPacket::where('packet_id','>',2)
-                                  ->where('is_active','1')
-                                  ->where('user_id',Auth::user()->user_id)
-                                  ->count() > 0 || Auth::user()->role_id == 1)
+{{--    @if(\App\Models\UserPacket::where('packet_id','>',2)--}}
+{{--                                  ->where('is_active','1')--}}
+{{--                                  ->where('user_id',Auth::user()->user_id)--}}
+{{--                                  ->count() > 0 || Auth::user()->role_id == 1)--}}
 
 
 
-    @endif
+{{--    @endif--}}
 
-    @include('admin.index.packet')
+{{--    @include('admin.index.packet')--}}
 
 @endsection
 
