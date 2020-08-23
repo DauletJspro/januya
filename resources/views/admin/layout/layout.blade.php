@@ -16,7 +16,7 @@
             <span class="logo-mini">{{Lang::get('app.website_name')}}</span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
-            <img src="/logo_main.png?v=3" style="width:140px">
+            <img src="/new_design/images/logo/janelim_logo.png?v=3" style="width:140px">
           </span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -113,7 +113,7 @@
 
     </div><!-- /.content-wrapper -->
     <footer class="main-footer">
-        <strong>Copyright &copy; 2019 <a href="/">{{Lang::get('app.website_name')}}</a>.</strong>
+{{--        <strong>Copyright &copy; 2019 <a href="/">{{Lang::get('app.website_name')}}</a>.</strong>--}}
     </footer>
 
     <aside class="control-sidebar control-sidebar-dark">
