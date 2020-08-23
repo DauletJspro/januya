@@ -23,10 +23,10 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
                 <div class="col-xs-12 col-sm-6 text-right">
                     <ul class="mt-top-list">
                         <li>
-                            <a href="{{route('shop.show')}}">Магазин</a>
+                            <a class="hidden" href="{{route('shop.show')}}">Магазин</a>
                         </li>
                         <li>
-                            <div class="dropdown">
+                            <div class="dropdown hidden">
                                 <a class="icl_lang_sel_current icl_lang_sel_native">{{Lang::get('app.lang')}}</a>
                                 <div class="dropdown-content">
                                     <a href="{{\App\Http\Helpers::setSessionLang('kz',$request)}}">
@@ -42,7 +42,7 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
                             </div>
                         </li>
                         <li class="">
-                            <div class="dropdown">
+                            <div class="dropdown hidden">
                                 <a class="" href="#">{{Lang::get('app.cabinet')}}</a>
                                 <div class="dropdown-content">
                                     @if(!Auth::check())

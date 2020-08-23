@@ -56,7 +56,7 @@
     </aside>
     <!-- F Promo Box of the Page end -->
     <!-- Footer Holder of the Page -->
-    <div class="footer-holder">
+    <div class="footer-holder hidden">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-5 col-md-4 mt-paddingbottomxs">
@@ -152,7 +152,7 @@
     </div>
     <!-- Footer Holder of the Page end -->
     <!-- Footer Area of the Page -->
-    <div class="footer-area">
+    <div class="footer-area hidden">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
