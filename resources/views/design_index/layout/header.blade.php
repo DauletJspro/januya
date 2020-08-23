@@ -19,18 +19,6 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 hidden-xs">
-                    @foreach($subsidiaries as $key => $subsidiary)
-                        <a href="{{route('coming-soon', ['id' => $subsidiary->id])}}" class="tel"
-                           style="
-                           {{$key ? 'margin-left:1px;' : ''}}
-                                   " data-toggle='tooltip' data-placement='bottom' title='{{$subsidiary->name}}'>
-                            <span style="
-                             padding:0 14px 0 14px;
-                             color: white;
-                            // {{($key <=  count($subsidiary)) ? 'border-right: 1px solid lightgrey;' : ''}}
-                            //        ">{{$subsidiary->name}}</span>
-                        </a>
-                    @endforeach
                 </div>
                 <div class="col-xs-12 col-sm-6 text-right">
                     <ul class="mt-top-list">
@@ -76,7 +64,7 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="mt-logo"><a href="/"><img src="/new_design/images/logo/logo.png" alt="schon"
+                    <div class="mt-logo"><a href="/"><img src="/new_design/images/logo/janelim_logo.png" alt="schon"
                                                           style="height: 45px; width: 135px;margin-top: -4px;"></a>
                     </div>
                     <?php $totalPrice = 0;?>
@@ -91,7 +79,7 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
                     <a href="{{ route('basket.show') }}" class="mt-sh-cart" id="basket-box">
                         <span class="icon-handbag"></span>
                         <strong>Ваша корзина</strong>
-//                        <span>{{isset($items) ? count($items) : 0}} продукта &nbsp; <i class="fa fa-dollar"></i>{{$totalPrice}}</span>
+                        <span>{{isset($items) ? count($items) : 0}} продукта &nbsp; <i class="fa fa-dollar"></i>{{$totalPrice}}</span>
                     </a>
                     <ul class="mt-icon-list">
                         <li class="hidden-lg hidden-md">

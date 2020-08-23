@@ -4,7 +4,7 @@
 @include('design_index.layout.app')
 
 <body class="home page-template page-template-tpl page-template-front-page page-template-tplfront-page-php page page-id-262  has-topbar header_sticky wide sidebar-left bottom-center wpb-js-composer js-comp-ver-5.1.1 vc_responsive">
-
+@include('design_index.layout.header')
 <div class="themesflat-boxed">
     <!-- Preloader -->
     <div class="preloader">
@@ -31,7 +31,7 @@ use \Illuminate\Support\Facades\Session;
 <div id="wrapper">
     <div id="pre-loader" class="loader-container text-center">
         <div class="loader text-center" style="width: 15%;">
-            <img src="/new_design/images/logo/logo.png" style="width: 100%;" alt="loader">
+            <img src="/new_design/images/logo/janelim_logo.png" style="width: 100%;" alt="loader">
         </div>
     </div>
     <div class="w1">
@@ -51,10 +51,9 @@ use \Illuminate\Support\Facades\Session;
         </div>
 
         @yield('content')
-//        @include('design_index.layout.footer')
+       @include('design_index.layout.footer')
     </div>
     <span id="back-top" class="fa fa-arrow-up"></span>
-</div>
 </div>
 
 
