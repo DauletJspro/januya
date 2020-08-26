@@ -12,19 +12,17 @@ class UserStatus extends Model
     protected $table = 'user_status';
     protected $primaryKey = 'user_status_id';
 
-    const FREE_ELITE_OWNER = 20;
-    const CLIENT = 21;
-    const CONSULTANT = 22;
-    const AGENT = 23;
-    const MANAGER = 24;
-    const SILVER_MANAGER = 25;
-    const GOLD_DIRECTOR = 26;
-    const RUBIN_DIRECTOR = 27;
-    const SAPPHIRE_DIRECTOR = 28;
-    const EMERALD_DIRECTOR = 29;
-    const DIAMOND_DIRECTOR = 30;
+    const CLIENT = 1;
+    const CONSULTANT = 2;
+    const MANAGER = 3;
+    const DIRECTOR = 4;
+    const BRONZE_DIRECTOR = 5;
+    const SLIVER_DIRECTOR = 6;
+    const GOLD_DIRECTOR = 7;
+    const BRILLIANT_DIRECTOR = 8;
 
     use SoftDeletes;
+
     protected $dates = ['deleted_at'];
 
 
