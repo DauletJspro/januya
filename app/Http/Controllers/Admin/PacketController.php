@@ -215,90 +215,92 @@ class PacketController extends Controller
 
     public function buyPacketFromBalance(Request $request)
     {
-        $packet = Packet::where('packet_id', $request->packet_id)->first();
-        if ($packet == null) {
-            $result['message'] = 'Такого пакета не существует';
-            $result['status'] = false;
-            return response()->json($result);
-        }
-        $packet_old_price = 0;
-
-        if ($packet->is_upgrade_packet) {
-            $is_check = UserPacket::leftJoin('packet', 'packet.packet_id', '=', 'user_packet.packet_id')
-                ->where('user_id', Auth::user()->user_id)
-                ->where('is_active', '=', '0')
-                ->count();
-
-            if ($is_check != 0) {
-                $result['message'] = 'Вы уже отправили запрос на другой пакет, сначала отмените тот запрос';
-                $result['status'] = false;
-                return response()->json($result);
-            }
-
-            $is_check = UserPacket::leftJoin('packet', 'packet.packet_id', '=', 'user_packet.packet_id')
-                ->where('user_packet.user_id', Auth::user()->user_id)
-                ->where('user_packet.packet_id', '>=', $request->packet_id)
-                ->where('user_packet.is_active', 1)
-                ->count();
-
-            if ($is_check > 0) {
-                $result['message'] = 'Вы не можете купить этот пакет, так как вы уже приобрели другой пакет';
-                $result['status'] = false;
-                return response()->json($result);
-            }
-
-            $packet_old_price = UserPacket::beforePurchaseSum(Auth::user()->user_id);
-        }
-
-
-        $is_check = UserPacket::where('user_id', Auth::user()->user_id)->where('packet_id', '=', $request->packet_id)->count();
-        if ($is_check > 0) {
-            $result['message'] = 'Вы уже отправили запрос на этот пакет';
-            $result['status'] = false;
-            return response()->json($result);
-        }
-        if (Auth::user()->user_money < $packet->packet_price - $packet_old_price) {
-            $result['message'] = 'У вас не хватает баланса чтобы купить этот пакет';
-            $result['status'] = false;
-            return response()->json($result);
-        }
-
-        $packet = Packet::where('packet_id', $request->packet_id)->first();
-
-        $user_packet = new UserPacket();
-        $user_packet->user_id = Auth::user()->user_id;
-        $user_packet->packet_id = $request->packet_id;
-        $user_packet->user_packet_type = $request->user_packet_type;
-        $user_packet->packet_price = $packet->packet_price;
-        $user_packet->is_active = 0;
-        $user_packet->is_portfolio = '';
-        $user_packet->is_portfolio = '';
-        $user_packet->save();
-
-        $operation = new UserOperation();
-        $operation->author_id = Auth::user()->user_id;
-        $operation->recipient_id = null;
-        $operation->money = $packet->packet_price - $packet_old_price;
-        $operation->operation_id = 2;
-        $operation->operation_type_id = 30;
-        $operation->operation_comment = $request->comment;
-        $operation->save();
-
-        $users = Users::find(Auth::user()->user_id);
-        $rest_mooney = $users->user_money - ($packet->packet_price - $packet_old_price);
-        $users->user_money = $rest_mooney;
-        $users->save();
-
         try {
+            $packet = Packet::where('packet_id', $request->packet_id)->first();
+            if ($packet == null) {
+                $result['message'] = 'Такого пакета не существует';
+                $result['status'] = false;
+                return response()->json($result);
+            }
+            $packet_old_price = 0;
+
+            if ($packet->is_upgrade_packet) {
+                $is_check = UserPacket::leftJoin('packet', 'packet.packet_id', '=', 'user_packet.packet_id')
+                    ->where('user_id', Auth::user()->user_id)
+                    ->where('is_active', '=', '0')
+                    ->count();
+
+                if ($is_check != 0) {
+                    $result['message'] = 'Вы уже отправили запрос на другой пакет, сначала отмените тот запрос';
+                    $result['status'] = false;
+                    return response()->json($result);
+                }
+
+                $is_check = UserPacket::leftJoin('packet', 'packet.packet_id', '=', 'user_packet.packet_id')
+                    ->where('user_packet.user_id', Auth::user()->user_id)
+                    ->where('user_packet.packet_id', '>=', $request->packet_id)
+                    ->where('user_packet.is_active', 1)
+                    ->count();
+
+                if ($is_check > 0) {
+                    $result['message'] = 'Вы не можете купить этот пакет, так как вы уже приобрели другой пакет';
+                    $result['status'] = false;
+                    return response()->json($result);
+                }
+
+                $packet_old_price = UserPacket::beforePurchaseSum(Auth::user()->user_id);
+            }
+
+
+            $is_check = UserPacket::where('user_id', Auth::user()->user_id)->where('packet_id', '=', $request->packet_id)->count();
+            if ($is_check > 0) {
+                $result['message'] = 'Вы уже отправили запрос на этот пакет';
+                $result['status'] = false;
+                return response()->json($result);
+            }
+            if (Auth::user()->user_money < $packet->packet_price - $packet_old_price) {
+                $result['message'] = 'У вас не хватает баланса чтобы купить этот пакет';
+                $result['status'] = false;
+                return response()->json($result);
+            }
+
+            $packet = Packet::where('packet_id', $request->packet_id)->first();
+
+            $user_packet = new UserPacket();
+            $user_packet->user_id = Auth::user()->user_id;
+            $user_packet->packet_id = $request->packet_id;
+            $user_packet->user_packet_type = $request->user_packet_type;
+            $user_packet->packet_price = $packet->packet_price;
+            $user_packet->is_active = 0;
+            $user_packet->is_portfolio = '';
+            $user_packet->is_portfolio = '';
+            $user_packet->save();
+
+            $operation = new UserOperation();
+            $operation->author_id = Auth::user()->user_id;
+            $operation->recipient_id = null;
+            $operation->money = $packet->packet_price - $packet_old_price;
+            $operation->operation_id = 2;
+            $operation->operation_type_id = 30;
+            $operation->operation_comment = $request->comment;
+            $operation->save();
+
+            $users = Users::find(Auth::user()->user_id);
+            $rest_mooney = $users->user_money - ($packet->packet_price - $packet_old_price);
+            $users->user_money = $rest_mooney;
+            $users->save();
+
+
             $isImplementPacketBonus = $this->implementPacketBonuses($user_packet->user_packet_id);
-        } catch (Exception $e) {
+
+
+            $result['message'] = 'Вы успешно купили пакет';
+            $result['result'] = $isImplementPacketBonus;
+            $result['status'] = true;
+        } catch (\Exception $e) {
             var_dump($e->getMessage());
         }
 
-
-        $result['message'] = 'Вы успешно купили пакет';
-        $result['result'] = $isImplementPacketBonus;
-        $result['status'] = true;
         return response()->json($result);
     }
 
