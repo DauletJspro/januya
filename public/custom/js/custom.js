@@ -364,8 +364,7 @@ function showBuyModal(ob,id) {
     $('#buy_btn').attr('onclick','redirectPaybox("' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '",' + id + ')');
     $('#send_request_btn').attr('onclick','addResponseAddPacket($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
     $('#buy_packet_from_balance_btn').attr('onclick','buyPacketFromBalance($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
-    $('#buy_modal').fadeIn(0);
-    $('#blur').fadeIn(0);
+    $('#buy_modal').modal();
 }
 
 function redirectPaybox(user_packet_type,id) {

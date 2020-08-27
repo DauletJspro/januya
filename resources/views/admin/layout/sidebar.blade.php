@@ -40,7 +40,7 @@
     <li class="treeview" style="background-color: #F9BF3B;">
         <a href="/admin/call-friend" style="color: black" class="balance-btn">
             <i class="fa fa-reply-all"></i>
-            <span style="color: black">Пригласить друга</span>
+            <span style="color: black">Реферальная ссылка</span>
         </a>
     </li>
 
@@ -50,29 +50,29 @@
             <span>Профиль</span>
         </a>
     </li>
-    <li class="treeview balance-btn" style="background-color: #F9BF3B;">
-        <a href="/admin/balance" style="color: black" class="balance-btn">
-            <i class="fa fa-money"></i>
-            <span>Пополнить баланс</span>
-        </a>
-        <style>
-            .balance-btn:hover {
-                background-color: #F9BF3B !important;
-            }
-        </style>
-    </li>
-    <li class="treeview">
-        <a href="/admin/document">
-            <i class="fa fa-user"></i>
-            <span>Мои документы</span>
-        </a>
-    </li>
-    <li class="treeview">
-        <a href="/admin/instagram">
-            <i class="fa fa-user"></i>
-            <span>Мои подписки</span>
-        </a>
-    </li>
+    {{--    <li class="treeview balance-btn" style="background-color: #F9BF3B;">--}}
+    {{--        <a href="/admin/balance" style="color: black" class="balance-btn">--}}
+    {{--            <i class="fa fa-money"></i>--}}
+    {{--            <span>Пополнить баланс</span>--}}
+    {{--        </a>--}}
+    {{--        <style>--}}
+    {{--            .balance-btn:hover {--}}
+    {{--                background-color: #F9BF3B !important;--}}
+    {{--            }--}}
+    {{--        </style>--}}
+    {{--    </li>--}}
+    {{--    <li class="treeview">--}}
+    {{--        <a href="/admin/document">--}}
+    {{--            <i class="fa fa-user"></i>--}}
+    {{--            <span>Мои документы</span>--}}
+    {{--        </a>--}}
+    {{--    </li>--}}
+    {{--    <li class="treeview">--}}
+    {{--        <a href="/admin/instagram">--}}
+    {{--            <i class="fa fa-user"></i>--}}
+    {{--            <span>Мои подписки</span>--}}
+    {{--        </a>--}}
+    {{--    </li>--}}
     <li class="treeview">
         <a href="/admin/instagram/partners/request">
             <i class="fa fa-user"></i>
@@ -244,13 +244,13 @@
     <li class="treeview">
         <a href="/admin/shop">
             <i class="fa fa-shopping-cart"></i>
-            <span>Магазин (пакеты)</span>
+            <span>Бизнес пакеты </span>
         </a>
     </li>
     <li class="treeview">
         <a href="/admin/online">
             <i class="fa fa-shopping-cart"></i>
-            <span>Магазин (товары)</span>
+            <span>Интернет магазин</span>
         </a>
     </li>
     <li class="treeview">

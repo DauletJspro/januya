@@ -6,33 +6,29 @@ use App\Http\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class Packet extends Model
 {
     protected $table = 'packet';
     protected $primaryKey = 'packet_id';
 
-    const ELITE_FREE = 22;
-    const CLASSIC = 23;
-    const PREMIUM = 24;
-    const ELITE = 25;
-    const VIP = 26;
-    const VIP2 = 27;
-    const GAP1 = 28;
-    const  GAP2 = 29;
-    const PRO = 30;
 
     use SoftDeletes;
+
     protected $dates = ['deleted_at'];
+
+    const SMALL = 1;
+    const MEDIUM = 2;
+    const LARGE = 3;
+    const VIP = 4;
 
     public static function actualPacket()
     {
         return [
-            self::CLASSIC,
-            self::PREMIUM,
-            self::ELITE,
-            self::PRO,
-            self::VIP2,
+            self::SMALL,
+            self::MEDIUM,
+            self::LARGE,
             self::VIP,
         ];
     }
@@ -164,5 +160,10 @@ class Packet extends Model
     public function userPacket()
     {
         $this->hasMany('App\Models\UserPacket');
+    }
+
+    public static function hasPacket($packet_id)
+    {
+        return count(UserPacket::where(['packet_id' => $packet_id, 'user_id' => Auth::user()->user_id])->get());
     }
 }
