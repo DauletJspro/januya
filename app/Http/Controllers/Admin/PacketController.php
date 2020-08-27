@@ -289,7 +289,12 @@ class PacketController extends Controller
         $users->user_money = $rest_mooney;
         $users->save();
 
-        $isImplementPacketBonus = $this->implementPacketBonuses($user_packet->user_packet_id);
+        try {
+            $isImplementPacketBonus = $this->implementPacketBonuses($user_packet->user_packet_id);
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
+        }
+
 
         $result['message'] = 'Вы успешно купили пакет';
         $result['result'] = $isImplementPacketBonus;
