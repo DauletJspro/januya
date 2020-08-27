@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'website_name' => 'qpartners',
+    'website_name' => 'Jan Elim',
     'home' => 'Главная',
     'news' => 'Новости',
     'about_us' => 'О нас',

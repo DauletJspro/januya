@@ -13,7 +13,7 @@
         <!-- Logo -->
         <a href="/" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini">{{Lang::get('app.website_name')}}</span>
+            <span class="logo-mini"> <img src="{{ asset('/favicon.png') }}" alt=""> </span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
             <img src="/new_design/images/logo/janelim_logo.png?v=3" style="width:140px">
@@ -82,9 +82,9 @@
             </div>
 
             @if(Auth::user()->role_id == 3)
-{{--                @include('admin.layout.sidebar-admin')--}}
+               @include('admin.layout.sidebar-admin')
             @else
-{{--                @include('admin.layout.sidebar')--}}
+               @include('admin.layout.sidebar')
             @endif
 
         </section>
