@@ -298,7 +298,7 @@ class PacketController extends Controller
             $result['result'] = $isImplementPacketBonus;
             $result['status'] = true;
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
+            var_dump($e->getMessage() . ' / ' . $e->getLine());
         }
 
         return response()->json($result);
