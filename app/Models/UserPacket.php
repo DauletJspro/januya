@@ -112,5 +112,17 @@ class UserPacket extends Model
         return $user_packet->is_active;
     }
 
+    public static function userHasPacketsPrice($packet_id)
+    {
+        $userPacket = UserPacket::where(['user_id' => Auth::user()->user_id, 'is_active' => true])
+            ->where('packet_id', '<', $packet_id)->get();
+        $sum = 0;
+        foreach ($userPacket as $item) {
+            $sum += $item->packet_price;
+        }
+
+        return $sum;
+    }
+
 
 }

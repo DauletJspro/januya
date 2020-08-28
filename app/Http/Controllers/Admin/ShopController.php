@@ -27,6 +27,7 @@ class ShopController extends Controller
 
         $packets = Packet::where(['is_show' => true])->get();
 
+
         return view('admin.shop.shop', [
             'packets' => $packets
         ]);

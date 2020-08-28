@@ -15,8 +15,8 @@
     @endif
 
     <li class="header" style="text-align: center; padding:5px 25px 0px">
-        <p style="color:red;margin:0px;font-weight: bold">Ваш баланс: {{Auth::user()->user_money}}PV
-            ( {{Auth::user()->user_money * \App\Models\Currency::pvToKzt()}}тг)</p>
+        <p style="color:red;margin:0px;font-weight: bold">Ваш баланс: {{Auth::user()->user_money}}$
+            ( {{Auth::user()->user_money * \App\Models\Currency::usdToKzt()}}тг)</p>
     </li>
 
 
@@ -123,15 +123,15 @@
                 <span>Статистика</span>
             </a>
         </li>
-        <li class="treeview">
-            <a href="/admin/document/confirm">
-                <i class="fa fa-list-ul"></i>
-                <span>Подтверж. документа</span>
-                <?php $user_packet_notice = \App\Models\UserConfirmDocument::where('user_confirm_document.is_active', 1)->leftJoin('users', 'users.user_id', '=', 'user_confirm_document.user_id')->where('users.is_valid_document', 0)->count();?>
-                <span class="label label-primary pull-right"
-                      style="@if($user_packet_notice == 0) display: none; @endif background-color: rgb(253, 58, 53) ! important;">{{$user_packet_notice}}</span>
-            </a>
-        </li>
+        {{--        <li class="treeview">--}}
+        {{--            <a href="/admin/document/confirm">--}}
+        {{--                <i class="fa fa-list-ul"></i>--}}
+        {{--                <span>Подтверж. документа</span>--}}
+        {{--                <?php $user_packet_notice = \App\Models\UserConfirmDocument::where('user_confirm_document.is_active', 1)->leftJoin('users', 'users.user_id', '=', 'user_confirm_document.user_id')->where('users.is_valid_document', 0)->count();?>--}}
+        {{--                <span class="label label-primary pull-right"--}}
+        {{--                      style="@if($user_packet_notice == 0) display: none; @endif background-color: rgb(253, 58, 53) ! important;">{{$user_packet_notice}}</span>--}}
+        {{--            </a>--}}
+        {{--        </li>--}}
 
         <li class="treeview">
             <a href="/admin/packet/user/inactive">
@@ -247,12 +247,12 @@
             <span>Бизнес пакеты </span>
         </a>
     </li>
-    <li class="treeview">
-        <a href="/admin/online">
-            <i class="fa fa-shopping-cart"></i>
-            <span>Интернет магазин</span>
-        </a>
-    </li>
+{{--    <li class="treeview">--}}
+{{--        <a href="/admin/online">--}}
+{{--            <i class="fa fa-shopping-cart"></i>--}}
+{{--            <span>Интернет магазин</span>--}}
+{{--        </a>--}}
+{{--    </li>--}}
     <li class="treeview">
         <a href="/admin/presentation">
             <i class="fa fa-shopping-cart"></i>

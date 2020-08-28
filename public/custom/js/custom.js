@@ -108,11 +108,10 @@ function buyPacketFromBalance(ob,packet_id,user_packet_type){
                     return;
                 }
                 else {
-
                     $('.shop_buy_btn').remove('');
-
                     closeModal();
                     showMessage(data.message);
+                    // setTimeout(function(){ location.reload(); }, 1000);
                 }
             }
         });

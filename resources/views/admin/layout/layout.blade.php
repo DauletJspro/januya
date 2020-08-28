@@ -80,12 +80,7 @@
                     <a href="#"><i class="fa fa-circle text-success"></i> Онлайн</a>
                 </div>
             </div>
-
-            @if(Auth::user()->role_id == 3)
-               @include('admin.layout.sidebar-admin')
-            @else
-               @include('admin.layout.sidebar')
-            @endif
+            @include('admin.layout.sidebar')
 
         </section>
     </aside>
@@ -113,7 +108,7 @@
 
     </div><!-- /.content-wrapper -->
     <footer class="main-footer">
-{{--        <strong>Copyright &copy; 2019 <a href="/">{{Lang::get('app.website_name')}}</a>.</strong>--}}
+        {{--        <strong>Copyright &copy; 2019 <a href="/">{{Lang::get('app.website_name')}}</a>.</strong>--}}
     </footer>
 
     <aside class="control-sidebar control-sidebar-dark">

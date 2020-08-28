@@ -21,7 +21,7 @@ class InstagramController extends Controller
     {
         $this->middleware('profile');
 
-        $users = Users::orderBy('user_id','asc')->where('status_id','>',3)->where('is_director_office',0)->where('status_id','!=',11)->get();
+        $users = Users::orderBy('user_id','asc')->where('status_id','>',3)->where('status_id','!=',11)->get();
         View::share('users_row', $users);
     }
 
@@ -143,24 +143,6 @@ class InstagramController extends Controller
         ]);
     }
 
-    public function showInstagramRequestCorporative(Request $request)
-    {
-        $row = UserSubscribe::leftJoin('instagram','instagram.instagram_id','=','user_subscribe.instagram_id')
-            ->leftJoin('users','users.user_id','=','user_subscribe.sender_id')
-            ->where('user_subscribe.instagram_id',">",0)
-            ->where('instagram.type',"=",0)
-            ->select('users.*',
-                'instagram.instagram as corporative_instagram',
-                'instagram.name as corporative_name',
-                'user_subscribe.user_subscribe_id',
-                'user_subscribe.is_success'
-            )
-            ->paginate(1000);
-
-        return  view('admin.instagram.request-corporative',[
-            'partners' => $row
-        ]);
-    }
 
     public function showInstagramRequestRecommend(Request $request)
     {

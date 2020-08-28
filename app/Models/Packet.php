@@ -166,4 +166,6 @@ class Packet extends Model
     {
         return count(UserPacket::where(['packet_id' => $packet_id, 'user_id' => Auth::user()->user_id])->get());
     }
+
+
 }

@@ -17,6 +17,9 @@ class Currency extends Model
     const GV = 3;
     const CV = 4;
 
+    const PVtoKzt = 600;
+    const DollarToKzt = 500;
+
     public static function usdToKzt()
     {
         $currency = Currency::where(['currency_id' => self::DOLLAR])->first();

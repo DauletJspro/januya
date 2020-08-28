@@ -16,7 +16,7 @@ class CleanAndAddStatusesSeeder extends Seeder
 
         \App\Models\UserStatus::create([
             'user_status_id' => \App\Models\UserStatus::CLIENT,
-            'user_status_name' => 'Client',
+            'user_status_name' => 'Клиент',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
             'sort_num' => 1,
@@ -27,7 +27,7 @@ class CleanAndAddStatusesSeeder extends Seeder
 
         \App\Models\UserStatus::create([
             'user_status_id' => \App\Models\UserStatus::CONSULTANT,
-            'user_status_name' => 'Consultant',
+            'user_status_name' => 'Консультант',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
             'sort_num' => 2,
@@ -38,7 +38,7 @@ class CleanAndAddStatusesSeeder extends Seeder
 
         \App\Models\UserStatus::create([
             'user_status_id' => \App\Models\UserStatus::MANAGER,
-            'user_status_name' => 'Manager',
+            'user_status_name' => 'Менеджер',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
             'sort_num' => 3,
@@ -49,7 +49,7 @@ class CleanAndAddStatusesSeeder extends Seeder
 
         \App\Models\UserStatus::create([
             'user_status_id' => \App\Models\UserStatus::DIRECTOR,
-            'user_status_name' => 'Director',
+            'user_status_name' => 'Директор',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
             'sort_num' => 4,
@@ -60,7 +60,7 @@ class CleanAndAddStatusesSeeder extends Seeder
 
         \App\Models\UserStatus::create([
             'user_status_id' => \App\Models\UserStatus::BRONZE_DIRECTOR,
-            'user_status_name' => 'Bronze Director',
+            'user_status_name' => 'Бронзовый директор',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
             'sort_num' => 5,
@@ -71,7 +71,7 @@ class CleanAndAddStatusesSeeder extends Seeder
 
         \App\Models\UserStatus::create([
             'user_status_id' => \App\Models\UserStatus::SLIVER_DIRECTOR,
-            'user_status_name' => 'Silver Director',
+            'user_status_name' => 'Серебряный директор',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
             'sort_num' => 6,
@@ -82,7 +82,7 @@ class CleanAndAddStatusesSeeder extends Seeder
 
         \App\Models\UserStatus::create([
             'user_status_id' => \App\Models\UserStatus::GOLD_DIRECTOR,
-            'user_status_name' => 'Gold Director',
+            'user_status_name' => 'Золотой директор',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
             'sort_num' => 7,
@@ -93,7 +93,7 @@ class CleanAndAddStatusesSeeder extends Seeder
 
         \App\Models\UserStatus::create([
             'user_status_id' => \App\Models\UserStatus::BRILLIANT_DIRECTOR,
-            'user_status_name' => 'Brilliant Director',
+            'user_status_name' => 'Бриллиантовый директор',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
             'sort_num' => 8,

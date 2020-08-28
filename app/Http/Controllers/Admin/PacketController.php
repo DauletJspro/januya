@@ -249,6 +249,7 @@ class PacketController extends Controller
                 }
 
                 $packet_old_price = UserPacket::beforePurchaseSum(Auth::user()->user_id);
+
             }
 
 
@@ -285,10 +286,13 @@ class PacketController extends Controller
             $operation->operation_comment = $request->comment;
             $operation->save();
 
-            $users = Users::find(Auth::user()->user_id);
-            $rest_mooney = $users->user_money - ($packet->packet_price - $packet_old_price);
-            $users->user_money = $rest_mooney;
-            $users->save();
+
+            $user = Users::find(Auth::user()->user_id);
+            $pvPrice = ($packet->packet_price - $packet_old_price) * (Currency::PVtoKzt / Currency::DollarToKzt);
+            $rest_mooney = $user->user_money - $pvPrice;
+            $user->user_money = $rest_mooney;
+            $user->pv_balance = $user->pv_balance + $pvPrice;
+            $user->save();
 
 
             $isImplementPacketBonus = $this->implementPacketBonuses($user_packet->user_packet_id);
@@ -537,13 +541,14 @@ class PacketController extends Controller
                 $inviterPacketId = max($inviterPacketId->all());
                 $inviterPacketId = is_array($inviterPacketId) ? 0 : $inviterPacketId;
                 if ($inviter_order == 1 && in_array($inviter->status_id, $actualStatuses)) {
-                    $bonusPercentage = (20 / 100);
+                    $bonusPercentage = (15 / 100);
                     $bonus = $packetPrice * $bonusPercentage;
                 } elseif ($this->hasNeedPackets($packet->packet_id, $inviterPacketId)) {
                     $bonusPercentage = ($packetPercentage[$inviter_order - 1] / 100);
                     $bonus = $packetPrice * $bonusPercentage;
                 }
             }
+
             if ($bonus) {
                 $operation = new UserOperation();
                 $operation->author_id = $user->user_id;
@@ -555,6 +560,7 @@ class PacketController extends Controller
                 $operation->save();
 
                 $inviter->user_money = $inviter->user_money + $bonus;
+                $inviter->gv_balance = $inviter->gv_balance + $bonus;
                 $inviter->save();
 
                 $this->sentMoney += $bonus;
