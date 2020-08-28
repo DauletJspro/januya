@@ -1,0 +1,68 @@
+.slider-3 .slick-slide {
+    height:500px;
+ }
+
+/*------------------------------------------------------------------
+5. Mt Bottom Bar / .mt-bottom-bar
+-------------------------------------------------------------------*/
+.mt-bottom-bar .num {
+	width: 22px;
+	right: -12px;
+	bottom: -2px;
+	height: 22px;
+	color: #fff;
+	text-align: center;
+	background: #2e2e2e;
+	position: absolute;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	font: 11px/15px "Montserrat", sans-serif;
+}
+
+/*------------------------------------------------------------------
+28. Mt Producttabs / .mt-producttabs
+-------------------------------------------------------------------*/
+
+.mt-producttabs.style2 .producttabs .producttabs_title {
+	color: #2e2e2e;
+}
+
+.tabs-sliderlg {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-3 .img img {
+    width: 270px;    
+    background-position: center;
+    background-size: cover;
+}
+
+.product-3 p {
+    color: #2e2e2e;
+    margin: 0 0 20px;
+}
+
+.product-3 .txt {
+    min-height: 35px;
+    margin-bottom: 30px;
+}
+
+.product-3 .txt .title {
+    color: #2e2e2e;
+    font: 700 20px/20px "Montserrat", sans-serif;
+}
+
+.product-3 .txt button {
+    background: transparent;
+    padding: 0px 10px;
+    width: 80%;
+    border-radius: 10px;
+}
+
+.product-3 .price {
+    color: #2e2e2e;
+    font-size: 15px;
+    font: initial;
+    margin: 0 0 18px;
+}

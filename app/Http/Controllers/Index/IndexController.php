@@ -51,25 +51,23 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
-        $products = Product::all();
-        $popularProducts = Product::where(['is_popular' => true])->get();
-        $brands = Brand::where(['is_show' => true])->get();
-        $elixirs = Product::where(['category_id' => Category::ELIXIR])->get();
-        $gels = Product::where(['category_id' => Category::GEL])->get();
-        $sprays = Product::where(['category_id' => Category::SPRAY])->get();
-        $creams = Product::where(['category_id' => Category::CREAM])->get();
-
-
-	return view('welcome');
-        return view('design_index.index.index',
+        // $products = Product::all();
+        // $popularProducts = Product::where(['is_popular' => true])->get();
+        // $brands = Brand::where(['is_show' => true])->get();
+        // $elixirs = Product::where(['category_id' => Category::ELIXIR])->get();
+        // $gels = Product::where(['category_id' => Category::GEL])->get();
+        // $sprays = Product::where(['category_id' => Category::SPRAY])->get();
+        // $creams = Product::where(['category_id' => Category::CREAM])->get();
+	
+        return view('new_design.index.index',
             [
-                'products' => $products,
-                'popularProducts' => $popularProducts,
-                'brands' => $brands,
-                'elixirs' => $elixirs,
-                'gels' => $gels,
-                'sprays' => $sprays,
-                'creams' => $creams,
+                // 'products' => $products,
+                // 'popularProducts' => $popularProducts,
+                // 'brands' => $brands,
+                // 'elixirs' => $elixirs,
+                // 'gels' => $gels,
+                // 'sprays' => $sprays,
+                // 'creams' => $creams,
             ]
         );
     }

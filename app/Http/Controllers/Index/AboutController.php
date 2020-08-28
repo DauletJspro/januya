@@ -25,7 +25,7 @@ class AboutController extends Controller
     public function showCompanyGuide()
     {
         $guideText = DB::table('guide')->first();
-        return view('design_index.about_us.company_guide', [
+        return view('new_design.about_us.index', [
             'guide_text' => $guideText,
         ]);
     }

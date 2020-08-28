@@ -17,9 +17,9 @@ Route::group([
     'middleware' => 'web',
     'namespace' => 'Admin',
 ], function () {
-    Route::any('/', 'AuthController@login');
+    Route::any('/register', 'AuthController@login');
     Route::any('/login', 'AuthController@login')->name('login.show');
-    Route::get('/register', 'AuthController@showRegister');
+    // Route::get('/register', 'AuthController@showRegister');
     Route::get('/confirm', 'AuthController@confirmEmail');
     Route::get('/confirm-email', 'AuthController@showSendConfirm');
     Route::post('/send-confirm', 'AuthController@sendHashConfirm');
@@ -296,7 +296,8 @@ Route::group([
     'middleware' => 'web',
     'namespace' => 'Index',
 ], function () {
-    //Route::get('/', 'IndexController@index');
+    Route::get('/', 'IndexController@index');
+    Route::get('about-us', 'AboutController@showCompanyGuide');
     Route::get('/opportunity', 'IndexController@opportunity');
     Route::get('gallery', 'IndexController@gallery')->name('gallery.show');
     Route::get('gallery-detail/{id}', 'IndexController@galleryDetail')->name('gallery-detail.show');
@@ -315,7 +316,7 @@ Route::group([
     Route::get('favorite/show-user-item', 'FavoriteController@showUserItems')->name('favorite.showUserItem');
     Route::resource('review', 'ReviewController');
     Route::get('about_us/administration', 'AboutController@showCompanyAdministration');
-    Route::get('about_us/guide', 'AboutController@showCompanyGuide');
+    // Route::get('about_us/guide', 'AboutController@showCompanyGuide');
     Route::get('about_us/leaders', 'AboutController@showCompanyLeaders');
     Route::post('basket/is-ajax', 'BasketController@isAjax')->name('basket.isAjax');
     Route::post('favorite/is-ajax', 'FavoriteController@isAjax')->name('favorite.isAjax');
@@ -329,3 +330,4 @@ Route::group([
     Route::get('{user_id}/{user_name}', 'IndexController@redirectToRegister');
 
 });
+
