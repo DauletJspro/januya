@@ -111,7 +111,7 @@ function buyPacketFromBalance(ob,packet_id,user_packet_type){
                     $('.shop_buy_btn').remove('');
                     closeModal();
                     showMessage(data.message);
-                    // setTimeout(function(){ location.reload(); }, 1000);
+                    setTimeout(function(){ location.reload(); }, 1000);
                 }
             }
         });
