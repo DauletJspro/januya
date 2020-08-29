@@ -13,6 +13,7 @@ use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Packet;
 use App\Models\Project;
 use App\Models\Slider;
 use App\Models\Partner;
@@ -50,18 +51,20 @@ class IndexController extends Controller
     }
 
     public function index(Request $request)
-    {
-        // $products = Product::all();
+    {        
+        $products = Product::all();   
+        $packets = Packet::all();     
         // $popularProducts = Product::where(['is_popular' => true])->get();
         // $brands = Brand::where(['is_show' => true])->get();
         // $elixirs = Product::where(['category_id' => Category::ELIXIR])->get();
         // $gels = Product::where(['category_id' => Category::GEL])->get();
         // $sprays = Product::where(['category_id' => Category::SPRAY])->get();
         // $creams = Product::where(['category_id' => Category::CREAM])->get();
-	
+            
         return view('new_design.index.index',
             [
-                // 'products' => $products,
+                'products' => $products,
+                'packets' => $packets
                 // 'popularProducts' => $popularProducts,
                 // 'brands' => $brands,
                 // 'elixirs' => $elixirs,

@@ -9,99 +9,32 @@
         </div>								
         <!-- producttabs end here -->								
         <!-- tabs slider start here -->
-        <div class="tabs-sliderlg">									
-            <!-- product_card start here -->
-            <div class="product_card">
-                <!-- mt product start here -->
-                <div class="product-3">
-                    <!-- img start here -->
-                    <div class="img">
-                        <img alt="image description" src="custom2/img/Jan-quaty.png">
-                    </div>
-                    <!-- txt start here -->
-                    <div class="txt">
-                        <strong class="title">Кіші пакет</strong>
-                        <span class="price"> 12 000 тг</span>
-                        <p>Excepteur occaecat <br> consectetur adipisicing elit</p>
-                        <button>Толығырақ</button>
-                    </div>						
-                    <!-- links start here -->
-                    <ul class="links">
-                        <li><a href="#"><i class="icon-handbag"></i></a></li>
-                        <li><a href="#"><i class="icomoon icon-heart-empty"></i></a></li>
-                        <li><a href="#"><i class="icomoon fa fa-eye"></i></a></li>
-                    </ul>					
-                </div><!-- mt product 3 end here -->
-            </div><!-- product_card end here -->
-            <!-- product_card start here -->
-            <div class="product_card">
-                <!-- mt product start here -->
-                <div class="product-3">
-                    <!-- img start here -->
-                    <div class="img">
-                        <img alt="image description" src="custom2/img/Jan-quaty.png">
-                    </div>
-                    <!-- txt start here -->
-                    <div class="txt">
-                        <strong class="title">Орта пакет</strong>
-                        <span class="price"> 12 000 тг</span>
-                        <p>Excepteur occaecat <br> consectetur adipisicing elit</p>
-                        <button>Толығырақ</button>
-                    </div>						
-                    <!-- links start here -->
-                    <ul class="links">
-                        <li><a href="#"><i class="icon-handbag"></i></a></li>
-                        <li><a href="#"><i class="icomoon icon-heart-empty"></i></a></li>
-                        <li><a href="#"><i class="icomoon fa fa-eye"></i></a></li>
-                    </ul>					
-                </div><!-- mt product 3 end here -->
-            </div><!-- product_card end here -->
-            <!-- product_card start here -->
-            <div class="product_card">
-                <!-- mt product start here -->
-                <div class="product-3">
-                    <!-- img start here -->
-                    <div class="img">
-                        <img alt="image description" src="custom2/img/Jan-quaty.png">
-                    </div>
-                    <!-- txt start here -->
-                    <div class="txt">
-                        <strong class="title">Үлкен пакет</strong>
-                        <span class="price"> 12 000 тг</span>
-                        <p>Excepteur occaecat <br> consectetur adipisicing elit</p>
-                        <button>Толығырақ</button>
-                    </div>						
-                    <!-- links start here -->
-                    <ul class="links">
-                        <li><a href="#"><i class="icon-handbag"></i></a></li>
-                        <li><a href="#"><i class="icomoon icon-heart-empty"></i></a></li>
-                        <li><a href="#"><i class="icomoon fa fa-eye"></i></a></li>
-                    </ul>					
-                </div><!-- mt product 3 end here -->
-            </div><!-- product_card end here -->
-            <!-- product_card start here -->
-            <div class="product_card">
-                <!-- mt product start here -->
-                <div class="product-3">
-                    <!-- img start here -->
-                    <div class="img">
-                        <img alt="image description" src="custom2/img/Jan-quaty.png">
-                    </div>
-                    <!-- txt start here -->
-                    <div class="txt">
-                        <strong class="title">Vip пакет</strong>
-                        <span class="price"> 12 000 тг</span>
-                        <p>Excepteur occaecat <br> consectetur adipisicing elit</p>
-                        <button>Толығырақ</button>
-                    </div>						
-                    <!-- links start here -->
-                    <ul class="links">
-                        <li><a href="#"><i class="icon-handbag"></i></a></li>
-                        <li><a href="#"><i class="icomoon icon-heart-empty"></i></a></li>
-                        <li><a href="#"><i class="icomoon fa fa-eye"></i></a></li>
-                    </ul>					
-                </div><!-- mt product 3 end here -->
-            </div><!-- product_card end here -->
-        </div><!-- tabs slider end here -->								
+        <div class="tabs-sliderlg">				
+            @foreach ($packets as $packet)
+                <!-- packet_card start here -->
+                <div class="packet_card">
+                    <!-- mt product start here -->
+                    <div class="product-3">
+                        <!-- img start here -->
+                        <div class="img">
+                            <img alt="image description" src="{{ $packet->packet_image }}">
+                        </div>
+                        <!-- txt start here -->
+                        <div class="txt">
+                            <strong class="title">{{ $packet->packet_name_ru }}</strong>
+                            <span class="price"> {{ $packet->packet_price }} тг</span>
+                            <p>{{ $packet->packet_desc_ru }}</p>
+                            <a href="{{ route('packet.detail',$packet->packet_id, ['id' => $packet->packet_id]) }}">Толығырақ</a>
+                        </div>
+                        <!-- links start here -->
+                        <ul class="links">
+                            <li><a href="#"><i class="icon-handbag"></i></a></li>
+                            <li><a href="#"><i class="icomoon icon-heart-empty"></i></a></li>
+                            <li><a href="#"><i class="icomoon fa fa-eye"></i></a></li>
+                        </ul>
+                    </div><!-- mt product 3 end here -->
+                </div><!-- packet_card end here -->
+            @endforeach
+        </div><!-- tabs slider end here -->
     </div><!-- mt producttabs end here -->
 </div>

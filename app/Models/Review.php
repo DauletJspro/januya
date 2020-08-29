@@ -12,6 +12,7 @@ class Review extends Model
 
     const PRODUCT_REVIEW = 1;
     const NEWS_REVIEW = 2;
+    const PACKET_REVIEW = 3;
 
     public static function ratingCalculator($item_id, $review_type_id)
     {

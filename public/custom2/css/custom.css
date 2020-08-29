@@ -30,6 +30,15 @@
 .tabs-sliderlg {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.product_card {
+    width: 33.3%;
+}
+
+.packet_card {
+    width: 25%;
 }
 
 .product-3 .img img {
@@ -53,11 +62,12 @@
     font: 700 20px/20px "Montserrat", sans-serif;
 }
 
-.product-3 .txt button {
+.product-3 .txt a {
     background: transparent;
-    padding: 0px 10px;
+    padding: 0px 50px;
     width: 80%;
     border-radius: 10px;
+    border: 1px solid #2e2e2e;
 }
 
 .product-3 .price {

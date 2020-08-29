@@ -78,8 +78,7 @@ class ImageController extends Controller
     {
         $file = $request->image;
         $file_name = $file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
-
+        $extension = $file->getClientOriginalExtension();        
         if (substr($file->getClientMimeType(), 0, 5) != 'image') {
             $result['error'] = 'Загружайте только файлы форматов JPEG, PNG';
             $result['success'] = false;

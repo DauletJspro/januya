@@ -677,7 +677,7 @@ use Illuminate\Support\Facades\Session;
                                         </div>
                                         <div class="txt">
                                             <strong class="title"><a
-                                                        href="{{ route('product.detail',$product->product_id, ['id' => $product->product_id]) }}">{{$product->product_name}}</a></strong>
+                                                        href="{{ route('product.detail',$product->product_id, ['id' => $product->product_id]) }}">{{$product->product_name_ru}}</a></strong>
                                             <span class="price"><i
                                                         class="fa fa-dollar"></i> <span>{{$product->product_price}}</span> 	({{$product->product_price * (\App\Models\Currency::where(['currency_id' => 1])->first())->money}} &#8376;)</span>
                                         </div>

@@ -322,6 +322,7 @@ Route::group([
     Route::post('favorite/is-ajax', 'FavoriteController@isAjax')->name('favorite.isAjax');
     Route::get('shop/{category_id}', 'ShopController@index')->name('shop.show.category');
     Route::get('product/{id}', 'ProductController@detail')->name('product.detail');
+    Route::get('packet/{id}', 'PacketController@detail')->name('packet.detail');
     Route::get('education/{url}', 'IndexController@getEducationById');
     Route::get('project/{url}', 'IndexController@getProjectById');
     Route::get('news/{url}', 'NewsController@getNewsById');
