@@ -1,8 +1,8 @@
 <ul class="sidebar-menu">
     @if(Auth::user()->status_id > 0)
         <li class="header"
-            style="font-size: 14px; padding:5px 25px 0px"> <?php $status_name = \App\Models\UserStatus::where('user_status_id', Auth::user()->status_id)->first(); ?>
-            <p style="color:#009551;margin:0px;font-weight: bold">
+            style="background: #fff; font-size: 14px; padding:5px 25px 0px"> <?php $status_name = \App\Models\UserStatus::where('user_status_id', Auth::user()->status_id)->first(); ?>
+            <p style="color:#2e2e2e;margin:0px;font-weight: bold">
 
                 @if(isset($status_name->user_status_name))
 
@@ -14,23 +14,28 @@
         </li>
     @endif
 
-    <li class="header" style="font-size: 14px; padding:5px 25px 0px">
-        <p style="color:red;margin:0px;font-weight: bold">Баланс: {{Auth::user()->user_money}}$
+    <li class="header" style="background: #fff; font-size: 14px; padding:5px 25px 0px">
+        <p style="color:#2e2e2e;margin:0px;">Баланс: {{Auth::user()->user_money}}$
             ( {{Auth::user()->user_money * \App\Models\Currency::usdToKzt()}}тг)</p>
     </li>
 
 
-    <li class="header" style="font-size: 14px; padding:5px 25px 0px">
+    <li class="header" style="background: #fff; font-size: 14px; padding:5px 25px 0px">
         @if(Auth::user()->is_activated == 1) 
-            <p style="color:#009551;margin:0px;">Аккаунт: активирован</p> 
+            <p style="color:#2e2e2e;margin:0px;">Аккаунт: активирован</p> 
         @else 
-            <p style="color:red;margin:0px;">Аккаунт: не активирован</p> 
+            <p style="color:#2e2e2e;margin:0px;">Аккаунт: не активирован</p> 
         @endif
     </li>
-    <li class="header" style="font-size: 14px; padding:5px 25px 0px">@if(Auth::user()->is_valid_document == 1) <p
-                style="color:#009551;margin:0px;">Верификация: Пройдено</p> @else <a
-                style="color:red;margin:0px;text-decoration: underline; padding: 0px" href="/admin/document">Верификация:
-            Не пройдено</a> @endif</li>
+    <li class="header" style="background: #fff; font-size: 14px; padding:5px 25px 5px">
+        @if(Auth::user()->is_valid_document == 1) 
+            <p style="color:#2e2e2e;margin:0px;">Верификация: Пройдено</p> 
+        @else
+            <p style="color:#2e2e2e;margin:0px;text-decoration: underline; padding: 0px; cursor: pointer" onclick="location.href='/admin/document'">Верификация:
+            Не пройдено
+            </p> 
+        @endif
+    </li>
     
     <li class="treeview" style="background-color: #009551;">
         <a href="/admin/call-friend" style="color: black" class="balance-btn">
@@ -45,18 +50,18 @@
             <span>Главная</span>
         </a>
     </li>
+    
+    <li class="treeview">
+        <a href="/admin/profile">
+            <i class="fa fa-user"></i>
+            <span>Профиль</span>
+        </a>
+    </li>
 
     <li class="treeview">
         <a href="/admin/our-document">
             <i class="fa fa-user"></i>
             <span>Договор</span>
-        </a>
-    </li>
-
-    <li class="treeview">
-        <a href="/admin/profile">
-            <i class="fa fa-user"></i>
-            <span>Профиль</span>
         </a>
     </li>
     

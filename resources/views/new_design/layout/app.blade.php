@@ -34,7 +34,7 @@
     <!-- Page Loader -->
     <div id="pre-loader" class="loader-container">
       <div class="loader">
-        <img src="{{ asset('custom2/img/logo/Logo.png') }}" alt="loader">
+        <img src="{{ asset('custom2/img/logo/Logo-1.png') }}" alt="loader">
       </div>
     </div>    
     <!-- W1 start here -->

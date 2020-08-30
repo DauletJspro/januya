@@ -43,7 +43,7 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="mt-logo"><a href="/"><img src="/custom2/img/logo/Logo.png" alt="schon"></a></div>
+                    <div class="mt-logo"><a href="/"><img src="/custom2/img/logo/Logo-1.png" alt="schon"></a></div>
                     <?php $totalPrice = 0;?>
                     <?php $total = 0;?>
                     @if(Auth::user())
