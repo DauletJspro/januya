@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -13,9 +14,9 @@ class CleanTables extends Migration
      */
     public function up()
     {
-        Schema::table('user_subscribe')->truncate();
-        Schema::table('video')->truncate();
-        Schema::table('user_basket')->truncate();
+        DB::table('user_subscribe')->truncate();
+        DB::table('video')->truncate();
+        DB::table('user_basket')->truncate();
     }
 
     /**
