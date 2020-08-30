@@ -13,8 +13,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">На сегодня</h5>
-                    <p class="card-text">{{$pvData['pvProfitToday']}} pv</p>
-                    <p class="card-text">{{$pvData['pvProfitToday'] * \App\Models\Currency::PVtoKzt}} &#8376; </p>
+                    <p class="card-text">{{round($pvData['pvProfitToday'],2)}} pv</p>
+                    <p class="card-text">{{round($pvData['pvProfitToday'] * \App\Models\Currency::PVtoKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
@@ -23,8 +23,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За последнюю неделю</h5>
-                    <p class="card-text">{{$pvData['pvProfitLastWeek']}} pv</p>
-                    <p class="card-text">{{$pvData['pvProfitLastWeek'] * \App\Models\Currency::PVtoKzt}} &#8376; </p>
+                    <p class="card-text">{{round($pvData['pvProfitLastWeek'],2)}} pv</p>
+                    <p class="card-text">{{round($pvData['pvProfitLastWeek'] * \App\Models\Currency::PVtoKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
@@ -33,8 +33,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За последний месяц</h5>
-                    <p class="card-text">{{$pvData['pvProfitLastMonth']}} pv</p>
-                    <p class="card-text">{{$pvData['pvProfitLastMonth'] * \App\Models\Currency::PVtoKzt}} &#8376; </p>
+                    <p class="card-text">{{round($pvData['pvProfitLastMonth'],2)}} pv</p>
+                    <p class="card-text">{{round($pvData['pvProfitLastMonth'] * \App\Models\Currency::PVtoKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
@@ -43,8 +43,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За весь период</h5>
-                    <p class="card-text">{{$pvData['pvProfitAll']}} pv</p>
-                    <p class="card-text">{{$pvData['pvProfitAll'] * \App\Models\Currency::PVtoKzt}} &#8376; </p>
+                    <p class="card-text">{{round($pvData['pvProfitAll'],2)}} pv</p>
+                    <p class="card-text">{{round($pvData['pvProfitAll'] * \App\Models\Currency::PVtoKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
@@ -57,8 +57,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">На сегодня</h5>
-                    <p class="card-text">{{$gvData['gvProfitToday']}} gv</p>
-                    <p class="card-text">{{$gvData['gvProfitToday'] * \App\Models\Currency::GVtoKzt}} &#8376; </p>
+                    <p class="card-text">{{round($gvData['gvProfitToday'],2)}} gv</p>
+                    <p class="card-text">{{round($gvData['gvProfitToday'] * \App\Models\Currency::GVtoKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
@@ -67,8 +67,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За последнюю неделю</h5>
-                    <p class="card-text">{{$gvData['gvProfitLastWeek']}} gv</p>
-                    <p class="card-text">{{$gvData['gvProfitLastWeek'] * \App\Models\Currency::GVtoKzt}} &#8376; </p>
+                    <p class="card-text">{{round($gvData['gvProfitLastWeek'],2)}} gv</p>
+                    <p class="card-text">{{round($gvData['gvProfitLastWeek'] * \App\Models\Currency::GVtoKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
@@ -77,8 +77,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За последний месяц</h5>
-                    <p class="card-text">{{$gvData['gvProfitLastMonth']}} gv</p>
-                    <p class="card-text">{{$gvData['gvProfitLastMonth'] * \App\Models\Currency::GVtoKzt}} &#8376; </p>
+                    <p class="card-text">{{round($gvData['gvProfitLastMonth'],2)}} gv</p>
+                    <p class="card-text">{{round($gvData['gvProfitLastMonth'] * \App\Models\Currency::GVtoKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
@@ -87,8 +87,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За весь период</h5>
-                    <p class="card-text">{{$gvData['gvProfitAll']}} gv</p>
-                    <p class="card-text">{{$gvData['gvProfitAll'] * \App\Models\Currency::GVtoKzt}} &#8376; </p>
+                    <p class="card-text">{{round($gvData['gvProfitAll'],2)}} gv</p>
+                    <p class="card-text">{{round($gvData['gvProfitAll'] * \App\Models\Currency::GVtoKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
