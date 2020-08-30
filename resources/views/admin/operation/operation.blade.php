@@ -105,7 +105,7 @@ use \App\Models\Currency;
                                                     {{ $val->date }}
                                                 </td>
                                             </tr>
-
+{{----}}
                                         @endforeach
 
                                         <tr>
