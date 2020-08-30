@@ -249,7 +249,7 @@
                 <span>Часта задаваемые вопросы</span>
             </a>
         </li>
-    @endif
+{{--    @endif--}}
     {{-- <li class="treeview">
          <a href="/admin/binar/config">
              <i class="fa fa-sitemap"></i>
