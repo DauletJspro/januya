@@ -28,7 +28,13 @@
                         </div>
                         <!-- links start here -->
                         <ul class="links">
-                            <li><a href="#"><i class="icon-handbag"></i></a></li>
+                            <li><a href="#"
+                                data-item-id="{{$packet->packet_id}}"
+                                data-method="add"
+                                data-user-id="{{Auth::user() ? Auth::user()->user_id : NULL}}"
+                                data-route="{{route('basket.isAjax')}}"
+                                onclick="addItemToBasket(this)"    
+                            ><i class="icon-handbag"></i></a></li>
                             <li><a href="#"
                                 data-item-id="{{$packet->packet_id}}"
                                 data-method="add"

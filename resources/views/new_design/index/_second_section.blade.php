@@ -26,7 +26,7 @@
                         <div class="txt">
                             <strong class="title">{{$product->product_name_ru}}</strong>
                             <p>{{$product->product_desc_ru}}</p>
-                            <a href="#popup1"
+                            <a href="{{ route('product.detail',$product->product_id, ['id' => $product->product_id]) }}"
                                 data-img = "{{$product->product_image}}"
                                 data-name = "{{$product->product_name_ru}}"
                                 data-desc = "{{$product->product_desc_ru}}"

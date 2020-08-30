@@ -87,13 +87,6 @@ class ProfileController extends Controller
             ->where('created_at','>',date("Y-m-d"))
             ->sum('money');
 
-        $row->shareholder_count = Users::where('users.user_share','>',0)->count();
-
-        $row->user_share_sum = Users::where('users.user_share','>',0)->sum('users.user_share');
-        
-        if($row->shareholder_profit_today  != 0 && $row->user_share_sum != 0)
-            $row->shareholder_average_mount = round($row->shareholder_profit_today / $row->user_share_sum,2);
-        else $row->shareholder_average_mount = 0;
 
         $row->currency = Currency::where('currency_name','тенге')->first();
 
@@ -167,13 +160,6 @@ class ProfileController extends Controller
             ->where('created_at','>',date("Y-m-d"))
             ->sum('money');
 
-        $row->shareholder_count = Users::where('users.user_share','>',0)->count();
-
-        $row->user_share_sum = Users::where('users.user_share','>',0)->sum('users.user_share');
-
-        if($row->shareholder_profit_today  != 0 && $row->user_share_sum != 0)
-            $row->shareholder_average_mount = round($row->shareholder_profit_today / $row->user_share_sum,2);
-        else $row->shareholder_average_mount = 0;
 
         $row->currency = Currency::where('currency_name','тенге')->first();
 

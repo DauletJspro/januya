@@ -7,15 +7,11 @@ use \App\Models\UserPacket;
 ?>
 
 @foreach($row->packet as $key => $item)
-
     @if($item->is_portfolio == 0)
-
         <?php $beforeSum = 0; ?>
         @if(!in_array($item->packet_id, [\App\Models\Packet::GAP2, \App\Models\Packet::GAP1]))
             <?php $beforeSum = UserPacket::beforePurchaseSumWithPacketId(Auth::user()->user_id, $item->packet_id) ?>
         @endif
-
-
         <div class="col-lg-3 col-xs-6">
             <!-- small box -->
             <div class="small-box packet-item-list" style="background-color: #{{$item->packet_css_color}}">
@@ -46,7 +42,7 @@ use \App\Models\UserPacket;
                 </div>
 
                 {{--@if(($item->has_packet > 0 && $item->is_active > 0) || $max_packet_user_number[$item->is_portfolio] == null || $max_packet_user_number[$item->is_portfolio]->packet_id <= $item->packet_id)--}}
-                @if($item->has_packet > 0)
+                @if(\App\Models\Packet::hasPacket($packet->packet_id))
                     @if($item->is_active > 0)
                         <a class="small-box-footer shop_buy_btn" style="font-size: 18px">Вы уже приобрели</a>
                     @else

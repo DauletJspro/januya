@@ -65,7 +65,7 @@ class FavoriteController extends Controller
         $products = Product::whereIn('product_id', $favorites)->get();
 
 
-        return view('design_index.favorite.user_items', ['favorites' => $favorites, 'products' => $products]);
+        return view('new_design.favorite.index', ['favorites' => $favorites, 'products' => $products]);
     }
 
     /**

@@ -22,7 +22,14 @@ $basketIds = [];
 @section('content')
     <main id="mt-main">
         <section class="mt-contact-banner mt-banner-22 wow fadeInUp" data-wow-delay="0.4s"
-                 style="background-image: url(/custom2/img/Jan_Elim_Bann.png);">            
+                 style="background-image: url(/custom2/img/Jan_Elim_ban.png);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1 class="text-center">SHOPPING CART</h1>                  
+                    </div>
+                </div>
+            </div>
         </section>
         <div class="mt-product-table wow fadeInUp" id="product-section" data-wow-delay="0.4s">
             <div class="container">
@@ -100,6 +107,7 @@ $basketIds = [];
                                     id="product_price_kzt-{{$basketItem->product_id}}">{{$basketItem->product_price * $dollarCourse}} </span>
                         </strong>
                         <a style="cursor: pointer;" onclick="deleteItemFromBasket(this)"
+                           data-route="{{route('basket.isAjax')}}"
                            data-method="delete"
                            data-item-id="{{$basketItem->product_id}}"
                            data-user-id="{{Auth::user()->user_id}}" class="event_button">
@@ -144,10 +152,11 @@ $basketIds = [];
 @section('js')
     <script>
         function deleteItemFromBasket(tag_object) {
+            var route = $(tag_object).data('route');
             var method = $(tag_object).data('method');
             var item_id = $(tag_object).data('item-id');
             var user_id = $(tag_object).data('user-id');
-            ajax(method, item_id, user_id);
+            ajax(route, method, item_id, user_id);
             $("#basket-box").load(location.href + " #basket-box");
         }
 

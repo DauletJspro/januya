@@ -17,20 +17,19 @@ class Currency extends Model
     const GV = 3;
     const CV = 4;
 
+    const PVtoKzt = 600;
+    const DollarToKzt = 500;
+
     public static function usdToKzt()
     {
-        $usdToKzt = 0;
         $currency = Currency::where(['currency_id' => self::DOLLAR])->first();
-        $usdToKzt = $currency->money;
-        return $usdToKzt;
+        return $currency->amount_in_kzt;
     }
 
     public static function pvToKzt()
     {
-        $pvToKzt = 0;
         $currency = Currency::where(['currency_id' => self::PV])->first();
-        $pvToKzt = $currency->money;
-        return $pvToKzt;
+        return $currency->amount_in_kzt;
     }
 
 

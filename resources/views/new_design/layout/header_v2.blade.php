@@ -14,6 +14,15 @@ $needSubsidiaryIds = [5, 7, 8];
 $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
 
 ?>
+<?php $totalPrice = 0;?>
+<?php $total = 0;?>
+@if(Auth::user())
+    <?php $items = \App\Models\UserBasket::where(['user_id' => \Illuminate\Support\Facades\Auth::user()->user_id])->get(); ?>
+    <?php foreach ($items as $item): ?>
+    <?php $total = (\App\Models\Product::where(['product_id' => $item->product_id])->first()); ?>
+    <?php $totalPrice += $total ? $total->product_price : 0; ?>
+    <?php endforeach ?>
+@endif
 <!-- mt -header style14 start from here -->
 <header class="style14" id="mt-header">
     <!-- mt top bar start from here -->
@@ -44,11 +53,11 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
           <!-- mt bottom bar start from here -->
           <div class="mt-bottom-bar">
             <!-- mt logo start from here -->
-            <div class="mt-logo"><a href="#"><img alt="schon" src="/custom2/img/logo/Logo.png"></a></div>
+            <div class="mt-logo"><a href="/"><img alt="schon" src="/custom2/img/logo/Logo.png"></a></div>
             <!-- mt icon list start from here -->
             <ul class="mt-icon-list">
               <li><a class="icon-magnifier" href="#"></a></li>
-              <li><a class="icon-heart" href="#"></a></li>
+              <li><a class="icon-heart" href="{{ route('favorite.showUserItem') }}"></a></li>
               <li>
                 <a class="cart-opener" href="#">
                   <span class="icon-handbag"></span>

@@ -76,3 +76,10 @@
     font: initial;
     margin: 0 0 18px;
 }
+
+
+/* Basket */
+
+.mt-detail-sec .block.cart .txt span {
+    display: flex;
+}

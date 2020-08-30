@@ -57,7 +57,7 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
                     <ul class="mt-icon-list">
                         <li><a href="#" class="icon-user"></a></li>
                         <li>
-                            <a href="#" class="icon-heart">											
+                            <a href="{{ route('favorite.showUserItem') }}" class="icon-heart">											
                                 <span style="margin-bottom: -3px;" class="num">{{count($favorites)}}</span></a>
                         </li>									
                         <li>

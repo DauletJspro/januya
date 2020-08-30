@@ -59,12 +59,9 @@
                                             <div style="padding-top: 5px; color: rgb(58, 58, 58);">
                                                 <p style="color: #009551; margin: 0px">
                                                     Квалификация: {{$user->user_status_name}}</p>
-                                                <div>
-                                                    <p style="font-weight: 900; margin: 0px">
-                                                        ЛО: {{ $LOProfit + $gaps }} $
-                                                        ({{round(($LOProfit+$gaps) * \App\Models\Currency::where('currency_name','тенге')->first()->money,2)}}
-                                                        тг)</p>
-                                                </div>
+{{--                                                <div>--}}
+{{--                                                 --}}
+{{--                                                </div>--}}
                                             </div>
                                         </div>
                                         <div class="clear-float"></div>
@@ -85,11 +82,11 @@
                                             <div style="padding-top: 5px; color: rgb(58, 58, 58);">
                                                 <p style="color: #009551; margin: 0px">
                                                     Квалификация: {{$user->user_status_name}}</p>
-                                                <div>
-                                                    <p style="font-weight: 900; margin: 0px">ЛО: {{ $LOProfit }} $
-                                                        ({{round($LOProfit * \App\Models\Currency::where('currency_name','тенге')->first()->money,2)}}
-                                                        тг)</p>
-                                                </div>
+{{--                                                <div>--}}
+{{--                                                    <p style="font-weight: 900; margin: 0px">ЛО: {{ $LOProfit }} $--}}
+{{--                                                        ({{round($LOProfit * \App\Models\Currency::where('currency_name','тенге')->first()->money,2)}}--}}
+{{--                                                        тг)</p>--}}
+{{--                                                </div>--}}
                                             </div>
                                         </div>
                                         <div class="clear-float"></div>

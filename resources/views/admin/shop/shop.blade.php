@@ -11,52 +11,42 @@
         <div class="col-lg-12 col-xs-12">
             <h2 class="page-header">Новые пакеты (товары) </h2>
         </div>
-        {!! view('admin.shop.packet-list-loop',[
-                    'row' => $row,
-                    'max_packet_user_number' => $max_packet_user_number,
-                    'packet_type' => 'item',
-                    ]) !!}
+        {!!   view('admin.shop.packets_show', [
+            'packets' => $packets
+        ]) !!}
 
     </div>
-    <div class="modal-dialog" id="shop_modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" onclick="closeModal()"><span aria-hidden="true">×</span></button>
-                <h2 class="modal-title" id="modal_title"></h2>
+
+
+    <div class="modal fade text-center" id="buy_modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Купить пакет</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="btn-group">
+                        <button style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="send_request_btn">
+                            Отправить запрос
+                        </button>
+                    </div>
+                    <hr>
+                    <div class="btn-group">
+                        <button style="font-size: 2rem; font-weight: bolder;" class="btn btn-warning" type="button" id="buy_packet_from_balance_btn">
+                            Снять с баланса
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <p id="modal_desc"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" onclick="closeModal()">Закрыть</button>
-            </div>
-        </div><!-- /.modal-content -->
+        </div>
     </div>
 
-    <div class="modal-dialog" id="buy_modal" style="max-width: 350px">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" onclick="closeModal()"><span aria-hidden="true">×</span></button>
-                <h2 class="modal-title">Купить пакет</h2>
-            </div>
 
-            <div class="modal-footer">
-                <button style="width: 100%; margin-bottom: 20px" type="button" onclick="closeModal()"
-                        class="btn btn-default pull-left">Закрыть
-                </button>
-                <button id="buy_btn"
-                        style="margin-left:0px; background-color: #6cba5b; width: 100%; margin-bottom: 20px"
-                        type="button" class="btn btn-default pull-left">Купить онлайн
-                </button>
-                <button style="margin-left:0px; background-color: #38b9ea; width: 100%; margin-bottom: 20px"
-                        type="button" id="send_request_btn" class="btn btn-default pull-left">Отправить запрос
-                </button>
-                <button style="margin-left:0px; background-color: #38b9ea; width: 100%; margin-bottom: 20px"
-                        type="button" id="buy_packet_from_balance_btn" class="btn btn-default pull-left">Снять с баланса
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div>
+
 
 
 @endsection

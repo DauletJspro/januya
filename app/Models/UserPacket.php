@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class UserPacket extends Model
 {
@@ -16,6 +17,7 @@ class UserPacket extends Model
     protected $primaryKey = 'user_packet_id';
 
     use SoftDeletes;
+
     protected $dates = ['deleted_at'];
 
 
@@ -97,6 +99,29 @@ class UserPacket extends Model
         }
         return array_sum($array);
 
+    }
+
+    public static function hasPacket($packet_id)
+    {
+        return count(UserPacket::where(['packet_id' => $packet_id, 'user_id' => Auth::user()->user_id])->get());
+    }
+
+    public static function isActive($packet_id)
+    {
+        $user_packet = UserPacket::where(['packet_id' => $packet_id, 'user_id' => Auth::user()->user_id])->first();
+        return $user_packet->is_active;
+    }
+
+    public static function userHasPacketsPrice($packet_id)
+    {
+        $userPacket = UserPacket::where(['user_id' => Auth::user()->user_id, 'is_active' => true])
+            ->where('packet_id', '<', $packet_id)->get();
+        $sum = 0;
+        foreach ($userPacket as $item) {
+            $sum += $item->packet_price;
+        }
+
+        return $sum;
     }
 
 

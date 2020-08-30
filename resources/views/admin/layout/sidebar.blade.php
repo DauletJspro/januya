@@ -1,12 +1,12 @@
 <ul class="sidebar-menu">
     @if(Auth::user()->status_id > 0)
         <li class="header"
-            style="text-align: center; padding:5px 25px 0px"> <?php $status_name = \App\Models\UserStatus::where('user_status_id', Auth::user()->status_id)->first(); ?>
+            style="font-size: 14px; padding:5px 25px 0px"> <?php $status_name = \App\Models\UserStatus::where('user_status_id', Auth::user()->status_id)->first(); ?>
             <p style="color:#009551;margin:0px;font-weight: bold">
 
                 @if(isset($status_name->user_status_name))
 
-                    {{ $status_name->user_status_name }}
+                Статус: {{ $status_name->user_status_name }}
 
                 @endif
 
@@ -14,20 +14,30 @@
         </li>
     @endif
 
-    <li class="header" style="text-align: center; padding:5px 25px 0px">
-        <p style="color:red;margin:0px;font-weight: bold">Ваш баланс: {{Auth::user()->user_money}}PV
-            ( {{Auth::user()->user_money * \App\Models\Currency::pvToKzt()}}тг)</p>
+    <li class="header" style="font-size: 14px; padding:5px 25px 0px">
+        <p style="color:red;margin:0px;font-weight: bold">Баланс: {{Auth::user()->user_money}}$
+            ( {{Auth::user()->user_money * \App\Models\Currency::usdToKzt()}}тг)</p>
     </li>
 
 
-    <li class="header" style="text-align: center; padding:5px 25px 0px">@if(Auth::user()->is_activated == 1) <p
-                style="color:#009551;margin:0px;">Ваш аккаунт успешно активирован</p> @else <p
-                style="color:red;margin:0px;">Ваш аккаунт не активирован</p> @endif</li>
-    <li class="header" style="text-align: center; padding:5px 25px 0px">@if(Auth::user()->is_valid_document == 1) <p
-                style="color:#009551;margin:0px;">Верификация успешно пройдено</p> @else <a
-                style="color:red;margin:0px;text-decoration: underline; padding: 0px" href="/admin/document">Верификация
-            не пройдено</a> @endif</li>
-
+    <li class="header" style="font-size: 14px; padding:5px 25px 0px">
+        @if(Auth::user()->is_activated == 1) 
+            <p style="color:#009551;margin:0px;">Аккаунт: активирован</p> 
+        @else 
+            <p style="color:red;margin:0px;">Аккаунт: не активирован</p> 
+        @endif
+    </li>
+    <li class="header" style="font-size: 14px; padding:5px 25px 0px">@if(Auth::user()->is_valid_document == 1) <p
+                style="color:#009551;margin:0px;">Верификация: Пройдено</p> @else <a
+                style="color:red;margin:0px;text-decoration: underline; padding: 0px" href="/admin/document">Верификация:
+            Не пройдено</a> @endif</li>
+    
+    <li class="treeview" style="background-color: #009551;">
+        <a href="/admin/call-friend" style="color: black" class="balance-btn">
+            <i class="fa fa-reply-all"></i>
+            <span style="color: black">Реферальная ссылка</span>
+        </a>
+    </li>
 
     <li class="treeview">
         <a href="/admin/index">
@@ -36,11 +46,10 @@
         </a>
     </li>
 
-
-    <li class="treeview" style="background-color: #F9BF3B;">
-        <a href="/admin/call-friend" style="color: black" class="balance-btn">
-            <i class="fa fa-reply-all"></i>
-            <span style="color: black">Пригласить друга</span>
+    <li class="treeview">
+        <a href="/admin/our-document">
+            <i class="fa fa-user"></i>
+            <span>Договор</span>
         </a>
     </li>
 
@@ -50,35 +59,93 @@
             <span>Профиль</span>
         </a>
     </li>
-    <li class="treeview balance-btn" style="background-color: #F9BF3B;">
-        <a href="/admin/balance" style="color: black" class="balance-btn">
+    
+    {{--    <li class="treeview balance-btn" style="background-color: #F9BF3B;">--}}
+    {{--        <a href="/admin/balance" style="color: black" class="balance-btn">--}}
+    {{--            <i class="fa fa-money"></i>--}}
+    {{--            <span>Пополнить баланс</span>--}}
+    {{--        </a>--}}
+    {{--        <style>--}}
+    {{--            .balance-btn:hover {--}}
+    {{--                background-color: #F9BF3B !important;--}}
+    {{--            }--}}
+    {{--        </style>--}}
+    {{--    </li>--}}
+    {{--    <li class="treeview">--}}
+    {{--        <a href="/admin/document">--}}
+    {{--            <i class="fa fa-user"></i>--}}
+    {{--            <span>Мои документы</span>--}}
+    {{--        </a>--}}
+    {{--    </li>--}}
+    {{--    <li class="treeview">--}}
+    {{--        <a href="/admin/instagram">--}}
+    {{--            <i class="fa fa-user"></i>--}}
+    {{--            <span>Мои подписки</span>--}}
+    {{--        </a>--}}
+    {{--    </li>--}}
+
+    <li class="treeview">
+        <a href="/admin/presentation">
+            <i class="fa fa-shopping-cart"></i>
+            <span>Презентация</span>
+        </a>
+    </li>
+
+    <li class="treeview">
+        <a href="/admin/shop">
+            <i class="fa fa-shopping-cart"></i>
+            <span>Бизнес пакеты </span>
+        </a>
+    </li>
+
+    <li class="treeview">
+        <a href="/admin/operation">
+            <i class="fa fa-list-ul"></i>
+            <span>Счет</span>
+        </a>
+    </li>
+
+    <li class="treeview">
+        <a href="/admin/structure">
+            <i class="fa fa-sitemap"></i>
+            <span>Структура</span>
+        </a>
+    </li>
+
+    {{-- <li class="treeview">
+        <a href="/admin/online">
+            <i class="fa fa-shopping-cart"></i>
+            <span>Интернет магазин</span>
+        </a>
+    </li> --}}
+
+    <li class="treeview">
+        <a href="/admin/online/history">
+            <i class="fa fa-user"></i>
+            <span>Мои покупки</span>
+        </a>
+    </li>
+
+    <li class="treeview">
+        <a href="/admin/request/send">
             <i class="fa fa-money"></i>
-            <span>Пополнить баланс</span>
-        </a>
-        <style>
-            .balance-btn:hover {
-                background-color: #F9BF3B !important;
-            }
-        </style>
-    </li>
-    <li class="treeview">
-        <a href="/admin/document">
-            <i class="fa fa-user"></i>
-            <span>Мои документы</span>
+            <span>Снятие денег</span>
         </a>
     </li>
+
     <li class="treeview">
-        <a href="/admin/instagram">
-            <i class="fa fa-user"></i>
-            <span>Мои подписки</span>
+        <a href="/admin/request/send-account">
+            <i class="fa fa-money"></i>
+            <span>Отправить деньги</span>
         </a>
     </li>
-    <li class="treeview">
+
+    {{-- <li class="treeview">
         <a href="/admin/instagram/partners/request">
             <i class="fa fa-user"></i>
             <span>Мои подписчики</span>
         </a>
-    </li>
+    </li> --}}
 
     @if(Auth::user()->role_id == 1)
 
@@ -102,19 +169,7 @@
         </li>
 
     @endif
-
-    <li class="treeview">
-        <a href="/admin/online/history">
-            <i class="fa fa-user"></i>
-            <span>Мои покупки</span>
-        </a>
-    </li>
-    <li class="treeview">
-        <a href="/admin/our-document">
-            <i class="fa fa-user"></i>
-            <span>Договор</span>
-        </a>
-    </li>
+    
     @if(Auth::user()->role_id == 1)
 
         <li class="treeview">
@@ -123,15 +178,15 @@
                 <span>Статистика</span>
             </a>
         </li>
-        <li class="treeview">
-            <a href="/admin/document/confirm">
-                <i class="fa fa-list-ul"></i>
-                <span>Подтверж. документа</span>
-                <?php $user_packet_notice = \App\Models\UserConfirmDocument::where('user_confirm_document.is_active', 1)->leftJoin('users', 'users.user_id', '=', 'user_confirm_document.user_id')->where('users.is_valid_document', 0)->count();?>
-                <span class="label label-primary pull-right"
-                      style="@if($user_packet_notice == 0) display: none; @endif background-color: rgb(253, 58, 53) ! important;">{{$user_packet_notice}}</span>
-            </a>
-        </li>
+        {{--        <li class="treeview">--}}
+        {{--            <a href="/admin/document/confirm">--}}
+        {{--                <i class="fa fa-list-ul"></i>--}}
+        {{--                <span>Подтверж. документа</span>--}}
+        {{--                <?php $user_packet_notice = \App\Models\UserConfirmDocument::where('user_confirm_document.is_active', 1)->leftJoin('users', 'users.user_id', '=', 'user_confirm_document.user_id')->where('users.is_valid_document', 0)->count();?>--}}
+        {{--                <span class="label label-primary pull-right"--}}
+        {{--                      style="@if($user_packet_notice == 0) display: none; @endif background-color: rgb(253, 58, 53) ! important;">{{$user_packet_notice}}</span>--}}
+        {{--            </a>--}}
+        {{--        </li>--}}
 
         <li class="treeview">
             <a href="/admin/packet/user/inactive">
@@ -222,43 +277,13 @@
                 <span>Часта задаваемые вопросы</span>
             </a>
         </li>
-    @endif
-    <li class="treeview">
-        <a href="/admin/operation">
-            <i class="fa fa-list-ul"></i>
-            <span>Счет</span>
-        </a>
-    </li>
-    <li class="treeview">
-        <a href="/admin/structure">
-            <i class="fa fa-sitemap"></i>
-            <span>Структура</span>
-        </a>
-    </li>
+    @endif        
     {{-- <li class="treeview">
          <a href="/admin/binar/config">
              <i class="fa fa-sitemap"></i>
              <span>Настройка авторегистрации</span>
          </a>
-     </li>--}}
-    <li class="treeview">
-        <a href="/admin/shop">
-            <i class="fa fa-shopping-cart"></i>
-            <span>Магазин (пакеты)</span>
-        </a>
-    </li>
-    <li class="treeview">
-        <a href="/admin/online">
-            <i class="fa fa-shopping-cart"></i>
-            <span>Магазин (товары)</span>
-        </a>
-    </li>
-    <li class="treeview">
-        <a href="/admin/presentation">
-            <i class="fa fa-shopping-cart"></i>
-            <span>Презентация</span>
-        </a>
-    </li>
+     </li>--}}       
     {{--@if(Auth::user()->role_id == 1)
         <li class="treeview">
             <a href="/admin/shareholder">
@@ -272,19 +297,7 @@
                     <span>Дольщики по статусу</span>
                 </a>
             </li>
-    @endif--}}
-    <li class="treeview">
-        <a href="/admin/request/send">
-            <i class="fa fa-money"></i>
-            <span>Снятие денег</span>
-        </a>
-    </li>
-    <li class="treeview">
-        <a href="/admin/request/send-account">
-            <i class="fa fa-money"></i>
-            <span>Отправить деньги</span>
-        </a>
-    </li>
+    @endif--}}        
 
     <li class="treeview">
         <a href="/admin/password">

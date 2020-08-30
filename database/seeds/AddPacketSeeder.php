@@ -66,7 +66,7 @@ class AddPacketSeeder extends Seeder
             'packet_price' => 240,
             'is_show' => true,
             'sort_num' => 4,
-            'packet_css_color' => '2285E3',
+            'packet_css_color' => 'FFD700',
             'packet_available_level' => 10,
             'packet_desc_ru' => 'Здесь будет подробнее описание пакета',
             'packet_thing' => 'Обучение ACADEMY + 10 Продукт + 10 VIP Продукт + Back office',
