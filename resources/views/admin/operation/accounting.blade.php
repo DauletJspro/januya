@@ -89,7 +89,7 @@
                                                         ->sum('packet_price');
                                                 ?>
                                                 <div>
-                                                    <span style="font-weight: 900">ЛО: {{ $lo_profit }} $ ({{round($lo_profit * \App\Models\Currency::where('currency_name','тенге')->first()->money,2)}}тг)</span>
+                                                    <span style="font-weight: 900">ЛО: {{ $lo_profit }} $ ({{round($lo_profit * \App\Models\Currency::usdToKzt(),2)}}тг)</span>
                                                 </div>
                                                 <div>
                                                     <span style="font-weight: 900">ЛКО: {{ $val->left_child_profit }} PV </span>
@@ -98,7 +98,7 @@
                                             </td>
                                             <td class="arial-font">
                                                 <div>
-                                                    <span style="font-weight: 900">{{ $val->user_money }} $ ({{round($val->user_money * \App\Models\Currency::where('currency_name','тенге')->first()->money,2)}}тг)</span>
+                                                    <span style="font-weight: 900">{{ $val->user_money }} $ ({{round($val->user_money * \App\Models\Currency::usdToKzt(),2)}}тг)</span>
                                                 </div>
                                             </td>
                                             <td class="arial-font">

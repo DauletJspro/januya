@@ -20,9 +20,7 @@ class PacketItemController extends Controller
     public function index(Request $request)
     {
         $row = Packet::where(function($query) use ($request){
-            $query->where('packet_name_kz','like','%' .$request->search .'%')
-                ->orWhere('packet_name_ru','like','%' .$request->search .'%')
-                ->orWhere('packet_name_en','like','%' .$request->search .'%');
+            $query->Where('packet_name_ru','like','%' .$request->search .'%');
         })
             ->orderBy('packet_id','desc')
             ->select('packet.*',

@@ -188,6 +188,7 @@ class PacketController extends Controller
             }
 
         }
+        $packet_old_price = UserPacket::beforePurchaseSum(Auth::user()->user_id);
 
         $is_check = UserPacket::where('user_id', Auth::user()->user_id)->where('packet_id', '=', $request->packet_id)->count();
         if ($is_check > 0) {
@@ -396,13 +397,6 @@ class PacketController extends Controller
                 }
             }
 
-//            $packet_old_price = UserPacket::where('user_id', Auth::user()->user_id)
-//                ->where('packet_id', '>', 2)
-//                ->where('is_active', 1)
-//                ->where('user_packet.packet_id', '!=', 9)
-//                ->where('is_portfolio', '=', $packet->is_portfolio)
-//                ->sum('packet_price');
-
             $packet_old_price = UserPacket::beforePurchaseSum(Auth::user()->user_id);
         }
 
@@ -497,7 +491,6 @@ class PacketController extends Controller
             return redirect('/admin/index?message=Вы успешно купили пакет');
         }
     }
-
 
     public function implementPacketBonuses($userPacketId)
     {
@@ -606,24 +599,6 @@ class PacketController extends Controller
         $max_queue_start_position = UserPacket::where('packet_id', $userPacket->packet_id)->where('is_active', 1)->where('queue_start_position', '>', 0)->max('queue_start_position');
         $userPacket->queue_start_position = ($max_queue_start_position) ? ($max_queue_start_position + 1) : 1;
         $userPacket->save();
-    }
-
-    public function add_share_to_global_diamond_found($userPacket, $user_id)
-    {
-        $toGlobalFound = $userPacket->packet_price * (5 / 100);
-        $fond = Fond::where(['fond_id' => Fond::GLOBAL_DIAMOND_FOUND])->first();
-        $fond->fond_money = $fond->fond_money + $toGlobalFound;
-        if ($fond->save()) {
-            $operation = new UserOperation();
-            $operation->author_id = $user_id;
-            $operation->recipient_id = 1;
-            $operation->money = $toGlobalFound;
-            $operation->operation_id = 1;
-            $operation->operation_type_id = Operation::RefillGlobalDiamondFound;
-            $operation->operation_comment = 'Пополнение фонда Global Diamond Found на ' . $toGlobalFound . 'pv';
-            $operation->save();
-        }
-        $this->sentMoney += $toGlobalFound;
     }
 
     private
