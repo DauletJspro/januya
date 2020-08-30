@@ -22,7 +22,7 @@ class BasketController extends Controller
     public function show($id = null)
     {
         $basketItems = UserBasket::where(['user_id' => Auth::user()->user_id])->get();
-        return view('design_index.basket.basket', [
+        return view('new_design.basket.index', [
             'basketItems' => $basketItems,
         ]);
     }

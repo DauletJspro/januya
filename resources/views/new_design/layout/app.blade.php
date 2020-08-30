@@ -39,8 +39,13 @@
     </div>    
     <!-- W1 start here -->
     <div class="w1">
-      @include('new_design.layout.header')
+      @if (Route::is('basket.show', 'favorite.showUserItem'))
+        @include('new_design.layout.header_v2')    
+      @else
+        @include('new_design.layout.header')
+      @endif      
       @yield('content')
+      @include('new_design.layout._detail_modal')
       @include('new_design.layout.footer')      
     </div><!-- W1 end here -->
 		<span id="back-top" class="fa fa-arrow-up"></span>

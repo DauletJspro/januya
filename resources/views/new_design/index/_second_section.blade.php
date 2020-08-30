@@ -11,6 +11,9 @@
         <!-- tabs slider start here -->
         <div class="tabs-sliderlg">
             @foreach ($products as $product)
+                @php
+                    $rating_avg = \App\Models\Review::ratingCalculator($product->product_id, \App\Models\Review::PRODUCT_REVIEW)
+                @endphp
                 <!-- product_card start here -->
                 <div class="product_card">
                     <!-- mt product start here -->
@@ -23,7 +26,13 @@
                         <div class="txt">
                             <strong class="title">{{$product->product_name_ru}}</strong>
                             <p>{{$product->product_desc_ru}}</p>
-                            <a href="{{ route('product.detail',$product->product_id, ['id' => $product->product_id]) }}">Толығырақ</a>
+                            <a href="#popup1"
+                                data-img = "{{$product->product_image}}"
+                                data-name = "{{$product->product_name_ru}}"
+                                data-desc = "{{$product->product_desc_ru}}"
+                                data-price = "{{$product->product_price}}"
+                                data-rating = "{{\App\Models\Review::ratingCalculator($product->product_id, \App\Models\Review::PRODUCT_REVIEW)}}"
+                            >Толығырақ</a>
                         </div>
                     </div><!-- mt product 3 end here -->
                 </div><!-- product_card end here -->

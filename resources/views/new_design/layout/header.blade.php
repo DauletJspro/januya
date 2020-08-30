@@ -1,3 +1,19 @@
+<?php
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+
+$categories = Category::where(['is_show' => true])->limit(15)->get();
+$MAC = exec('getmac');
+$MAC = strtok($MAC, ' ');
+if (Auth::user()) {
+    $favorites = \App\Models\Favorite::where(['user_id' => Auth::user()->user_id])->get();
+} else {
+    $favorites = \App\Models\Favorite::where(['ip_address' => $MAC])->get();
+}
+$needSubsidiaryIds = [5, 7, 8];
+$subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
+
+?>
 <!-- mt header style7 start here -->
 <header id="mt-header" class="style7">
     <!-- mt-top-bar start here -->
@@ -10,9 +26,13 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 text-right">
                     <!-- mt-top-list start here -->
-                    <ul class="mt-top-list">									
-                        <li><a href="#">Менің кабинетім</a></li>
-                        <li class="active"><a href="/register">Кіру</a></li>
+                    <ul class="mt-top-list">
+                        @if(!Auth::check())                            
+                            <li><a href="/register">Тіркелу</a></li>
+                            <li class="active"><a href="/login">Кіру</a></li>                            
+                        @else
+                            <li class="active"><a href="/admin/index">Менің кабинетім</a></li>                            
+                        @endif                                                
                     </ul><!-- mt-top-list end here -->
                 </div>
             </div>
@@ -23,17 +43,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="mt-logo"><a href="/"><img src="custom2/img/logo/Logo.png" alt="schon"></a></div>
+                    <div class="mt-logo"><a href="/"><img src="/custom2/img/logo/Logo.png" alt="schon"></a></div>
+                    <?php $totalPrice = 0;?>
+                    <?php $total = 0;?>
+                    @if(Auth::user())
+                        <?php $items = \App\Models\UserBasket::where(['user_id' => \Illuminate\Support\Facades\Auth::user()->user_id])->get(); ?>
+                        <?php foreach ($items as $item): ?>
+                        <?php $total = (\App\Models\Product::where(['product_id' => $item->product_id])->first()); ?>
+                        <?php $totalPrice += $total ? $total->product_price : 0; ?>
+                        <?php endforeach ?>
+                    @endif
                     <!-- mt-icon-list start here -->
                     <ul class="mt-icon-list">
                         <li><a href="#" class="icon-user"></a></li>
                         <li>
                             <a href="#" class="icon-heart">											
-                                <span style="margin-bottom: -3px;" class="num">3</span></a>
+                                <span style="margin-bottom: -3px;" class="num">{{count($favorites)}}</span></a>
                         </li>									
                         <li>
-                            <a href="#" class="icon-handbag">											
-                                <span class="num">3</span>
+                            <a href="{{ route('basket.show') }}" class="icon-handbag">											
+                                <span class="num">{{isset($items) ? count($items) : 0}}</span>
                             </a>									
                         </li>
                         <li class="hidden-lg hidden-md">

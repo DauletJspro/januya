@@ -42,6 +42,10 @@ class Product extends Model
         return $MAC;
     }
 
+    function reviews() {
+        return $this->hasMany('App\Models\Review', 'item_id', 'product_id')->where('review_type_id', 1);
+    }
+
     public static function hasLiked($item_id, $user_id)
     {
         /** @var Favorite $hasLiked */

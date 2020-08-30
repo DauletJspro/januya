@@ -52,8 +52,9 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {        
-        $products = Product::all();   
-        $packets = Packet::all();     
+        $products = Product::all();           
+        $packets = Packet::all();  
+        // dd($products[0]->product_id);        
         // $popularProducts = Product::where(['is_popular' => true])->get();
         // $brands = Brand::where(['is_show' => true])->get();
         // $elixirs = Product::where(['category_id' => Category::ELIXIR])->get();
@@ -82,7 +83,7 @@ class IndexController extends Controller
         $logo_id = $request->input('id');
         $logo = Brand::where(['id' => $logo_id])->first();
         $logo = $logo ? $logo->image : '';
-        return view('design_index.index.opportunity', ['url' => $url]);
+        return view('new_design.opportunity.index', ['url' => $url]);
     }
 
 

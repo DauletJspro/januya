@@ -29,7 +29,14 @@
                         <!-- links start here -->
                         <ul class="links">
                             <li><a href="#"><i class="icon-handbag"></i></a></li>
-                            <li><a href="#"><i class="icomoon icon-heart-empty"></i></a></li>
+                            <li><a href="#"
+                                data-item-id="{{$packet->packet_id}}"
+                                data-method="add"
+                                data-user-id="{{Auth::user() ? Auth::user()->user_id : NULL}}"
+                                data-session-id="{{ Session::getId()}}"
+                                data-route="{{route('favorite.isAjax')}}"
+                                onclick="addItemToFavorites(this)"
+                            ><i class="icomoon icon-heart-empty"></i></a></li>
                             <li><a href="#"><i class="icomoon fa fa-eye"></i></a></li>
                         </ul>
                     </div><!-- mt product 3 end here -->
