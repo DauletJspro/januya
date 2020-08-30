@@ -93,8 +93,8 @@ use \App\Models\Currency;
                                                     @if($val->operation_type_id == 2)
                                                         {{ $val->money }} доля
                                                     @else
-                                                        {{ round($val->money,2) }} gv
-                                                        ({{round($val->money * Currency::where('currency_id', Currency::GV)->first()->money,2)}}
+                                                        {{ round($val->money,2) }} $
+                                                        ({{round($val->money * Currency::DollarToKzt,2)}}
                                                         тг)
                                                     @endif
                                                 </td>
@@ -111,7 +111,7 @@ use \App\Models\Currency;
                                         <tr>
                                             <td colspan="5" style="text-align: right"><b>Общая сумма:</b></td>
                                             <td colspan="1"><b>{{round($row_sum,2)}} $
-                                                    ({{round($row_sum * Currency::where('currency_id', Currency::GV)->first()->money,2)}}
+                                                    ({{round($row_sum * Currency::DollarToKzt,2)}}
                                                     тг)</b></td>
                                             <td colspan="2"></td>
                                         </tr>
