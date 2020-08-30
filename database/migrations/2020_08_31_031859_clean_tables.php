@@ -14,9 +14,9 @@ class CleanTables extends Migration
      */
     public function up()
     {
-        DB::table('user_subscribe')->truncate();
-        DB::table('video')->truncate();
-        DB::table('user_basket')->truncate();
+//        DB::table('user_subscribe')->truncate();
+//        DB::table('video')->truncate();
+//        DB::table('user_basket')->truncate();
     }
 
     /**
