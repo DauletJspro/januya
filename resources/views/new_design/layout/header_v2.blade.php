@@ -56,7 +56,7 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
             <div class="mt-logo"><a href="/"><img alt="schon" src="/custom2/img/logo/Logo-1.png"></a></div>
             <!-- mt icon list start from here -->
             <ul class="mt-icon-list">
-              <li><a class="icon-magnifier" href="#"></a></li>
+              {{-- <li><a class="icon-magnifier" href="#"></a></li> --}}
               <li><a class="icon-heart" href="{{ route('favorite.showUserItem') }}"></a></li>
               <li>
                 <a class="cart-opener" href="#">
