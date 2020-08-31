@@ -9,7 +9,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
 @section('content')
     <div class="row profits">
         <div style="padding-left: 2rem;"><h3 style="font-size: 3rem;">Реферальный бонус</h3></div>
-        <div class="col-sm-3 col-lg-3 col-xs-6 col-md-4">
+        <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">На сегодня</h5>
@@ -19,7 +19,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 col-lg-3 col-xs-6 col-md-4">
+        <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За последнюю неделю</h5>
@@ -29,7 +29,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 col-lg-3 col-xs-6 col-md-4">
+        <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За последний месяц</h5>
@@ -39,7 +39,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 col-lg-3 col-xs-6 col-md-4">
+        <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За весь период</h5>
@@ -53,7 +53,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
     </div>
     <div class="row profits">
         <div style="padding-left: 2rem;"><h3 style="font-size: 3rem;">Группавой Обьем</h3></div>
-        <div class="col-sm-3 col-lg-3 col-xs-6 col-md-4">
+        <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">На сегодня</h5>
@@ -63,7 +63,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 col-lg-3 col-xs-6 col-md-4">
+        <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За последнюю неделю</h5>
@@ -73,7 +73,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 col-lg-3 col-xs-6 col-md-4">
+        <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За последний месяц</h5>
@@ -83,7 +83,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                 </div>
             </div>
         </div>
-        <div class="col-sm-3  col-lg-3 col-xs-6 col-md-4">
+        <div class="col-sm-6  col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За весь период</h5>
@@ -97,7 +97,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
     </div>
     <div class="row profits">
         <div style="padding-left: 2rem;"><h3 style="font-size: 3rem;">Текущий счет</h3></div>
-        <div class="col-sm-3 col-lg-3 col-xs-6 col-md-4">
+        <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">В долларах</h5>
@@ -112,7 +112,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
     <div class="row packets">
         <div style="padding-left: 2rem;"><h3 style="font-size: 3rem;">Мои пакеты</h3></div>
         @foreach ($userPackets as $packet)
-            <div class="card  col-sm-3 col-lg-3 col-xs-6 col-md-4">
+            <div class="card  col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
                 <div class="card-body" style="position:relative;background-color:{{'#' . $packet->packet->packet_css_color}}">
                     <h2 class="card-title">{{$packet->packet->packet_name_ru}}</h2>
                     <h3 style="font-weight: bold;">{{$packet->packet->packet_price - \App\Models\UserPacket::userHasPacketsPrice($packet->packet->packet_id)}} pv
