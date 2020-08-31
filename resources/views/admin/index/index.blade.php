@@ -13,8 +13,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">На сегодня</h5>
-                    <p class="card-text">{{round($pvData['pvProfitToday'],2)}} pv</p>
-                    <p class="card-text">{{round($pvData['pvProfitToday'] * \App\Models\Currency::PVtoKzt,2)}} &#8376; </p>
+                    <p class="card-text">{{round($pvData['pvProfitToday'],2)}} $</p>
+                    <p class="card-text">{{round($pvData['pvProfitToday'] * \App\Models\Currency::DollarToKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
@@ -23,8 +23,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За последнюю неделю</h5>
-                    <p class="card-text">{{round($pvData['pvProfitLastWeek'],2)}} pv</p>
-                    <p class="card-text">{{round($pvData['pvProfitLastWeek'] * \App\Models\Currency::PVtoKzt,2)}} &#8376; </p>
+                    <p class="card-text">{{round($pvData['pvProfitLastWeek'],2)}} $</p>
+                    <p class="card-text">{{round($pvData['pvProfitLastWeek'] * \App\Models\Currency::DollarToKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
@@ -33,8 +33,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За последний месяц</h5>
-                    <p class="card-text">{{round($pvData['pvProfitLastMonth'],2)}} pv</p>
-                    <p class="card-text">{{round($pvData['pvProfitLastMonth'] * \App\Models\Currency::PVtoKzt,2)}} &#8376; </p>
+                    <p class="card-text">{{round($pvData['pvProfitLastMonth'],2)}} $</p>
+                    <p class="card-text">{{round($pvData['pvProfitLastMonth'] * \App\Models\Currency::DollarToKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
@@ -43,8 +43,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">За весь период</h5>
-                    <p class="card-text">{{round($pvData['pvProfitAll'],2)}} pv</p>
-                    <p class="card-text">{{round($pvData['pvProfitAll'] * \App\Models\Currency::PVtoKzt,2)}} &#8376; </p>
+                    <p class="card-text">{{round($pvData['pvProfitAll'],2)}} $</p>
+                    <p class="card-text">{{round($pvData['pvProfitAll'] * \App\Models\Currency::DollarToKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
                 </div>
             </div>
