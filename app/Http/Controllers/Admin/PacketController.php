@@ -537,7 +537,7 @@ class PacketController extends Controller
                 if ($inviter_order == 1 && in_array($inviter->status_id, $actualStatuses)) {
                     $bonusPercentage = (15 / 100);
                     $bonus = $packetPrice * $bonusPercentage;
-                } elseif ($this->hasNeedPackets($packet->packet_id, $inviterPacketId)) {
+                } elseif ($this->hasNeedPackets($packet, $inviterPacketId, $inviter_order)) {
                     $bonusPercentage = ($packetPercentage[$inviter_order - 1] / 100);
                     $bonus = $packetPrice * $bonusPercentage;
                 }
@@ -562,7 +562,7 @@ class PacketController extends Controller
 
 //            echo '<pre>', var_dump($inviter_order . ' /  ' . $inviter->name . ' / ' . $inviter->user_id . ' / ' . $bonus . ' / ' . $inviterPacketId), '</pre>';
             $inviter = Users::where(['user_id' => $inviter->recommend_user_id])->first();
-            if (!$inviter || $inviter_order >= $packet->packet_available_level) {
+            if (!$inviter || $inviter_order >= 10) {
                 break;
             }
 
@@ -782,13 +782,16 @@ class PacketController extends Controller
     }
 
     public
-    function hasNeedPackets($packetId, $inviterPacketId)
+    function hasNeedPackets($packet, $inviterPacketId, $order)
     {
         $actualPackets = [Packet::SMALL, Packet::MEDIUM, Packet::LARGE, Packet::VIP];
-        if ($packetId <= $inviterPacketId && in_array($packetId, $actualPackets)) {
-            return true;
+        $boolean = false;
+        $packet_id = $packet->packet_id;
+        $packet_available_level = $packet->packet_available_level;
+        if (in_array($packet_id, $actualPackets) && $order <= $packet->packet_available_level) {
+            $boolean = true;
         }
-        return false;
+        return $boolean;
     }
 
     public
