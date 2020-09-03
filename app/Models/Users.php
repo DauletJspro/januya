@@ -15,7 +15,6 @@ class Users extends Model implements AuthenticatableContract
 
     protected $table = 'users';
     protected $primaryKey = 'user_id';
-    protected $fillable = ['email', 'password', 'login', 'user_id'];
 
     const ADMIN = 1;
     const CLIENT = 2;

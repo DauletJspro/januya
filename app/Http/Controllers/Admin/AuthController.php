@@ -122,47 +122,24 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->last_name = $request->last_name;
         $user->middle_name = $request->middle_name;
-        $user->city_id = $request->city_id;
         $user->password = Hash::make($request->password);
         $user->email = $request->email;
         $user->login = $request->login;
         $user->phone = $request->phone;
 
-        $request->instagram = str_replace('http://www.instagram.com/', '', $request->instagram);
-        $request->instagram = str_replace('https://www.instagram.com/', '', $request->instagram);
-        $request->instagram = str_replace('https://instagram.com/', '', $request->instagram);
-        $request->instagram = str_replace('http://instagram.com/', '', $request->instagram);
 
-        $user->instagram = $request->instagram;
 
         $user->role_id = 2;
         $user->is_confirm_email = 0;
         $user->is_activated = 1;
         $user->recommend_user_id = is_numeric($request->recommend_user_id) ? $request->recommend_user_id : null;
-        $user->office_director_id = is_numeric($request->office_director_id) ? $request->office_director_id : null;
 
         $hash_email = md5(uniqid(time(), true));
         $user->hash_email = $hash_email;
         $user->activated_date = date("Y-m-d");
-        $user->save();
-
         $recommend_user = Users::where('user_id', $request->recommend_user_id)->first();
-
         $user->recommend_user_id = $recommend_user->user_id;
-
-        $check = false;
-        $parent_user = $recommend_user;
-
-        while ($check != true) {
-            $parent_check = Users::where('parent_id', $parent_user->user_id)->first();
-            if ($parent_check == null) {
-                $check = true;
-                $user->parent_id = $parent_user->user_id;
-            } else {
-                $parent_user = $parent_check;
-            }
-        }
-
+        $user->parent_id = $recommend_user->user_id;
 
         $user->save();
 
