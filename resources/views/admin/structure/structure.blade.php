@@ -30,19 +30,6 @@
                         <ul class="level_1">
                             <li class="parent">
 
-                                <?php
-                                $LOProfitId = UserPacket::where('is_active', 1)
-                                    ->where('user_id', Auth::user()->user_id)
-                                    ->whereIn('packet_id', [23, 24, 25, 26, 27])
-                                    ->max('packet_id');
-
-                                $LOProfit = Packet::where('packet_id', $LOProfitId)->first();
-                                $LOProfit = $LOProfit ? $LOProfit->packet_price : 0;
-
-                                $gaps = 0;
-                                ?>
-
-
                                 @if(count($user_list) > 0)
                                     <span onclick="opUl(this)">+</span>
                                     <div class="dval act user-name">
