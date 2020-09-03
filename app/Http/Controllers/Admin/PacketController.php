@@ -806,9 +806,9 @@ class PacketController extends Controller
     {
         $actualPackets = [Packet::SMALL, Packet::MEDIUM, Packet::LARGE, Packet::VIP];
         $boolean = false;
-        $packet_id = $packet->packet_id;
-        $packet_available_level = $packet->packet_available_level;
-        if (in_array($packet_id, $actualPackets) && $order <= $packet->packet_available_level) {
+        $inviterPacket = Packet::where(['packet_id' => $inviterPacketId])->first();
+        $packet_available_level = $inviterPacket->packet_available_level;
+        if (in_array($inviterPacketId, $actualPackets) && $order <= $packet_available_level) {
             $boolean = true;
         }
         return $boolean;
