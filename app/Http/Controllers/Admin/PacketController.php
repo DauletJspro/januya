@@ -574,10 +574,10 @@ class PacketController extends Controller
             $operation = new UserOperation();
             $operation->author_id = $user->user_id;
             $operation->recipient_id = $inviter->user_id;
-            $operation->money = $bonus;
+            $operation->money = $packet->price;
             $operation->operation_id = 1;
             $operation->operation_type_id = 11;
-            $operation->operation_comment = 'Групповой доход от. "' . $packet->packet_name_ru;
+            $operation->operation_comment = 'Групповой доход от. "' . $packet->packet_name_ru . 'в размере. ' . $packet->packet_price;
             $operation->gv_balance = $packet->packet_price * (Currency::PVtoKzt / Currency::GVtoKzt);
             $operation->save();
 
