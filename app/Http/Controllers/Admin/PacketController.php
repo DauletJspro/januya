@@ -290,7 +290,7 @@ class PacketController extends Controller
 
 
             $user = Users::find(Auth::user()->user_id);
-            $pvPrice = ($packet->packet_price - $packet_old_price) * (Currency::PVtoKzt / Currency::DollarToKzt);
+            $pvPrice = ($packet->packet_price - $packet_old_price);
             $rest_mooney = $user->user_money - $pvPrice;
             $user->user_money = $rest_mooney;
             $user->pv_balance = $user->pv_balance + $pvPrice;
@@ -554,7 +554,7 @@ class PacketController extends Controller
                 $operation->gv_balance = $packet->packet_price * (Currency::PVtoKzt / Currency::GVtoKzt);
                 $operation->save();
                 $inviter->user_money = $inviter->user_money + $bonus;
-                $inviter->gv_balance = $packet->packet_price * (Currency::PVtoKzt / Currency::GVtoKzt);
+                $inviter->gv_balance = $inviter->gv_balance + $packet->packet_price;
                 $inviter->save();
                 $this->sentMoney += $bonus;
             }
