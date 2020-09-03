@@ -554,7 +554,6 @@ class PacketController extends Controller
                 $operation->gv_balance = $packet->packet_price * (Currency::PVtoKzt / Currency::GVtoKzt);
                 $operation->save();
                 $inviter->user_money = $inviter->user_money + $bonus;
-                $inviter->gv_balance = $inviter->gv_balance + $packet->packet_price;
                 $inviter->save();
                 $this->sentMoney += $bonus;
             }
@@ -567,6 +566,28 @@ class PacketController extends Controller
             }
 
             $inviter_order++;
+        }
+
+
+        $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();
+        while ($inviter) {
+            $operation = new UserOperation();
+            $operation->author_id = $user->user_id;
+            $operation->recipient_id = $inviter->user_id;
+            $operation->money = $bonus;
+            $operation->operation_id = 1;
+            $operation->operation_type_id = 11;
+            $operation->operation_comment = 'Групповой доход от. "' . $packet->packet_name_ru;
+            $operation->gv_balance = $packet->packet_price * (Currency::PVtoKzt / Currency::GVtoKzt);
+            $operation->save();
+
+            $inviter->gv_balance = $inviter->gv_balance + $packet->packet_price;
+            $inviter->save();
+
+            $inviter = Users::where(['user_id' => $inviter->recommend_user_id])->first();
+            if (!$inviter) {
+                break;
+            }
         }
 
         $this->qualificationUp($packet, $user);
