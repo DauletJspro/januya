@@ -551,7 +551,6 @@ class PacketController extends Controller
                 $operation->operation_id = 1;
                 $operation->operation_type_id = 1;
                 $operation->operation_comment = 'Рекрутинговый бонус. "' . $packet->packet_name_ru . '". Уровень - ' . $inviter_order;
-                $operation->gv_balance = $packet->packet_price * (Currency::PVtoKzt / Currency::GVtoKzt);
                 $operation->save();
                 $inviter->user_money = $inviter->user_money + $bonus;
                 $inviter->save();
