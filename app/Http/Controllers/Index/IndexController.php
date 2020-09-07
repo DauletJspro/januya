@@ -51,9 +51,9 @@ class IndexController extends Controller
     }
 
     public function index(Request $request)
-    {        
-        $products = Product::all();           
-        $packets = Packet::all();  
+    {
+        $products = Product::all();
+        $packets = Packet::all();
         // dd($products[0]->product_id);        
         // $popularProducts = Product::where(['is_popular' => true])->get();
         // $brands = Brand::where(['is_show' => true])->get();
@@ -61,7 +61,9 @@ class IndexController extends Controller
         // $gels = Product::where(['category_id' => Category::GEL])->get();
         // $sprays = Product::where(['category_id' => Category::SPRAY])->get();
         // $creams = Product::where(['category_id' => Category::CREAM])->get();
-            
+
+        return 'Сайт в стадии разработки';
+
         return view('new_design.index.index',
             [
                 'products' => $products,
