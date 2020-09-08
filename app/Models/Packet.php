@@ -18,10 +18,10 @@ class Packet extends Model
 
     protected $dates = ['deleted_at'];
 
-    const SMALL = 1;
-    const MEDIUM = 2;
-    const LARGE = 3;
-    const VIP = 4;
+    const SMALL = 1; //Bronze
+    const MEDIUM = 2; // Silver
+    const LARGE = 3; // Gold
+    const VIP = 4; //VIP
 
     public static function actualPacket()
     {

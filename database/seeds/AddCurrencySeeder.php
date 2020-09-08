@@ -21,7 +21,7 @@ class AddCurrencySeeder extends Seeder
         ]);
         \App\Models\Currency::create([
             'currency_name' => 'Personal value (PV)',
-            'amount_in_kzt' => '600',
+            'amount_in_kzt' => '500',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

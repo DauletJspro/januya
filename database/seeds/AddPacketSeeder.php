@@ -15,8 +15,8 @@ class AddPacketSeeder extends Seeder
         DB::table('packet')->truncate();
         \App\Models\Packet::create([
             'packet_id' => 1,
-            'packet_name_ru' => 'Small',
-            'packet_price' => 20,
+            'packet_name_ru' => 'Bronze',
+            'packet_price' => 100,
             'is_show' => true,
             'sort_num' => 1,
             'packet_css_color' => '55b83f',
@@ -30,8 +30,8 @@ class AddPacketSeeder extends Seeder
         ]);
         \App\Models\Packet::create([
             'packet_id' => 2,
-            'packet_name_ru' => 'Medium',
-            'packet_price' => 60,
+            'packet_name_ru' => 'Silver',
+            'packet_price' => 200,
             'is_show' => true,
             'sort_num' => 2,
             'packet_css_color' => '2285E3',
@@ -46,8 +46,8 @@ class AddPacketSeeder extends Seeder
 
         \App\Models\Packet::create([
             'packet_id' => 3,
-            'packet_name_ru' => 'Large',
-            'packet_price' => 120,
+            'packet_name_ru' => 'Gold',
+            'packet_price' => 300,
             'is_show' => true,
             'sort_num' => 3,
             'packet_css_color' => 'FE408A',
