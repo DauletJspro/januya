@@ -1439,11 +1439,12 @@ a:hover {
 
 .mt-bottom-bar .mt-logo {
 	float: left;
+	margin-top: 10px;
 }
 
 .mt-bottom-bar .mt-logo img {
 	display: block;
-	height: 40px;
+	height: 20px;
     width: 100px;
     margin-top: -4px;
 }
@@ -4710,6 +4711,7 @@ a:hover {
 	bottom: 0;
 	position: absolute;
 	padding: 42px 38px 20px 41px;
+	text-align: right;
 }
 
 .banner-frame h2 {
@@ -5439,7 +5441,7 @@ a:hover {
 }
 
 .banner-18 h2 {
-	color: #5f3b34;
+	color: #fff;
 	margin: 0 0 11px;
 	letter-spacing: 1.6px;
 	font: 700 18px/28px "Montserrat", sans-serif;
@@ -12628,3 +12630,7 @@ a:focus {
 	margin: 0;
 }
 
+
+.holder .price-tag {
+	margin-left: 50%;
+}
