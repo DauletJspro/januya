@@ -4718,7 +4718,7 @@ a:hover {
 	right: 0;
 	bottom: 0;
 	position: absolute;
-	padding: 42px 38px 20px 41px;
+	padding: 42px 38px 20px 40px;
 	text-align: right;
 }
 
@@ -5574,7 +5574,7 @@ a:hover {
 
 .banner-20 h2 {
 	margin: 0 0 14px;
-	color: #2b3d66;
+	color: #fff;
 	font-weight: bold;
 	text-transform: uppercase;
 	font-size: 21px;
@@ -5663,10 +5663,12 @@ a:hover {
 	text-transform: none;
 	letter-spacing: -1.0px;
 	font: 100 37px/40px "Source Sans Pro", "Arial", "Helvetica", sans-serif;
+	color: #fff;
 }
 
 .banner-21 h2 strong {
 	font-weight: 600;
+	margin-left: 50%;
 }
 
 .banner-21 .view {
@@ -11278,7 +11280,7 @@ a:hover {
 }
 
 .mt-about-sec .txt p {
-	margin: 0 0 37px;
+	margin: 40px 0 37px;
 }
 
 .mt-about-sec .txt strong {

@@ -2803,5 +2803,13 @@
 		width: auto;
 		margin: 0 auto;
 	}
+
+	.packets_container {
+		display: block;
+	}
+
+	.packets_mob {
+		margin: 0 auto;
+	}
 }
 

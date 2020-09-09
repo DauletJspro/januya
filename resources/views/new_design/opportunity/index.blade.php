@@ -16,7 +16,7 @@
 @endsection
 
 @section('js')
-    <script>        
+    {{-- <script>        
         $(document).ready(function() {            
             // inspired by http://jsfiddle.net/arunpjohny/564Lxosz/1/
             $('.table-responsive-stack').find("th").each(function (i) {                
@@ -54,5 +54,5 @@
             };
             // document ready  
         });
-    </script>
+    </script> --}}
 @endsection

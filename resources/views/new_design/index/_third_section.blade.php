@@ -5,12 +5,12 @@
         <!-- banner-box sixth start here -->
         <div class="banner-box sixth">
             <!-- banner-17 white start here -->
-            <div class="banner-17 white">
+            <div class="banner-18 right">
                 <img src="/custom2/img/banners/4.png" alt="image description">
                 <div class="holder">
                     <h2><strong>Super Elixir <br>Clean</strong></h2>                    
                     <div class="price-tag">
-                        <span>
+                        <span style="color: #fff">
                             это супер эффектиное средство, которая укрепляет весь организм.
                         </span>
                         {{-- <span class="price-off">$ 129.00</span>
@@ -58,23 +58,25 @@
     <div class="banner-box fifth hidden-md hidden-sm hidden-xs">
         <!-- banner-20 start here -->
         <div class="banner-20">
-            <img src="/custom2/img/banners/7.png" alt="image description">
-            {{-- <div class="holder">
-                <h2>SQUARE SIGNATURE</h2>
-                <p>The unmistakable intertwined CC that shook up Fashion, as signed by Coco herself</p>
-                <span class="price-off">$ 129.00</span>
+            <img src="/custom2/img/banners/6.png" alt="image description">
+            <div class="holder">
+                <h2>Super Elixir Grippo</h2>
+                <p style="color: #fff;">Иммуностимулирующее средство,  обладающяя противовирусными и бактерицидными свойствами.</p>
+                {{-- <span class="price-off">$ 129.00</span>
                 <span class="price">$ 99.00</span>
-                <a href="#" class="card">ADD TO CARD</a>
-            </div> --}}
+                <a href="#" class="card">ADD TO CARD</a> --}}
+            </div>
         </div><!-- banner-20 end here -->
         <!-- banner-21 right start here -->
         <div class="banner-21 right">
-            <img src="/custom2/img/banners/6.png" alt="image description">
-            {{-- <div class="holder">
-                <strong class="title">ACCESSORIES</strong>
-                <h2><strong>Check Print</strong> <br>Scarf</h2>
-                <a href="#" class="view">VIEW COLLECTION</a>
-            </div> --}}
+            <img src="/custom2/img/banners/7.png" alt="image description">
+            <div class="holder">                
+                <h2><strong>Super Elixir Bronchi</strong></h2>
+                <p>
+
+                </p>
+                {{-- <a href="#" class="view">VIEW COLLECTION</a> --}}
+            </div>
         </div><!-- banner-21 right end here -->
     </div><!-- banner-box fifth end here -->
 </div><!-- banner-frame end here -->
