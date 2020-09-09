@@ -29,7 +29,7 @@
                             <a href="{{ route('product.detail',$product->product_id, ['id' => $product->product_id]) }}"
                                 data-img = "{{$product->product_image}}"
                                 data-name = "{{$product->product_name_ru}}"
-                                data-desc = "{{ mb_substr($product->product_desc_ru, 0, 180)}}"
+                                data-desc = "{{ mb_substr($product->product_desc_ru, 0, 120)}}"
                                 data-price = "{{$product->product_price}}"
                                 data-rating = "{{\App\Models\Review::ratingCalculator($product->product_id, \App\Models\Review::PRODUCT_REVIEW)}}"
                             >@lang('app.read_more')</a>
