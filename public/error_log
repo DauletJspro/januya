@@ -1,0 +1,60 @@
+[09-Sep-2020 11:50:59 Asia/Almaty] PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file "/var/www/januya.kz/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:110
+Stack trace:
+#0 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(39): Monolog\Handler\StreamHandler->write(Array)
+#1 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(344): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(712): Monolog\Logger->addRecord(400, Object(UnexpectedValueException), Array)
+#3 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(202): Monolog\Logger->error(Object(UnexpectedValueException), Array)
+#4 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(113): Illuminate\Log\Writer->writeLog('error', Object(UnexpectedValueException), Array)
+#5 /var/www/jan in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 110
+[09-Sep-2020 11:50:59 Asia/Almaty] PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file "/var/www/januya.kz/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:110
+Stack trace:
+#0 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(39): Monolog\Handler\StreamHandler->write(Array)
+#1 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(344): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(712): Monolog\Logger->addRecord(400, Object(Symfony\Component\Debug\Exception\FatalErrorException), Array)
+#3 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(202): Monolog\Logger->error(Object(Symfony\Component\Debug\Exception\FatalErrorException), Array)
+#4 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(113): Illuminate\Log\Writer->writeLog('error' in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 110
+[09-Sep-2020 11:51:00 Asia/Almaty] PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file "/var/www/januya.kz/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:110
+Stack trace:
+#0 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(39): Monolog\Handler\StreamHandler->write(Array)
+#1 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(344): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(712): Monolog\Logger->addRecord(400, Object(UnexpectedValueException), Array)
+#3 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(202): Monolog\Logger->error(Object(UnexpectedValueException), Array)
+#4 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(113): Illuminate\Log\Writer->writeLog('error', Object(UnexpectedValueException), Array)
+#5 /var/www/jan in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 110
+[09-Sep-2020 11:51:00 Asia/Almaty] PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file "/var/www/januya.kz/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:110
+Stack trace:
+#0 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(39): Monolog\Handler\StreamHandler->write(Array)
+#1 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(344): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(712): Monolog\Logger->addRecord(400, Object(Symfony\Component\Debug\Exception\FatalErrorException), Array)
+#3 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(202): Monolog\Logger->error(Object(Symfony\Component\Debug\Exception\FatalErrorException), Array)
+#4 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(113): Illuminate\Log\Writer->writeLog('error' in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 110
+[09-Sep-2020 11:51:01 Asia/Almaty] PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file "/var/www/januya.kz/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:110
+Stack trace:
+#0 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(39): Monolog\Handler\StreamHandler->write(Array)
+#1 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(344): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(712): Monolog\Logger->addRecord(400, Object(UnexpectedValueException), Array)
+#3 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(202): Monolog\Logger->error(Object(UnexpectedValueException), Array)
+#4 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(113): Illuminate\Log\Writer->writeLog('error', Object(UnexpectedValueException), Array)
+#5 /var/www/jan in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 110
+[09-Sep-2020 11:51:01 Asia/Almaty] PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file "/var/www/januya.kz/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:110
+Stack trace:
+#0 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(39): Monolog\Handler\StreamHandler->write(Array)
+#1 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(344): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(712): Monolog\Logger->addRecord(400, Object(Symfony\Component\Debug\Exception\FatalErrorException), Array)
+#3 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(202): Monolog\Logger->error(Object(Symfony\Component\Debug\Exception\FatalErrorException), Array)
+#4 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(113): Illuminate\Log\Writer->writeLog('error' in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 110
+[09-Sep-2020 11:51:02 Asia/Almaty] PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file "/var/www/januya.kz/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:110
+Stack trace:
+#0 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(39): Monolog\Handler\StreamHandler->write(Array)
+#1 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(344): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(712): Monolog\Logger->addRecord(400, Object(UnexpectedValueException), Array)
+#3 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(202): Monolog\Logger->error(Object(UnexpectedValueException), Array)
+#4 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(113): Illuminate\Log\Writer->writeLog('error', Object(UnexpectedValueException), Array)
+#5 /var/www/jan in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 110
+[09-Sep-2020 11:51:02 Asia/Almaty] PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file "/var/www/januya.kz/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:110
+Stack trace:
+#0 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(39): Monolog\Handler\StreamHandler->write(Array)
+#1 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(344): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Logger.php(712): Monolog\Logger->addRecord(400, Object(Symfony\Component\Debug\Exception\FatalErrorException), Array)
+#3 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(202): Monolog\Logger->error(Object(Symfony\Component\Debug\Exception\FatalErrorException), Array)
+#4 /var/www/januya.kz/vendor/laravel/framework/src/Illuminate/Log/Writer.php(113): Illuminate\Log\Writer->writeLog('error' in /var/www/januya.kz/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 110

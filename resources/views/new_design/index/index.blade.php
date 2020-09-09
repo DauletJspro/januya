@@ -3,18 +3,20 @@
 
     <title>Главная</title>
     <meta name="description"
-          content="«JanELim» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
-    <meta name="keywords" content="Jan Elim"/>
+          content="«Januya» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
+    <meta name="keywords" content="Januya"/>
 
 @endsection
 @section('content')
 <!-- mt main start here -->
 <main id="mt-main">
-    @include('new_design.index._first_section')
     <div class="container">
         <div class="row">
-            @include('new_design.index._second_section')
-            @include('new_design.index._third_section')            
+            <div class="col-xs-12 paddingbootom-md">
+                @include('new_design.index._first_section')
+                @include('new_design.index._third_section')            
+                @include('new_design.index._second_section')
+            </div>
         </div>
     </div>
 </main>

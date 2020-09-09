@@ -1,6 +1,35 @@
-.slider-3 .slick-slide {
-    height:500px;
- }
+/* .slider-3 h2 {
+    font-size: 25px;
+    margin: 0 0 20px;
+    line-height: 45px;
+    padding: 20px 0px 0px 20px;
+    margin-right: 400px;
+    text-align: left;
+    color: #fff;
+    background-color: #067040;
+    opacity: 0.8;
+}
+
+.slider-3 .text-reverse {
+    padding: 20px 20px 0px 0px;
+    text-align: right;
+    margin-left: 400px; 
+    margin-right: 0px
+}
+
+.slider-3 .c2 {
+    padding: 10px 20px 40px;
+}
+
+
+.slider-3 .caption {
+    background: transparent;
+}
+
+.slider-3 h1 {
+    color: #2e2e2e;
+    font-weight: 500;
+} */
 
 /*------------------------------------------------------------------
 5. Mt Bottom Bar / .mt-bottom-bar
@@ -77,9 +106,72 @@
     margin: 0 0 18px;
 }
 
+/* Packet detail */
+
+.mt-product-detial .product-form button {
+    width: 200px;
+    background: #00a65a;   
+}
+
+.mt-product-detial {
+    margin-bottom: 10px;
+}
 
 /* Basket */
 
 .mt-detail-sec .block.cart .txt span {
     display: flex;
+}
+
+.product-slider .slide_image {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 610px;
+    height: 490px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+.text_center {
+    text-align: center;
+}
+
+.show_in_mob {
+    display: none;
+}
+
+.table-responsive-stack tr {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+}
+  
+  
+.table-responsive-stack td,
+.table-responsive-stack th {
+    display:block;
+/*      
+    flex-grow | flex-shrink | flex-basis   */
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+  
+.table-responsive-stack .table-responsive-stack-thead {
+    font-weight: bold;
+}
+    
+.packets_mob {
+    margin-bottom: 24px;
+    margin-left: 15px;		
+}
+
+.packets_container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
 }

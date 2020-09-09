@@ -1,8 +1,8 @@
 @extends('new_design.layout.app')
 @section('meta-tags')
-    <title>Главная</title>
-    <meta name="description" content="«JanELim» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
-    <meta name="keywords" content="Jan Elim"/>
+    <title>@lang('app.about_us')</title>
+    <meta name="description" content="Januya - это проект предлагающий уникальную натуральную продукцию с широкими бизнес возможностями"/>
+    <meta name="keywords" content="Januya"/>
 @endsection
 @section('content')
 <!-- Main of the Page -->
