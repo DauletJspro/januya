@@ -1439,7 +1439,7 @@ a:hover {
 
 .mt-bottom-bar .mt-logo {
 	float: left;
-	margin-top: 10px;
+	margin-top: 14px;
 }
 
 .mt-bottom-bar .mt-logo img {
@@ -3310,7 +3310,7 @@ a:hover {
 	border-width: 1px;
 	border-style: solid;
 	border-radius: 25px;
-	border-color: #868686;
+	/* border-color: #868686; */
 }
 
 #mt-footer .f-widget-newsletter .newsletter-form ::-webkit-input-placeholder {
