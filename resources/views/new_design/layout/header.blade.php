@@ -22,7 +22,7 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
             <div class="row">
                 <div class="col-xs-12 col-sm-6 hidden-xs">
                     <span class="tel active" onclick="tel:+77011019190"> <i class="fa fa-phone" aria-hidden="true"></i> +7 (701) 101 91 90</span>
-                    {{-- <a class="tel" href="mailto:janelim.kz@gmail.com"> <i class="fa fa-envelope-o" aria-hidden="true"></i> janelim.kz@gmail.com</a> --}}
+                    {{-- <a class="tel" href="mailto:Januya.kz@gmail.com"> <i class="fa fa-envelope-o" aria-hidden="true"></i> Januya.kz@gmail.com</a> --}}
                 </div>
                 <div class="col-xs-12 col-sm-6 text-right">
                     <!-- mt-top-list start here -->

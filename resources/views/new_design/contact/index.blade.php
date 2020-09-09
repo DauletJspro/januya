@@ -49,7 +49,7 @@
                             </li>
                             {{-- <li>
                                 <strong>E mail</strong>
-                                <a href="mailto:janelim.kz@gmail.com" style="line-height: 2.5rem; font-weight: 400;">janelim.kz@gmail.com</a>
+                                <a href="mailto:Januya.kz@gmail.com" style="line-height: 2.5rem; font-weight: 400;">Januya.kz@gmail.com</a>
                             </li> --}}
                         </ul>
                     </div>

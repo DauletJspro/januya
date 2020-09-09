@@ -52,9 +52,12 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {        
-        // $products = Product::all();        
+        if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+        }
+        $products = Product::all();        
         // $packets = Packet::all();
-        $products = [];
+        // $products = [];
         $packets = [];
         // dd($products[0]->product_id);
         // $popularProducts = Product::where(['is_popular' => true])->get();

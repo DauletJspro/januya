@@ -12,7 +12,7 @@
                             <li> @lang('app.footer_text') </li>
                             <li><i class="fa fa-map-marker"></i> <address style="display: inline-block;"> @lang('app.footer_address') </address></li>                            
                             <li><i class="fa fa-phone"></i> <a href="tel:+77011019190">+7 (701) 101 91 90</a></li>
-                            {{-- <li><i class="fa fa-envelope-o"></i><a href="mailto:janelim.kz@gmail.com">janelim.kz@gmail.com</a></li> --}}
+                            {{-- <li><i class="fa fa-envelope-o"></i><a href="mailto:Januya.kz@gmail.com">Januya.kz@gmail.com</a></li> --}}
                         </ul>
                     </div><!-- Footer Nav of the Page end -->
                     <!-- Footer Nav of the Page -->

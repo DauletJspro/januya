@@ -19,6 +19,9 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+        if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+        }
         $row = Product::paginate(20);
 
         return view('admin.product.product', [
@@ -29,6 +32,9 @@ class ProductController extends Controller
 
     public function create()
     {
+        if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+        }
         $row = new Product();
         $row->product_image = '/media/default.jpg';
 
@@ -43,6 +49,9 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+        }
         $validator = Validator::make($request->all(), [
             'product_name_ru' => 'required',
             'category' => 'required',
@@ -80,6 +89,9 @@ class ProductController extends Controller
 
     public function edit($id)
     {
+        if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+        }
         $row = Product::where(['product_id' => $id])->first();
 
 
@@ -93,6 +105,9 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+        }
         $validator = Validator::make($request->all(), [
             'product_name_ru' => 'required',
             'category' => 'required',

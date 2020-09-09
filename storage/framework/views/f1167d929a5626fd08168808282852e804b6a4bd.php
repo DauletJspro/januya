@@ -1,6 +1,6 @@
 <?php $__env->startSection('meta-tags'); ?>
 
-    <title>JanElim.kz</title>
+    <title>Januya.kz</title>
     <meta name="description"
           content="«JanELim» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
     <meta name="keywords" content="Qpartners"/>

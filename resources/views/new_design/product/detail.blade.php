@@ -312,7 +312,7 @@ $tab = (explode('tab=', URL::current()));
                              style="margin-left: 20px; font-size: 120%; color: black; font-weight: 400;">
                             <h4 class="modal-title">Пригласить друга</h4>
                             <h5 class="modal-title">Вы можете поделиться со своими друзьями в социальной сети</h5>
-                            <h5 class="modal-title">https://janelim.kz/</h5>
+                            <h5 class="modal-title">https://Januya.kz/</h5>
                         </div>
                     </div>
                     <div class="modal-body">

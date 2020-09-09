@@ -27,6 +27,9 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
+        if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+        }
         $userOperation = new UserOperation();
         $pvProfitAll = $userOperation->where(['operation_id' => 2, 'operation_type_id' => 30])->where(['author_id' => Auth::user()->user_id])->sum('pv_balance');
         $pvProfitToday = $userOperation->where(['operation_id' => 2, 'operation_type_id' => 30])->where(['author_id' => Auth::user()->user_id])
