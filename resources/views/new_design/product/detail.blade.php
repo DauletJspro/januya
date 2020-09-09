@@ -32,9 +32,9 @@ $tab = (explode('tab=', URL::current()));
                             <ul class="list-unstyled comment-list">
                                 <li><a href="#"><i
                                                 class="fa fa-heart"></i>{{\App\Models\Product::getLike($product->product_id)}}
-                                    </a></li>
+                                    </a></li>                                    
                                 <li><a href="#"><i class="fa fa-comments"></i>{{count($reviews)}}</a></li>
-                            </ul>
+                            </ul>                                        
                             <!-- Comment List of the Page end -->
                             <!-- Product Slider of the Page -->
                             <div class="product-slider">
@@ -86,11 +86,10 @@ $tab = (explode('tab=', URL::current()));
                                                     data-route="{{route('favorite.isAjax')}}"
                                                     onclick="addItemToFavorites(this)"
                                         ><i class="fa fa-heart"
-                                            style="color: {{\App\Models\Product::hasLiked($product->product_id, (Auth::user() ? Auth::user()->user_id : null)) ? 'red' : ''}};"></i>
+                                            ></i>
                                             @lang('app.add_favorite') </a></li>
                                 </ul>
-                            </div>
-
+                            </div>                            
                             <div class="txt-wrap">
                                 <p>{{$product->product_desc_ru}}</p>
                             </div>

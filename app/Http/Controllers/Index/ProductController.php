@@ -16,7 +16,7 @@ class ProductController extends Controller
         $reviews = Review::where(['item_id' => $id])->where(['review_type_id' => Review::PRODUCT_REVIEW])->get();
         $relatedProducts = Product::where(['category_id' => $product->category_id])->whereNotIn('product_id', [$product->product_id])->limit(5)->get();
         $url = URL('/') . '/' . (Auth::user() ? Auth::user()->user_id : NULL) . '/' .
-            \App\Http\Helpers::getTranslatedSlugRu((Auth::user() ? Auth::user()->login : null));
+            \App\Http\Helpers::getTranslatedSlugRu((Auth::user() ? Auth::user()->login : null));        
         return view('new_design.product.detail', [
             'product' => $product,
             'relatedProducts' => $relatedProducts,
