@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-US">
 
-@include('design_index.layout.app')
+<?php echo $__env->make('design_index.layout.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 <body class="home page-template page-template-tpl page-template-front-page page-template-tplfront-page-php page page-id-262  has-topbar header_sticky wide sidebar-left bottom-center wpb-js-composer js-comp-ver-5.1.1 vc_responsive">
-@include('design_index.layout.header')
+<?php echo $__env->make('design_index.layout.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <div class="themesflat-boxed">
     <!-- Preloader -->
     <div class="preloader">
@@ -16,17 +16,19 @@
 <?php
 use \Illuminate\Support\Facades\Session;
 ?>
-@if(Session::has('danger'))
+<?php if(Session::has('danger')): ?>
     <div class="alert-custom-danger hide-div" style="">
-        {{Session::get('danger')}}
-    </div>
-@endif
+        <?php echo e(Session::get('danger')); ?>
 
-@if(Session::has('success'))
-    <div class="alert-custom-success hide-div" style="">
-        {{Session::get('success')}}
     </div>
-@endif
+<?php endif; ?>
+
+<?php if(Session::has('success')): ?>
+    <div class="alert-custom-success hide-div" style="">
+        <?php echo e(Session::get('success')); ?>
+
+    </div>
+<?php endif; ?>
 
 <div id="wrapper">
     <div id="pre-loader" class="loader-container text-center">
@@ -50,8 +52,8 @@ use \Illuminate\Support\Facades\Session;
             </div>
         </div>
 
-        @yield('content')
-{{--       @include('design_index.layout.footer')--}}
+        <?php echo $__env->yieldContent('content'); ?>
+
     </div>
     <span id="back-top" class="fa fa-arrow-up" style="background: red;" ></span>
 </div>
@@ -62,8 +64,8 @@ use \Illuminate\Support\Facades\Session;
 <script src="/new_design/js/jquery.main.js"></script>
 <script src="/notify/notify.js"></script>
 <script src="/notify/notify.min.js"></script>
-@yield('js')
-{{--<script src="/new_design/js/main.js"></script>--}}
+<?php echo $__env->yieldContent('js'); ?>
+
 <script>
 
     $('.hide-div').delay(5000).fadeOut('slow');
@@ -76,7 +78,7 @@ use \Illuminate\Support\Facades\Session;
         if (user_id) {
             ajax(route, method, item_id, user_id);
         } else {
-            window.location.href = '{{route('login.show')}}';
+            window.location.href = '<?php echo e(route('login.show')); ?>';
         }
     }
 

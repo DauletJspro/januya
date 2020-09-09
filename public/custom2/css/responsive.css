@@ -2815,8 +2815,8 @@
 	.packets_mob {
 		margin: 0 auto;
 	}
-
-	.related-products .mt-product1 {
+	
+	.product-slider .slide_image {
 		width: unset;
 	}
 }
