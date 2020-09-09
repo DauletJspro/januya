@@ -24,7 +24,7 @@
                 <div class="holder">
                     <h2><strong>Super Elixir <br>Hepato</strong></h2>                    
                     <div class="price-tag">
-                        <span>
+                        <span style="color: #fff">
                             сильное регенеративное средство. Защищает и восстанавливает внутренную оболочку кровеносных сосудов.
                         </span>
                         
