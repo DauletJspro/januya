@@ -1350,6 +1350,10 @@
 	#product-masonry .masonry-list > li {
 		width: 33.3%;
 	}
+
+	.product-3 .txt a {
+		padding: 0px 30px;
+	}
 }
 
 @media only screen and (max-width: 767px) {
@@ -2796,7 +2800,7 @@
 
 	.product_card {
 		width: auto;
-		margin: a auto;
+		margin: 0 auto;
 	}
 
 	.packet_card {
@@ -2810,6 +2814,10 @@
 
 	.packets_mob {
 		margin: 0 auto;
+	}
+
+	.related-products .mt-product1 {
+		width: unset;
 	}
 }
 

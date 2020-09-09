@@ -4,7 +4,7 @@
 
     <title>Januya.kz</title>
     <meta name="description"
-          content="«JanELim» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
+          content="«Januya» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
     <meta name="keywords" content="Qpartners"/>
 
 @endsection
@@ -12,7 +12,7 @@
 @section('content')
     <main id="mt-main">
         <section class="mt-contact-banner"
-                 style="background-color: lightgrey;">
+                 style="background-color: green;">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 text-center" >

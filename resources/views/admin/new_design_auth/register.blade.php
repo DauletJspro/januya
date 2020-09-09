@@ -30,7 +30,7 @@
     <main id="mt-main">
         <section class="mt-contact-banner"
                  {{--                 style="background-image: url('/new_design/images/sign_in.png'); background-size: contain; background-repeat: no-repeat;"--}}
-                 style="background-color: lightgrey" ;
+                 style="background-color: green" ;
         >
             <div class="container">
                 <div class="row">
