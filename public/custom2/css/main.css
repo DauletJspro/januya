@@ -3265,6 +3265,14 @@ a:hover {
 	float: left;
 }
 
+#mt-footer .nav-widget-1:nth-child(1) {
+	width: 45%;;
+}
+
+#mt-footer .nav-widget-1:nth-child(2) {
+	width: 21%;;
+}
+
 #mt-footer .nav-widget-1.f-nav {
 	width: 25%;
 }
@@ -12580,7 +12588,7 @@ a:focus {
 	line-height: 47px;
 	text-align: center;
 	border-radius: 5px;
-	background: #252525;
+	background: red;
 	-webkit-transition: all .6s ease;
 	transition: all .6s ease;
 	-webkit-transform: translateY(40px);

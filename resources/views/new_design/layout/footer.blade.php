@@ -10,8 +10,8 @@
                         <h3 class="f-widget-heading"> @lang('app.contact')</h3>
                         <ul class="list-unstyled f-widget-nav">
                             <li> @lang('app.footer_text') </li>
-                            <li><i class="fa fa-map-marker"></i> <address style="display: inline-block;"> @lang('app.footer_address') </address></li>                            
-                            <li><i class="fa fa-phone"></i> <a href="tel:+77011019190">+7 (701) 101 91 90</a></li>
+                            <li> <address style="display: inline-block;"> <i class="fa fa-map-marker"> &nbsp; </i> @lang('app.footer_address') </address></li>                            
+                            <li><i class="fa fa-phone"></i> &nbsp; <a href="tel:+77011019190">+7 (701) 101 91 90</a></li>
                             {{-- <li><i class="fa fa-envelope-o"></i><a href="mailto:janelim.kz@gmail.com">janelim.kz@gmail.com</a></li> --}}
                         </ul>
                     </div><!-- Footer Nav of the Page end -->

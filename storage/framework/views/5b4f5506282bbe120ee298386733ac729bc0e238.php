@@ -10,8 +10,8 @@
                         <h3 class="f-widget-heading"> <?php echo app('translator')->get('app.contact'); ?></h3>
                         <ul class="list-unstyled f-widget-nav">
                             <li> <?php echo app('translator')->get('app.footer_text'); ?> </li>
-                            <li><i class="fa fa-map-marker"></i> <address style="display: inline-block;"> <?php echo app('translator')->get('app.footer_address'); ?> </address></li>                            
-                            <li><i class="fa fa-phone"></i> <a href="tel:+77011019190">+7 (701) 101 91 90</a></li>
+                            <li> <address style="display: inline-block;"> <i class="fa fa-map-marker"> &nbsp; </i> <?php echo app('translator')->get('app.footer_address'); ?> </address></li>                            
+                            <li><i class="fa fa-phone"></i> &nbsp; <a href="tel:+77011019190">+7 (701) 101 91 90</a></li>
                             
                         </ul>
                     </div><!-- Footer Nav of the Page end -->
