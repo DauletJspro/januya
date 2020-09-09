@@ -70,7 +70,7 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
           <!-- mt bottom bar start from here -->
           <div class="mt-bottom-bar">
             <!-- mt logo start from here -->
-            <div class="mt-logo"><a href="/"><img alt="schon" src="/custom2/img/logo/Logo-1.png"></a></div>
+            <div class="mt-logo"><a href="/"><img alt="schon" src="/custom2/img/logo/logo_text-removebg.png"></a></div>
             <!-- mt icon list start from here -->
             <ul class="mt-icon-list">
               {{-- <li><a class="icon-magnifier" href="#"></a></li> --}}
