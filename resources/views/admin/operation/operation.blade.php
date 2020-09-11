@@ -83,11 +83,11 @@ use \App\Models\Currency;
                                                     </a>
                                                 </td>
                                                 <td class="arial-font">
-                                                    {{ utf8_encode($val->operation_type_name_ru) }} @if($val->operation_type_id == 9)
-                                                        "{{ utf8_encode($val->fond_name_ru) }}" @endif
+                                                    {{ mb_convert_encoding($val->operation_type_name_ru,"UTF-8","auto") }} @if($val->operation_type_id == 9)
+                                                        "{{ mb_convert_encoding($val->fond_name_ru, "UTF-8","auto") }}" @endif
                                                 </td>
                                                 <td class="arial-font">
-                                                    {{ utf8_encode($val->operation_name_ru) }}
+                                                    {{ mb_convert_encoding($val->operation_name_ru, "UTF-8","auto") }}
                                                 </td>
                                                 <td class="arial-font">
                                                     @if($val->operation_type_id == 2)
