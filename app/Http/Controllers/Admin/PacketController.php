@@ -497,7 +497,7 @@ class PacketController extends Controller
     {
         $inviter_order = 1;
         $userPacket = UserPacket::find($userPacketId);
-        $actualStatuses = [UserStatus::CLIENT, UserStatus::CONSULTANT, UserStatus::MANAGER, UserStatus::DIRECTOR];
+        $actualStatuses = [UserStatus::PARTNER, UserStatus::MANAGER, UserStatus::DIRECTOR, UserStatus::SILVER_DIRECTOR];
 
         if (!$userPacket) {
             $result['message'] = 'Ошибка';
