@@ -16,6 +16,7 @@ use DB;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Mockery\CountValidator\Exception;
 use URL;
 use View;
@@ -537,6 +538,7 @@ class PacketController extends Controller
                 if ($inviter_order == 1 && in_array($inviter->status_id, $actualStatuses)) {
                     $bonusPercentage = (15 / 100);
                     $bonus = $packetPrice * $bonusPercentage;
+                    Log::info($inviterPacketId);
                 } elseif ($this->hasNeedPackets($packet, $inviterPacketId, $inviter_order)) {
                     $bonusPercentage = ($packetPercentage[$inviter_order - 1] / 100);
                     $bonus = $packetPrice * $bonusPercentage;
@@ -805,8 +807,9 @@ class PacketController extends Controller
     function hasNeedPackets($packet, $inviterPacketId, $order)
     {
         $actualPackets = [Packet::SMALL, Packet::MEDIUM, Packet::LARGE, Packet::VIP];
-        $boolean = false;
+        $boolean = false;        
         $inviterPacket = Packet::where(['packet_id' => $inviterPacketId])->first();
+        Log::info($inviterPacket);        
         $packet_available_level = $inviterPacket->packet_available_level;
         if (in_array($inviterPacketId, $actualPackets) && $order <= $packet_available_level) {
             $boolean = true;
