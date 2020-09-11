@@ -748,20 +748,26 @@ class PacketController extends Controller
             $operation->operation_id = 1;
             $operation->operation_type_id = 10;
 
-            if ($packet->packet_status_id == UserStatus::CLIENT)
-                $operation->operation_comment = 'Ваш статус Клиент';
-            elseif ($packet->packet_status_id == UserStatus::CONSULTANT)
-                $operation->operation_comment = 'Ваш статус Консультант';
+            if ($packet->packet_status_id == UserStatus::PARTNER)
+                $operation->operation_comment = 'Ваш статус Партнер';
             elseif ($packet->packet_status_id == UserStatus::MANAGER)
                 $operation->operation_comment = 'Ваш статус Манаджер';
             elseif ($packet->packet_status_id == UserStatus::DIRECTOR)
                 $operation->operation_comment = 'Ваш статус Директор';
-            elseif ($packet->packet_status_id == UserStatus::BRONZE_DIRECTOR)
-                $operation->operation_comment = 'Ваш статус Бронзовый Директор';
+            // elseif ($packet->packet_status_id == UserStatus::DIRECTOR)
+            //     $operation->operation_comment = 'Ваш статус Директор';
+            // elseif ($packet->packet_status_id == UserStatus::BRONZE_DIRECTOR)
+            //     $operation->operation_comment = 'Ваш статус Бронзовый Директор';
             elseif ($packet->packet_status_id == UserStatus::SLIVER_DIRECTOR)
                 $operation->operation_comment = 'Ваш статус Серябренный Директор';
             elseif ($packet->packet_status_id == UserStatus::GOLD_DIRECTOR)
                 $operation->operation_comment = 'Ваш статус Золотой Директор';
+            elseif ($packet->packet_status_id == UserStatus::RUBIN_DIRECTOR)
+                $operation->operation_comment = 'Ваш статус Рубиновый Директор';
+            elseif ($packet->packet_status_id == UserStatus::SAPPHIRE_DIRECTOR)
+                $operation->operation_comment = 'Ваш статус Сапфировый Директор';
+            elseif ($packet->packet_status_id == UserStatus::EMERALD_DIRECTOR)
+                $operation->operation_comment = 'Ваш статус Изумрудный Директор';
             elseif ($packet->packet_status_id == UserStatus::BRILLIANT_DIRECTOR)
                 $operation->operation_comment = 'Ваш статус Брилиантовый Директор';
 
