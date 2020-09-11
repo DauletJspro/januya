@@ -593,7 +593,7 @@ class PacketController extends Controller
 
         $this->qualificationUp($packet, $user);
 
-        if ($user->status_id >= UserStatus::CONSULTANT) {
+        if ($user->status_id >= UserStatus::MANAGER) {
             $this->implementQualificationBonuses($packet, $user, $userPacket);
         }
 
