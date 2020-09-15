@@ -20,6 +20,8 @@ class Users extends Model implements AuthenticatableContract
     const CLIENT = 2;
     const MODERATOR = 3;
 
+    const USER_SEVEN_PERCENT = [2,3,4,5];    
+
 //    use SoftDeletes;
 //    protected $dates = ['deleted_at'];
 

@@ -516,57 +516,58 @@ class PacketController extends Controller
             return response()->json($result);
         }
 
-        $this->activatePackage($userPacket);
-
-
-        while ($inviter) {
-            $bonus = 0;
-            $packetPrice = $userPacket->packet_price;
-            $inviterPacketId = UserPacket::where(['user_id' => $inviter->user_id])->where(['is_active' => true])->get();
-            $inviterCount = (count($inviterPacketId));
-
-            $packetPercentage = $packet->level_percentage;
-            $packetPercentage = explode('-', $packetPercentage);
-
-            if ($inviterCount) {
-                $inviterPacketId = collect($inviterPacketId);
-                $inviterPacketId = $inviterPacketId->map(function ($item) {
-                    return $item->packet_id;
-                });
-                $inviterPacketId = max($inviterPacketId->all());
-                $inviterPacketId = is_array($inviterPacketId) ? 0 : $inviterPacketId;
-                if ($inviter_order == 1 && in_array($inviter->status_id, $actualStatuses)) {
-                    $bonusPercentage = (15 / 100);
-                    $bonus = $packetPrice * $bonusPercentage;
-                    Log::info($inviterPacketId);
-                } elseif ($this->hasNeedPackets($packet, $inviterPacketId, $inviter_order)) {
-                    $bonusPercentage = ($packetPercentage[$inviter_order - 1] / 100);
-                    $bonus = $packetPrice * $bonusPercentage;
+        $this->activatePackage($userPacket);        
+        
+        if (!$packet->is_kooperative) {            
+            while ($inviter) {
+                $bonus = 0;
+                $packetPrice = $userPacket->packet_price;
+                $inviterPacketId = UserPacket::where(['user_id' => $inviter->user_id])->where(['is_active' => true])->get();
+                $inviterCount = (count($inviterPacketId));
+    
+                $packetPercentage = $packet->level_percentage;
+                $packetPercentage = explode('-', $packetPercentage);
+    
+                if ($inviterCount) {
+                    $inviterPacketId = collect($inviterPacketId);
+                    $inviterPacketId = $inviterPacketId->map(function ($item) {
+                        return $item->packet_id;
+                    });
+                    $inviterPacketId = max($inviterPacketId->all());
+                    $inviterPacketId = is_array($inviterPacketId) ? 0 : $inviterPacketId;
+                    if ($inviter_order == 1 && in_array($inviter->status_id, $actualStatuses)) {
+                        $bonusPercentage = (15 / 100);
+                        $bonus = $packetPrice * $bonusPercentage;
+                        Log::info($inviterPacketId);
+                    } elseif ($this->hasNeedPackets($packet, $inviterPacketId, $inviter_order)) {
+                        $bonusPercentage = ($packetPercentage[$inviter_order - 1] / 100);
+                        $bonus = $packetPrice * $bonusPercentage;
+                    }
                 }
+    
+                if ($bonus) {
+                    $operation = new UserOperation();
+                    $operation->author_id = $user->user_id;
+                    $operation->recipient_id = $inviter->user_id;
+                    $operation->money = $bonus;
+                    $operation->operation_id = 1;
+                    $operation->operation_type_id = 1;
+                    $operation->operation_comment = 'Рекрутинговый бонус. "' . $packet->packet_name_ru . '". Уровень - ' . $inviter_order;
+                    $operation->save();
+                    $inviter->user_money = $inviter->user_money + $bonus;
+                    $inviter->save();
+                    $this->sentMoney += $bonus;                    
+                }
+    
+    
+                // echo '<pre>', var_dump($inviter_order . ' /  ' . $inviter->name . ' / ' . $inviter->user_id . ' / ' . $bonus . ' / ' . $inviterPacketId), '</pre>';
+                $inviter = Users::where(['user_id' => $inviter->recommend_user_id])->first();
+                if (!$inviter || $inviter_order >= 10) {
+                    break;
+                }
+    
+                $inviter_order++;
             }
-
-            if ($bonus) {
-                $operation = new UserOperation();
-                $operation->author_id = $user->user_id;
-                $operation->recipient_id = $inviter->user_id;
-                $operation->money = $bonus;
-                $operation->operation_id = 1;
-                $operation->operation_type_id = 1;
-                $operation->operation_comment = 'Рекрутинговый бонус. "' . $packet->packet_name_ru . '". Уровень - ' . $inviter_order;
-                $operation->save();
-                $inviter->user_money = $inviter->user_money + $bonus;
-                $inviter->save();
-                $this->sentMoney += $bonus;
-            }
-
-
-//            echo '<pre>', var_dump($inviter_order . ' /  ' . $inviter->name . ' / ' . $inviter->user_id . ' / ' . $bonus . ' / ' . $inviterPacketId), '</pre>';
-            $inviter = Users::where(['user_id' => $inviter->recommend_user_id])->first();
-            if (!$inviter || $inviter_order >= 10) {
-                break;
-            }
-
-            $inviter_order++;
         }
 
 
@@ -652,8 +653,24 @@ class PacketController extends Controller
             $operation->save();
         }
 
+        $users_sevent_percentage = Users::whereIn('user_id', Users::USER_SEVEN_PERCENT)->get();
+        foreach ($users_sevent_percentage as $user_seven) {    
+            $operation = new UserOperation();
+            $operation->author_id = $user->user_id;
+            $operation->recipient_id = $user_seven->user_id;
+            $operation->money = ($userPacket->packet_price * (7/100));
+            $operation->operation_id = 1;
+            $operation->operation_type_id = 35;
+            $operation->operation_comment = 'За покупку пакета "' . $packet->packet_name_ru . '"';
+            $operation->save();                                
+            $user_seven->user_money = $user_seven->user_money + ($userPacket->packet_price * (7/100));
+            $user_seven->save();
+        }
+
+        $curatorPrice = 4 * ($userPacket->packet_price * (7/100));
+
         //пополнение фонда компании
-        $company_money = $userPacket->packet_price - $this->sentMoney;
+        $company_money = $userPacket->packet_price - ($this->sentMoney + $curatorPrice);
         $operation = new UserOperation();
         $operation->author_id = $userPacket->user_id;
         $operation->recipient_id = 1;
@@ -666,7 +683,7 @@ class PacketController extends Controller
         $company = Users::where('user_id', 1)->first();
         $company->user_money = $company->user_money + $company_money;
         $company->save();
-
+        
     }
 
     private

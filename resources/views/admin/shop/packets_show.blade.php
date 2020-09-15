@@ -3,7 +3,7 @@ $currency = \App\Models\Currency::pvToKzt();
 $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Facades\Auth::user()->user_id])->first();
 ?>
 @foreach ($packets as $packet)
-    @if (mb_strtolower($packet->packet_name_ru) == "vip")
+    @if ($packet->is_kooperative)
         <div class="card col col-sm-6 col-md-4 col-xl-3 col-xs-12">
             <div class="card-body" style="position:relative;background-color:{{'#' . $packet->packet_css_color}}">
                 <h2 class="card-title">{{$packet->packet_name_ru}}</h2>
