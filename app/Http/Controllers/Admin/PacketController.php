@@ -570,26 +570,26 @@ class PacketController extends Controller
         }
 
 
-        $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();
-        while ($inviter) {
-            $operation = new UserOperation();
-            $operation->author_id = $user->user_id;
-            $operation->recipient_id = $inviter->user_id;
-            $operation->money = 0;
-            $operation->operation_id = 1;
-            $operation->operation_type_id = 11;
-            $operation->operation_comment = 'Групповой доход от. "' . $packet->packet_name_ru . 'в размере. ' . $packet->packet_price;
-            $operation->gv_balance = $packet->packet_price;
-            $operation->save();
+        // $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();
+        // while ($inviter) {
+        //     $operation = new UserOperation();
+        //     $operation->author_id = $user->user_id;
+        //     $operation->recipient_id = $inviter->user_id;
+        //     $operation->money = 0;
+        //     $operation->operation_id = 1;
+        //     $operation->operation_type_id = 11;
+        //     $operation->operation_comment = 'Групповой доход от. "' . $packet->packet_name_ru . 'в размере. ' . $packet->packet_price;
+        //     $operation->gv_balance = $packet->packet_price;
+        //     $operation->save();
 
-            $inviter->gv_balance = $inviter->gv_balance + $packet->packet_price;
-            $inviter->save();
+        //     $inviter->gv_balance = $inviter->gv_balance + $packet->packet_price;
+        //     $inviter->save();
 
-            $inviter = Users::where(['user_id' => $inviter->recommend_user_id])->first();
-            if (!$inviter) {
-                break;
-            }
-        }
+        //     $inviter = Users::where(['user_id' => $inviter->recommend_user_id])->first();
+        //     if (!$inviter) {
+        //         break;
+        //     }
+        // }
 
         $this->qualificationUp($packet, $user);
 
@@ -599,6 +599,11 @@ class PacketController extends Controller
 
         $this->implementPacketThings($packet, $user, $userPacket);
 
+    }
+
+    public function minusGV() 
+    {
+        
     }
 
     private function activatePackage($userPacket)
