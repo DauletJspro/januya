@@ -69,6 +69,8 @@ function initNavOpener() {
 function initSlickSlider() {
 	jQuery(".banner-slider").slick({
 		dots: true,
+		autoplay:true,
+  		autoplaySpeed:2000,
 		arrows: false,
 		infinite: true,
 		adaptiveHeight: true
