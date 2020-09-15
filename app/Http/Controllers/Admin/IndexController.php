@@ -30,14 +30,7 @@ class IndexController extends Controller
         if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
             error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
         }
-        $userOperation = new UserOperation();
-        // $pvProfitAll = $userOperation->where(['operation_id' => 2, 'operation_type_id' => 30])->where(['author_id' => Auth::user()->user_id])->sum('pv_balance');
-        // $pvProfitToday = $userOperation->where(['operation_id' => 2, 'operation_type_id' => 30])->where(['author_id' => Auth::user()->user_id])
-        //     ->where('created_at', '>', date("Y-m-d"))->sum('money');
-        // $pvProfitLastWeek = $userOperation->where(['operation_id' => 2, 'operation_type_id' => 30])
-        //     ->where('created_at', '>', date("Y-m-d", strtotime("-7 day")))->where(['author_id' => Auth::user()->user_id])->sum('pv_balance');
-        // $pvProfitLastMonth = $userOperation->where(['operation_id' => 2, 'operation_type_id' => 30])
-        //     ->where('created_at', '>', date("Y-m-d", strtotime("-30 day")))->where(['author_id' => Auth::user()->user_id])->sum('pv_balance');
+        $userOperation = new UserOperation();        
 
         $pvProfitAll = $userOperation->where(['operation_id' => 1, 'operation_type_id' => 1])->where(['recipient_id' => Auth::user()->user_id])->sum('money');
         $pvProfitToday = $userOperation->where(['operation_id' => 1, 'operation_type_id' => 1])->where(['recipient_id' => Auth::user()->user_id])
