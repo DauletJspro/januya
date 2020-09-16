@@ -499,7 +499,7 @@ class PacketController extends Controller
         $inviter_order = 1;
         $userPacket = UserPacket::find($userPacketId);
         $actualStatuses = [UserStatus::PARTNER, UserStatus::MANAGER, UserStatus::DIRECTOR, UserStatus::SILVER_DIRECTOR];
-
+        Log::info('step 1');
         if (!$userPacket) {
             $result['message'] = 'Ошибка';
             $result['status'] = false;
@@ -509,7 +509,7 @@ class PacketController extends Controller
         $packet = Packet::where(['packet_id' => $userPacket->packet_id])->first();
         $user = Users::where(['user_id' => $userPacket->user_id])->first();
         $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();
-
+        Log::info('step 2');
         if (!$packet || !$user) {
             $result['message'] = 'Ошибка, пользователь, пригласитель или пакет был не найден!';
             $result['status'] = false;
@@ -517,9 +517,9 @@ class PacketController extends Controller
         }
 
         $this->activatePackage($userPacket);        
-        
+        Log::info('step 3');
         if (!$packet->is_kooperative) {
-            while ($inviter) {
+            while ($inviter) {                
                 $bonus = 0;
                 $packetPrice = $userPacket->packet_price;
                 $inviterPacketId = UserPacket::where(['user_id' => $inviter->user_id])->where(['is_active' => true])->get();
@@ -546,6 +546,7 @@ class PacketController extends Controller
                 }
     
                 if ($bonus) {
+                    Log::info('step 4');
                     // $inviter_packet = Packet::find($inviterPacketId);                    
                     // if ($inviter_packet->bonus_price_limit > $inviter->user_money)
                     // {
@@ -597,7 +598,7 @@ class PacketController extends Controller
         // }
 
         $this->qualificationUp($packet, $user);
-
+        Log::info('step 5');
         if ($user->status_id >= UserStatus::MANAGER) {
             $this->implementQualificationBonuses($packet, $user, $userPacket);
         }
@@ -606,10 +607,6 @@ class PacketController extends Controller
 
     }
 
-    public function minusGV() 
-    {
-        
-    }
 
     private function activatePackage($userPacket)
     {
