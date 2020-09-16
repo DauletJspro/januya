@@ -546,17 +546,21 @@ class PacketController extends Controller
                 }
     
                 if ($bonus) {
-                    $operation = new UserOperation();
-                    $operation->author_id = $user->user_id;
-                    $operation->recipient_id = $inviter->user_id;
-                    $operation->money = $bonus;
-                    $operation->operation_id = 1;
-                    $operation->operation_type_id = 1;
-                    $operation->operation_comment = 'Рекрутинговый бонус. "' . $packet->packet_name_ru . '". Уровень - ' . $inviter_order;
-                    $operation->save();
-                    $inviter->user_money = $inviter->user_money + $bonus;
-                    $inviter->save();
-                    $this->sentMoney += $bonus;                    
+                    $inviter_packet = Packet::find($inviterPacketId);
+                    if ($inviter_packet->bonus_price_limit > $inviter->user_money)
+                    {
+                        $operation = new UserOperation();
+                        $operation->author_id = $user->user_id;
+                        $operation->recipient_id = $inviter->user_id;
+                        $operation->money = $bonus;
+                        $operation->operation_id = 1;
+                        $operation->operation_type_id = 1;
+                        $operation->operation_comment = 'Рекрутинговый бонус. "' . $packet->packet_name_ru . '". Уровень - ' . $inviter_order;
+                        $operation->save();
+                        $inviter->user_money = $inviter->user_money + $bonus;
+                        $inviter->save();
+                        $this->sentMoney += $bonus;
+                    }
                 }
     
     
@@ -662,7 +666,7 @@ class PacketController extends Controller
             $operation->operation_id = 1;
             $operation->operation_type_id = 35;
             $operation->operation_comment = 'За покупку пакета "' . $packet->packet_name_ru . '"';
-            $operation->save();                                
+            $operation->save();
             $user_seven->user_money = $user_seven->user_money + ($userPacket->packet_price * (7/100));
             $user_seven->save();
         }
