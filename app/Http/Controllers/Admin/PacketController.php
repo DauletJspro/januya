@@ -518,7 +518,7 @@ class PacketController extends Controller
 
         $this->activatePackage($userPacket);        
         
-        if (!$packet->is_kooperative) {            
+        if (!$packet->is_kooperative) {
             while ($inviter) {
                 $bonus = 0;
                 $packetPrice = $userPacket->packet_price;
@@ -546,9 +546,9 @@ class PacketController extends Controller
                 }
     
                 if ($bonus) {
-                    $inviter_packet = Packet::find($inviterPacketId);
-                    if ($inviter_packet->bonus_price_limit > $inviter->user_money)
-                    {
+                    // $inviter_packet = Packet::find($inviterPacketId);                    
+                    // if ($inviter_packet->bonus_price_limit > $inviter->user_money)
+                    // {
                         $operation = new UserOperation();
                         $operation->author_id = $user->user_id;
                         $operation->recipient_id = $inviter->user_id;
@@ -560,7 +560,7 @@ class PacketController extends Controller
                         $inviter->user_money = $inviter->user_money + $bonus;
                         $inviter->save();
                         $this->sentMoney += $bonus;
-                    }
+                    // }
                 }
     
     
