@@ -654,21 +654,21 @@ class PacketController extends Controller
             $operation->save();
         }
 
-        $users_sevent_percentage = Users::whereIn('user_id', Users::USER_SEVEN_PERCENT)->get();
-        foreach ($users_sevent_percentage as $user_seven) {    
-            $operation = new UserOperation();
-            $operation->author_id = $user->user_id;
-            $operation->recipient_id = $user_seven->user_id;
-            $operation->money = ($userPacket->packet_price * (7/100));
-            $operation->operation_id = 1;
-            $operation->operation_type_id = 35;
-            $operation->operation_comment = 'За покупку пакета "' . $packet->packet_name_ru . '"';
-            $operation->save();
-            $user_seven->user_money = $user_seven->user_money + ($userPacket->packet_price * (7/100));
-            $user_seven->save();
-        }
+        // $users_sevent_percentage = Users::whereIn('user_id', Users::USER_SEVEN_PERCENT)->get();
+        // foreach ($users_sevent_percentage as $user_seven) {    
+        //     $operation = new UserOperation();
+        //     $operation->author_id = $user->user_id;
+        //     $operation->recipient_id = $user_seven->user_id;
+        //     $operation->money = ($userPacket->packet_price * (7/100));
+        //     $operation->operation_id = 1;
+        //     $operation->operation_type_id = 35;
+        //     $operation->operation_comment = 'За покупку пакета "' . $packet->packet_name_ru . '"';
+        //     $operation->save();
+        //     $user_seven->user_money = $user_seven->user_money + ($userPacket->packet_price * (7/100));
+        //     $user_seven->save();
+        // }
 
-        $curatorPrice = 4 * ($userPacket->packet_price * (7/100));
+        // $curatorPrice = 4 * ($userPacket->packet_price * (7/100));
 
         //пополнение фонда компании
         $company_money = $userPacket->packet_price - ($this->sentMoney + $curatorPrice);
