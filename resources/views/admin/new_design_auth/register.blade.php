@@ -78,9 +78,24 @@
                                                             data-placeholder="Выберите спонсора"
                                                             class="form-control selectpicker input"
                                                             data-live-search="true">
-                                                        <option value="">Ваш пригласитель</option>
+                                                        <option value="">Выберите спонсора</option>
 
                                                         @if( isset($row->recommend_user_id) || (isset($_GET['id']) && $_GET['id']))
+                                                            <?php  $item = \App\Models\Users::where(['user_id' => (isset($_GET['id']) ? $_GET['id'] : $row->recommend_user_id)])->first(); ?>
+                                                            <option selected
+                                                                    value="{{$item->user_id}}"> {{sprintf('%s (%s)',$item->login, $item->last_name)}}
+                                                            </option>
+                                                        @endif
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <select required name="inviter_user_id"
+                                                            data-placeholder="Выберите пригласитель"
+                                                            class="form-control selectpicker input"
+                                                            data-live-search="true">
+                                                        <option value="">Выберите пригласитель</option>
+
+                                                        @if( isset($row->inviter_user_id) || (isset($_GET['id']) && $_GET['id']))
                                                             <?php  $item = \App\Models\Users::where(['user_id' => (isset($_GET['id']) ? $_GET['id'] : $row->recommend_user_id)])->first(); ?>
                                                             <option selected
                                                                     value="{{$item->user_id}}"> {{sprintf('%s (%s)',$item->login, $item->last_name)}}

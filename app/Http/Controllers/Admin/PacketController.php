@@ -498,8 +498,7 @@ class PacketController extends Controller
     {
         $inviter_order = 1;
         $userPacket = UserPacket::find($userPacketId);
-        $actualStatuses = [UserStatus::PARTNER, UserStatus::MANAGER, UserStatus::DIRECTOR, UserStatus::SILVER_DIRECTOR];
-        Log::info('step 1');
+        $actualStatuses = [UserStatus::PARTNER, UserStatus::MANAGER, UserStatus::DIRECTOR, UserStatus::SILVER_DIRECTOR];        
         if (!$userPacket) {
             $result['message'] = 'Ошибка';
             $result['status'] = false;
@@ -508,16 +507,15 @@ class PacketController extends Controller
 
         $packet = Packet::where(['packet_id' => $userPacket->packet_id])->first();
         $user = Users::where(['user_id' => $userPacket->user_id])->first();
-        $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();
-        Log::info('step 2');
+        $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();        
         if (!$packet || !$user) {
             $result['message'] = 'Ошибка, пользователь, пригласитель или пакет был не найден!';
             $result['status'] = false;
             return response()->json($result);
         }
 
-        $this->activatePackage($userPacket);        
-        Log::info('step 3');
+        $this->activatePackage($userPacket); 
+        $this->implementInviterBonus($userPacket, $packet, $user);
         if (!$packet->is_kooperative) {
             while ($inviter) {                
                 $bonus = 0;
@@ -536,17 +534,15 @@ class PacketController extends Controller
                     $inviterPacketId = max($inviterPacketId->all());
                     $inviterPacketId = is_array($inviterPacketId) ? 0 : $inviterPacketId;
                     if ($inviter_order == 1 && in_array($inviter->status_id, $actualStatuses)) {
-                        $bonusPercentage = (15 / 100);
-                        $bonus = $packetPrice * $bonusPercentage;
-                        Log::info($inviterPacketId);
+                        $bonusPercentage = (3 / 100);
+                        $bonus = $packetPrice * $bonusPercentage;                        
                     } elseif ($this->hasNeedPackets($packet, $inviterPacketId, $inviter_order)) {
                         $bonusPercentage = ($packetPercentage[$inviter_order - 1] / 100);
                         $bonus = $packetPrice * $bonusPercentage;
                     }
                 }
     
-                if ($bonus) {
-                    Log::info('step 4');
+                if ($bonus) {                    
                     // $inviter_packet = Packet::find($inviterPacketId);                    
                     // if ($inviter_packet->bonus_price_limit > $inviter->user_money)
                     // {
@@ -597,14 +593,57 @@ class PacketController extends Controller
         //     }
         // }
 
-        $this->qualificationUp($packet, $user);
-        Log::info('step 5');
+        $this->qualificationUp($packet, $user);        
         if ($user->status_id >= UserStatus::MANAGER) {
             $this->implementQualificationBonuses($packet, $user, $userPacket);
         }
 
         $this->implementPacketThings($packet, $user, $userPacket);
 
+    }
+
+    private function implementInviterBonus($userPacket, $packet, $user)
+    {
+        if ($user->inviter_user_id) {
+            $inviter = Users::where(['user_id' => $user->inviter_user_id])->first();
+        }
+        else {
+            $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();
+        }
+
+        $bonus = 0;
+        $bonusPercentage = 0;
+        $packetPrice = $userPacket->packet_price;
+        $inviterPacketId = UserPacket::where(['user_id' => $inviter->user_id])->where(['is_active' => true])->get();
+        $inviterCount = (count($inviterPacketId));
+
+        if ($inviterCount) {
+            $inviterPacketId = collect($inviterPacketId);
+            $inviterPacketId = $inviterPacketId->map(function ($item) {
+                return $item->packet_id;
+            });
+            $inviterPacketId = max($inviterPacketId->all());
+            $inviterPacketId = is_array($inviterPacketId) ? 0 : $inviterPacketId;
+            if ($packet->packet_id != Packet::ELITE_FREE) {
+                $bonusPercentage = (17 / 100);
+                $bonus = $packetPrice * $bonusPercentage;       
+            }
+        }
+        if ($bonus) {
+            $operation = new UserOperation();
+            $operation->author_id = $user->user_id;
+            $operation->recipient_id = $inviter->user_id;
+            $operation->money = $bonus;
+            $operation->operation_id = 1;
+            $operation->operation_type_id = 1;
+            $operation->operation_comment = 'Кураторский бонус. "' . $packet->packet_name_ru . '".';
+            $operation->save();
+
+            $inviter->user_money = $inviter->user_money + $bonus;
+            $inviter->save();
+
+            $this->sentMoney += $bonus;
+        }
     }
 
 

@@ -102,6 +102,7 @@ class AuthController extends Controller
             'last_name' => 'required',
             'password' => 'required|min:5',
             'recommend_user_id' => 'required',
+            'inviter_user_id' => 'required',
             'confirm_password' => 'required|same:password',
             'email' => 'required|email|unique:users',
             'login' => 'required|unique:users',
@@ -133,6 +134,7 @@ class AuthController extends Controller
         $user->is_confirm_email = 0;
         $user->is_activated = 1;
         $user->recommend_user_id = is_numeric($request->recommend_user_id) ? $request->recommend_user_id : null;
+        $user->inviter_user_id = is_numeric($request->inviter_user_id) ? $request->inviter_user_id:null;
 
         $hash_email = md5(uniqid(time(), true));
         $user->hash_email = $hash_email;
