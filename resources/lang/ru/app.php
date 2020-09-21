@@ -142,6 +142,7 @@ return [
     'rating' => 'Рейтинг',
     'simple_products' => 'ПОХОЖАЯ ПРОДУКЦИЯ',
     'add' => 'Добавить',
+    'buy_product' => 'Купить продукт',
 
     // Packer detail page
     'purchased' => 'Вы уже приобрели',

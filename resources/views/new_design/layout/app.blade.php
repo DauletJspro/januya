@@ -110,53 +110,84 @@
     }
 
 
-      function ajax(route, method, item_id = null, user_id, session_id = null) {
-        var controllerName = route.split('/')[3];
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    function ajax(route, method, item_id = null, user_id, session_id = null) {
+      var controllerName = route.split('/')[3];
+      var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+      $.ajax({
+        url: route,
+        type: "POST",
+        data: {
+            _token: CSRF_TOKEN,
+            method_name: method,
+            item_id: item_id,
+            user_id: user_id,
+            session_id: session_id
+        },
+        success: function (data) {
+            if (controllerName == 'basket') {
+                if (method == 'delete') {
+                    $("#product-section").load(location.href + " #product-section");
+                    $("#total-price-div").load(location.href + " #total-price-div");
+                } else if (data.method == 'add') {
+                    if (data.success == 1) {
+                        $.notify(data.message, "success");
+                    } else if (data.success == -1) {
+                        $.notify(data.message, "error");
+                    } else if (data.success == 0) {
+                        $.notify(data.message, "error");
+                    }
+                    $("#basket-box").load(location.href + " #basket-box");
+                }
+            } else if (controllerName == 'favorite') {
+                if (data.success == 1) {
+                    $.notify(data.message, "success");
+                    $("#favoriteCount").load(location.href + " #favoriteCount");
+                    $("#reload-items").load(location.href + " #reload-items");
+                    $("#reload-heart").load(location.href + " #reload-heart");
+                } else if (data.success == 2) {
+                    $.notify(data.message, "warning");
+                    $("#favoriteCount").load(location.href + " #favoriteCount");
+                    $("#reload-items").load(location.href + " #reload-items");
+                    $("#reload-heart").load(location.href + " #reload-heart");
+                } else if (data.success == 0) {
+                    $.notify(data.message, "danger");
+                    $("#favoriteCount").load(location.href + " #favoriteCount");
+                }
+            }
+        }
+      });
+    }
+
+    function buyProduct(product_id) {
+      if(confirm('Действительно хотите купить продукт онлайн?')) {
+        document.getElementById('ajax-loader').style.display='block';
         $.ajax({
-          url: route,
-          type: "POST",
+          url: '/admin/packet/user/inactive',
+          type: 'POST',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
           data: {
-              _token: CSRF_TOKEN,
-              method_name: method,
-              item_id: item_id,
-              user_id: user_id,
-              session_id: session_id
+            product_id: product_id
           },
           success: function (data) {
-              if (controllerName == 'basket') {
-                  if (method == 'delete') {
-                      $("#product-section").load(location.href + " #product-section");
-                      $("#total-price-div").load(location.href + " #total-price-div");
-                  } else if (data.method == 'add') {
-                      if (data.success == 1) {
-                          $.notify(data.message, "success");
-                      } else if (data.success == -1) {
-                          $.notify(data.message, "error");
-                      } else if (data.success == 0) {
-                          $.notify(data.message, "error");
-                      }
-                      $("#basket-box").load(location.href + " #basket-box");
-                  }
-              } else if (controllerName == 'favorite') {
-                  if (data.success == 1) {
-                      $.notify(data.message, "success");
-                      $("#favoriteCount").load(location.href + " #favoriteCount");
-                      $("#reload-items").load(location.href + " #reload-items");
-                      $("#reload-heart").load(location.href + " #reload-heart");
-                  } else if (data.success == 2) {
-                      $.notify(data.message, "warning");
-                      $("#favoriteCount").load(location.href + " #favoriteCount");
-                      $("#reload-items").load(location.href + " #reload-items");
-                      $("#reload-heart").load(location.href + " #reload-heart");
-                  } else if (data.success == 0) {
-                      $.notify(data.message, "danger");
-                      $("#favoriteCount").load(location.href + " #favoriteCount");
-                  }
-              }
+            document.getElementById('ajax-loader').style.display='none';
+            if (data.status == false) {
+                showError(data.message);
+                return;
+            }
+            else {
+                $(ob).html('Принято');
+                $(ob).removeClass('btn-success');
+                $(ob).addClass('btn-info');
+                $(ob).attr('onclick','');
+                closeModal();
+                showMessage(data.message);
+            }
           }
         });
       }
+    }
   </script>
 </body>
 </html>

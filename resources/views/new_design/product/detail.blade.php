@@ -32,7 +32,7 @@ $tab = (explode('tab=', URL::current()));
                             <ul class="list-unstyled comment-list">
                                 <li><a href="#"><i
                                                 class="fa fa-heart"></i>{{\App\Models\Product::getLike($product->product_id)}}
-                                    </a></li>                                    
+                                    </a></li>
                                 <li><a href="#"><i class="fa fa-comments"></i>{{count($reviews)}}</a></li>
                             </ul>                                        
                             <!-- Comment List of the Page end -->
@@ -78,7 +78,7 @@ $tab = (explode('tab=', URL::current()));
                                                         class="fa fa-share-alt"></i> @lang('app.share') </a></li>
                                     @endif
                                     {{-- <li><a href="#"><i class="fa fa-exchange"></i>Сравнить</a></li> --}}
-                                    <li class=""><a style="cursor: pointer;"
+                                    {{-- <li class=""><a style="cursor: pointer;"
                                                     data-item-id="{{$product->product_id}}"
                                                     data-method="add"
                                                     data-user-id="{{Auth::user() ? Auth::user()->user_id : NULL}}"
@@ -87,7 +87,7 @@ $tab = (explode('tab=', URL::current()));
                                                     onclick="addItemToFavorites(this)"
                                         ><i class="fa fa-heart"
                                             ></i>
-                                            @lang('app.add_favorite') </a></li>
+                                            @lang('app.add_favorite') </a></li> --}}
                                 </ul>
                             </div>                            
                             <div class="txt-wrap">
@@ -97,14 +97,14 @@ $tab = (explode('tab=', URL::current()));
                                 <span class="price"> @lang('app.price'): &nbsp; ${{$product->product_price}} &nbsp; ({{$product->product_price * \App\Models\Currency::DollarToKzt}} &#8376;)</span>
                             </div>
                             <!-- Product Form of the Page -->
-                            <form action="#" class="product-form">
+                            <form class="product-form">
                                 <fieldset>
                                     <div class="row-val">
                                         <label for="qty">Кол-во</label>
                                         <input type="number" id="qty" placeholder="1">
                                     </div>
                                     <div class="row-val">
-                                        <button type="submit"> @lang('app.add_basket') </button>
+                                        <button onclick="buyProduct({{$product->product_id}})"> @lang('app.buy_product') </button>
                                     </div>
                                 </fieldset>
                             </form>
@@ -263,7 +263,7 @@ $tab = (explode('tab=', URL::current()));
                                                             @endif
                                                         @endfor
                                                     </ul>
-                                                    <ul class="links">
+                                                    {{-- <ul class="links">
                                                         <li>
                                                             <a style="cursor: pointer;"
                                                                data-item-id="{{$product->product_id}}"
@@ -276,7 +276,7 @@ $tab = (explode('tab=', URL::current()));
                                                         <li><a href="#"><i class="icomoon icon-heart-empty"></i></a>
                                                         </li>
                                                         <li><a href="#"><i class="icomoon icon-exchange"></i></a></li>
-                                                    </ul>
+                                                    </ul> --}}
                                                 </div>
                                             </div>
                                         </div>
