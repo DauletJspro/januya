@@ -207,7 +207,7 @@ Route::group([
         Route::get('corporative', 'InstagramController@showCorporative');
         Route::get('recommend', 'InstagramController@showRecommend');
     });
-
+    
     Route::resource('instagram', 'InstagramController');
     Route::resource('group', 'GroupController');
     Route::resource('user-group', 'UserGroupController');
@@ -290,6 +290,13 @@ Route::group([
     Route::post('image/upload/doc', 'ImageController@uploadDocument');
     Route::post('images/upload', 'ImageController@uploadMultipleImages');
     Route::get('media/{file_name}', 'ImageController@getImage')->where('file_name', '.*');
+});
+
+Route::group([
+    'prefix' => 'smartpay'
+], function () {
+    Route::post('get_price', 'SmartPayController@getProductPrice');
+    Route::post('smartpay_processing', 'SmartPayController@smartpayProcessing');
 });
 
 /******* Index *******/

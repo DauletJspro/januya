@@ -101,7 +101,7 @@ $tab = (explode('tab=', URL::current()));
                                 <fieldset>
                                     <div class="row-val">
                                         <label for="qty">Кол-во</label>
-                                        <input type="number" id="qty" placeholder="1">
+                                        <input type="number" id="product_count" placeholder="1">
                                     </div>
                                     <div class="row-val">
                                         <button onclick="buyProduct({{$product->product_id}})"> @lang('app.buy_product') </button>

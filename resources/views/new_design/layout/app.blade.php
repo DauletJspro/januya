@@ -160,9 +160,10 @@
 
     function buyProduct(product_id) {
       if(confirm('Действительно хотите купить продукт онлайн?')) {
-        document.getElementById('ajax-loader').style.display='block';
+        let product_price = 0;        
+        let product_count = $("#product_count").val();
         $.ajax({
-          url: '/admin/packet/user/inactive',
+          url: '/smartpay/get_price',
           type: 'POST',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -170,20 +171,37 @@
           data: {
             product_id: product_id
           },
-          success: function (data) {
-            document.getElementById('ajax-loader').style.display='none';
+          success: function (data) {            
             if (data.status == false) {
                 showError(data.message);
                 return;
             }
             else {
-                $(ob).html('Принято');
-                $(ob).removeClass('btn-success');
-                $(ob).addClass('btn-info');
-                $(ob).attr('onclick','');
-                closeModal();
-                showMessage(data.message);
+              product_price = data.message
             }
+          }
+        });
+        console.log(product_price, product_count)
+        $.ajax({
+          url: 'https://spos.kz/merchant/api/create_invoice',
+          type: 'POST',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          data: {
+            MERCHANT_ID: 17344,
+            PAYMENT_AMOUNT: product_count * product_price,
+            PAYMENT_CALLBACK_URL: 'http://januya.kz/smartpay/smartpay_processing',
+            PAYMENT_RETURN_URL: 'http://januya.kz/smartpay/smartpay_processing',
+            PAYMENT_RETURN_FAIL_URL: 'http://januya.kz/smartpay/smartpay_processing',
+            PAYMENT_ORDER_ID: 'prod:' + product_id + 'time:' + new Date()
+
+          },
+          success: function (data) {            
+            console.log(data)
+          },
+          error: function(err) {
+            console.log(err)
           }
         });
       }
