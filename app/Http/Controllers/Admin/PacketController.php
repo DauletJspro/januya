@@ -507,15 +507,15 @@ class PacketController extends Controller
 
         $packet = Packet::where(['packet_id' => $userPacket->packet_id])->first();
         $user = Users::where(['user_id' => $userPacket->user_id])->first();
-        $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();        
         if (!$packet || !$user) {
             $result['message'] = 'Ошибка, пользователь, пригласитель или пакет был не найден!';
             $result['status'] = false;
             return response()->json($result);
         }
-
+        
         $this->activatePackage($userPacket); 
         $this->implementInviterBonus($userPacket, $packet, $user);
+        $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();        
         if (!$packet->is_kooperative) {
             while ($inviter) {                
                 $bonus = 0;
