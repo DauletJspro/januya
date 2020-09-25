@@ -108,6 +108,7 @@ class SmartPayController extends Controller
 
         $input_data = $request->all();
         Log::info($input_data);
+        Log::info('callback');
         if(env('SMART_PAY_MERCHANT_ID') == $input_data['MERCHANT_ID']) {
             $sign = make_signature($input_data, env('SMART_PAY_KEY'));
         
@@ -188,7 +189,7 @@ class SmartPayController extends Controller
 
     public function return(Request $request) {
 
-        Log::info($request);
+        Log::info('ssss');
         return redirect('/')->withInput(['success' => 'Оплата прошла удачно']);
         return $request;
     }
