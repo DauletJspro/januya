@@ -83,18 +83,7 @@ $tab = (explode('tab=', URL::current()));
                                     @if(Auth::user())
                                         <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><i
                                                         class="fa fa-share-alt"></i> @lang('app.share') </a></li>
-                                    @endif
-                                    {{-- <li><a href="#"><i class="fa fa-exchange"></i>Сравнить</a></li> --}}
-                                    {{-- <li class=""><a style="cursor: pointer;"
-                                                    data-item-id="{{$product->product_id}}"
-                                                    data-method="add"
-                                                    data-user-id="{{Auth::user() ? Auth::user()->user_id : NULL}}"
-                                                    data-session-id="{{ Session::getId()}}"
-                                                    data-route="{{route('favorite.isAjax')}}"
-                                                    onclick="addItemToFavorites(this)"
-                                        ><i class="fa fa-heart"
-                                            ></i>
-                                            @lang('app.add_favorite') </a></li> --}}
+                                    @endif                               
                                 </ul>
                             </div>                            
                             <div class="txt-wrap">
@@ -104,19 +93,17 @@ $tab = (explode('tab=', URL::current()));
                                 <span class="price"> @lang('app.price'): &nbsp; ${{$product->product_price}} &nbsp; ({{$product->product_price * \App\Models\Currency::DollarToKzt}} &#8376;)</span>
                             </div>
                             <!-- Product Form of the Page -->
-                            <form action="{{ route('smartpay_create_order') }}" method="POST" class="product-form">
-                                {{ csrf_field() }}
+                            <div class="product-form">                                
                                 <fieldset>
                                     <div class="row-val">
                                         <label for="qty">Кол-во</label>
-                                        <input type="number" value="1" id="product_count" name="products_count[{{ $product->product_id }}]" placeholder="1">                                        
+                                        <input type="number" value="1" id="product_count" />
                                     </div>
-                                    <input type="hidden" value="{{ $product->product_id }}" name="products[]" id="product_id">
                                     <div class="row-val">
-                                        <button type="submit"> @lang('app.buy_product') </button>
+                                        <button onclick="showOrderFormModal($(this), {{ $product->product_id }}, {{ Auth::check() }})"> @lang('app.buy_product') </button>                                        
                                     </div>
                                 </fieldset>
-                            </form>
+                            </div>
                         <!-- Product Form of the Page end -->
                         </div>
                         <!-- Detail Holder of the Page end -->
@@ -261,7 +248,6 @@ $tab = (explode('tab=', URL::current()));
                                                         </div>
                                                     </a>
                                                     <span class="caption">
-{{--															<span class="new">NEW</span>--}}
 														</span>
                                                     <ul class="mt-stars">
                                                         @for($i = 0; $i<5;$i++)
@@ -271,21 +257,7 @@ $tab = (explode('tab=', URL::current()));
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                             @endif
                                                         @endfor
-                                                    </ul>
-                                                    {{-- <ul class="links">
-                                                        <li>
-                                                            <a style="cursor: pointer;"
-                                                               data-item-id="{{$product->product_id}}"
-                                                               data-user-id="{{Auth::user() ? Auth::user()->user_id : NULL}}"
-                                                               data-method="add"
-                                                               onclick="addItemToBasket(this)">
-                                                                <i class="icon-handbag"></i><span> @lang('app.add') </span>
-                                                            </a>
-                                                        </li>
-                                                        <li><a href="#"><i class="icomoon icon-heart-empty"></i></a>
-                                                        </li>
-                                                        <li><a href="#"><i class="icomoon icon-exchange"></i></a></li>
-                                                    </ul> --}}
+                                                    </ul>                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -306,6 +278,52 @@ $tab = (explode('tab=', URL::current()));
                                 @endforeach
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade " id="order_form" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <div class="title-group"
+                             style="margin-left: 20px; font-size: 120%; color: black; font-weight: 400;">
+                            <h4 class="modal-title">Форма заявки</h4>                            
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('smartpay_create_order') }}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="products[]" id="product_id">
+                            <div id="user_not_partner">
+                                <div class="form-group">
+                                    <label for="username">ФИО</label>
+                                    <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="ФИО">                              
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact">Контакт</label>
+                                    <input type="text" class="form-control" id="contact" name="contact" placeholder="+7 (777) 777 77 77">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="noreply@example.com">
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <label for="address">Адрес</label>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="г.Алматы ул.Абая 187а кв 94">
+                            </div>                            
+                            {{-- <div class="form-group form-check">
+                              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                              <label class="form-check-label" for="exampleCheck1">Я ознакомлен(а)</label>
+                            </div> --}}
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                     </div>
                 </div>
             </div>

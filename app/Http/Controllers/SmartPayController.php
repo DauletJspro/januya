@@ -84,7 +84,7 @@ class SmartPayController extends Controller
                 'user_id' => Auth::check() ? Auth::user()->user_id : null,
                 'username' => Auth::check() ? Auth::user()->name .' '. Auth::user()->last_name : $request->username,
                 'email' => Auth::check() ? Auth::user()->email : $request->email,
-                'address' => (Auth::check() && $request->packet_id) ? null : $request->address,
+                'address' => $request->address ?? null,
                 'contact' => Auth::check() ? Auth::user()->phone : $request->contact,
                 'sum' => $price,
                 'products' => $request->products ? \json_encode($products) : null,
