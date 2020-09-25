@@ -24,8 +24,15 @@ $tab = (explode('tab=', URL::current()));
         <section class="mt-product-detial wow fadeInUp" data-wow-delay="0.4s">
             <div class="container">
 
-                <div class="row">
-                    <div class="col-xs-12">
+                <div class="row">                  
+                    @if(old('error'))
+                        <div class="alert alert-danger" style="width: 100%; margin-top: 30px">
+                            <div class="">
+                                <p style="color:red;">{{ old('error') }}</p>
+                            </div>
+                        </div>
+                    @endif
+                    <div class="col-xs-12">                        
                         <!-- Slider of the Page -->
                         <div class="slider">
                             <!-- Comment List of the Page -->
@@ -49,7 +56,7 @@ $tab = (explode('tab=', URL::current()));
                         </div>
                         <!-- Slider of the Page end -->
                         <!-- Detail Holder of the Page -->
-                        <div class="detial-holder">
+                        <div class="detial-holder">                            
                             <!-- Breadcrumbs of the Page -->
                             <ul class="list-unstyled breadcrumbs">
                                 <li><a href="/"> @lang('app.home') <i class="fa fa-angle-right"></i></a></li>
@@ -97,14 +104,16 @@ $tab = (explode('tab=', URL::current()));
                                 <span class="price"> @lang('app.price'): &nbsp; ${{$product->product_price}} &nbsp; ({{$product->product_price * \App\Models\Currency::DollarToKzt}} &#8376;)</span>
                             </div>
                             <!-- Product Form of the Page -->
-                            <form class="product-form">
+                            <form action="{{ route('smartpay_create_order') }}" method="POST" class="product-form">
+                                {{ csrf_field() }}
                                 <fieldset>
                                     <div class="row-val">
                                         <label for="qty">Кол-во</label>
-                                        <input type="number" id="product_count" placeholder="1">
+                                        <input type="number" value="1" id="product_count" name="products_count[{{ $product->product_id }}]" placeholder="1">                                        
                                     </div>
+                                    <input type="hidden" value="{{ $product->product_id }}" name="products[]" id="product_id">
                                     <div class="row-val">
-                                        <button onclick="buyProduct({{$product->product_id}})"> @lang('app.buy_product') </button>
+                                        <button type="submit"> @lang('app.buy_product') </button>
                                     </div>
                                 </fieldset>
                             </form>

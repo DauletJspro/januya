@@ -88,6 +88,35 @@ function addResponseAddPacket(ob,packet_id,user_packet_type){
     }
 }
 
+function buyPacketOnline(ob,packet_id) {
+    if(confirm('Действительно хотите купить онлайн?')) {
+        document.getElementById('ajax-loader').style.display='block';
+        $.ajax({
+            url: '/smartpay/create_order',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                packet_id: packet_id                
+            },
+            beforeSend: function() {
+                closeModal();
+            },
+            success: function (data) {
+                document.getElementById('ajax-loader').style.display='none';
+                if (data.status == false) {
+                    showError(data.message);
+                    return;
+                }
+                else {
+                    window.location.replace(data.url);
+                }
+            }
+        });
+    }
+}
+
 function buyPacketFromBalance(ob,packet_id,user_packet_type){
     if(confirm('Действительно хотите купить?')) {
         document.getElementById('ajax-loader').style.display='block';
@@ -361,7 +390,16 @@ function cancelResponsePacket(ob,packet_id){
 
 function showBuyModal(ob,id) {
     $('#buy_btn').attr('onclick','redirectPaybox("' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '",' + id + ')');
+    $('#send_request_btn').attr('onclick','addResponseAddPacket($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');    
+    $('#buy_packet_from_balance_btn').attr('onclick','buyPacketFromBalance($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
+    $('#buy_modal').modal();
+}
+
+function showBuyPacketModal(ob,id) {
+    $('#buy_btn').attr('onclick','redirectPaybox("' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '",' + id + ')');
     $('#send_request_btn').attr('onclick','addResponseAddPacket($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
+    // $('#send_buy_online_btn').attr('onclick','buyPacketOnline($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
+    $('#buyPacketForm').find('input[name=packet_id]').val(id)
     $('#buy_packet_from_balance_btn').attr('onclick','buyPacketFromBalance($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
     $('#buy_modal').modal();
 }
@@ -369,6 +407,8 @@ function showBuyModal(ob,id) {
 function showBuyModal2(ob, id) {
     $('#buy_btn').attr('onclick','redirectPaybox("' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '",' + id + ')');
     $('#send_request_btn').attr('onclick','addResponseAddPacket($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
+    // $('#send_buy_online_btn').attr('onclick','buyPacketOnline($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
+    $('#buyPacketForm').find('input[name=packet_id]').val(id)
     $('#buy_packet_from_balance_btn').attr('onclick','location.href="http://pk-januya.kz/"');
     $('#buy_modal').modal();
 }

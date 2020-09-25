@@ -4,8 +4,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
 ?>
 @foreach ($packets as $packet)
     @if ($packet->is_kooperative)
-        <div class="card col col-sm-6 col-md-4 col-xl-3 col-xs-12">
-            <div class="card-body" style="position:relative;background-color:{{'#' . $packet->packet_css_color}}">
+        <div class="card col col-sm-6 col-md-3 col-xl-3 col-xs-12">
+            <div class="card-body" style="position:relative;background-color:{{'#' . $packet->packet_css_color}}; height: 250px;">
                 <h2 class="card-title">{{$packet->packet_name_ru}}</h2>
                 <h3 style="font-weight: bold;">                    
                     {{($packet->packet_price - \App\Models\UserPacket::userHasPacketsPrice($packet->packet_id)) * $currency}}
@@ -36,8 +36,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             </div>
         </div>
     @else        
-        <div class="card col col-sm-6 col-md-4 col-xl-3 col-xs-12">
-            <div class="card-body" style="position:relative;background-color:{{'#' . $packet->packet_css_color}}">
+        <div class="card col col-sm-6 col-md-3 col-xl-3 col-xs-12">
+            <div class="card-body" style="position:relative;background-color:{{'#' . $packet->packet_css_color}}; height: 250px;">
                 <h2 class="card-title">{{$packet->packet_name_ru}}</h2>
                 <h3 style="font-weight: bold;">{{$packet->packet_price - \App\Models\UserPacket::userHasPacketsPrice($packet->packet_id)}} pv
                     &emsp;
@@ -61,7 +61,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                         @endif
                     @else
 
-                        <a href="javascript:void(0)" onclick="showBuyModal(this,'{{$packet->packet_id}}')"
+                        <a href="javascript:void(0)" onclick="showBuyPacketModal(this,'{{$packet->packet_id}}')"
                         class="buy_btn_{{$packet->packet_id}} shop_buy_btn btn  transparent">Купить пакет <i
                                     class="fa fa-arrow-right"></i></a>
 
@@ -100,7 +100,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
     }
 
     .card-text {
-        border: 1px solid white;
+        /* border: 1px solid white; */
         border-radius: 4px;
         padding: 5px;
         padding-left: 3px;

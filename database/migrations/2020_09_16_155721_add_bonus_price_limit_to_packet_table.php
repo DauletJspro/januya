@@ -15,7 +15,7 @@ class AddBonusPriceLimitToPacketTable extends Migration
     {
         Schema::table('packet', function (Blueprint $table) {
             $table->integer('bonus_price_limit')->after('sort_num');            
-        });        
+        });
     }
 
     /**

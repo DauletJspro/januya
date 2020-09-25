@@ -10,7 +10,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
     <div class="row profits">
         <div style="padding-left: 2rem;"><h3 style="font-size: 3rem;">Реферальный бонус</h3></div>
         <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
-            <div class="card">
+            <div class="card bg-aqua">
                 <div class="card-body text-center">
                     <h5 class="card-title">На сегодня</h5>
                     <p class="card-text">{{round($pvData['pvProfitToday'],2)}} $</p>
@@ -20,9 +20,9 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             </div>
         </div>
         <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
-            <div class="card">
+            <div class="card bg-green">
                 <div class="card-body text-center">
-                    <h5 class="card-title">За последнюю неделю</h5>
+                    <h5 class="card-title">За неделю</h5>
                     <p class="card-text">{{round($pvData['pvProfitLastWeek'],2)}} $</p>
                     <p class="card-text">{{round($pvData['pvProfitLastWeek'] * \App\Models\Currency::DollarToKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
@@ -30,9 +30,9 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             </div>
         </div>
         <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
-            <div class="card">
+            <div class="card bg-yellow">
                 <div class="card-body text-center">
-                    <h5 class="card-title">За последний месяц</h5>
+                    <h5 class="card-title">За месяц</h5>
                     <p class="card-text">{{round($pvData['pvProfitLastMonth'],2)}} $</p>
                     <p class="card-text">{{round($pvData['pvProfitLastMonth'] * \App\Models\Currency::DollarToKzt,2)}} &#8376; </p>
                     <a href="#" class="btn btn-primary">Доход</a>
@@ -40,7 +40,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             </div>
         </div>
         <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
-            <div class="card">
+            <div class="card bg-red">
                 <div class="card-body text-center">
                     <h5 class="card-title">За весь период</h5>
                     <p class="card-text">{{round($pvData['pvProfitAll'],2)}} $</p>
@@ -51,7 +51,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
         </div>
 
     </div>
-    <div class="row profits">
+    {{-- <div class="row profits">
         <div style="padding-left: 2rem;"><h3 style="font-size: 3rem;">Группавой Обьем</h3></div>
         <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
             <div class="card">
@@ -94,11 +94,11 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
             </div>
         </div>
 
-    </div>
+    </div> --}}
     <div class="row profits">
         <div style="padding-left: 2rem;"><h3 style="font-size: 3rem;">Текущий счет</h3></div>
         <div class="col-sm-6 col-lg-3 col-xs-12 col-md-6" style="margin-top: 20px;">
-            <div class="card">
+            <div class="card bg-purple">
                 <div class="card-body text-center">
                     <h5 class="card-title">В долларах</h5>
                     <p class="card-text">{{Auth::user()->user_money}} $</p>
@@ -151,8 +151,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
     .profits .card {
         padding: 20px;
         font-size: 2rem;
-        border: 3px solid green;
-        border-radius: 5px;
+        /* border: 3px solid green; */
+        /* border-radius: 5px; */
     }
 
     .profits .card-text {
@@ -182,8 +182,8 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
 
     .packets  .card-body {
         font-weight: bold;
-        border: 1px solid #000000;
-        border-radius: 4px;
+        /* border: 1px solid #000000; */
+        /* border-radius: 4px; */
         padding: 10px;
     }
 

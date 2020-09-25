@@ -118,9 +118,16 @@
     </li>
 
     <li class="treeview">
-        <a href="/admin/online"  style="pointer-events: none;">
+        <a href="/admin/online">
             <i class="fa fa-shopping-cart"></i>
             <span>Интернет магазин</span>
+        </a>
+    </li>
+
+    <li class="treeview">
+        <a href="/admin/orders">
+            <i class="fa fa-shopping-cart"></i>
+            <span>Заказы</span>
         </a>
     </li>
 

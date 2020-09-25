@@ -27,11 +27,21 @@
                 </div>
                 <div class="modal-body">
                     <div class="btn-group">
+                        <form action="{{ route('smartpay_create_order') }}" method="post" id="buyPacketForm">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="packet_id">
+                            <button type="submit" style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="send_buy_online_btn">
+                                Купить онлайн
+                            </button>
+                        </form>                        
+                    </div>
+                    <hr>
+                    <div class="btn-group">
                         <button style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="send_request_btn">
                             Отправить запрос
                         </button>
                     </div>
-                    <hr>
+                    <hr>                    
                     <div class="btn-group">
                         <button style="font-size: 2rem; font-weight: bolder;" class="btn btn-warning" type="button" id="buy_packet_from_balance_btn">
                             Снять с баланса

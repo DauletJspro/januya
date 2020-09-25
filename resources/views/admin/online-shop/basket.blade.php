@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="modal-dialog" id="shop_modal">
+    <div class="modal-dialog" id="shop_modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" onclick="closeModal()"><span aria-hidden="true">×</span></button>

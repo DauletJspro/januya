@@ -22,7 +22,6 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-
         $users_row = Users::all();
         View::share('recommend_row', $users_row);
     }

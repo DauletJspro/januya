@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
   
-    @yield('meta-tags')    
+    @yield('meta-tags')
     <link rel="shortcut icon" href="/favicon.png?v=4" />
   
     <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]-->
@@ -49,7 +49,7 @@
         @include('new_design.layout.header_v2')
       @else
         @include('new_design.layout.header')
-      @endif
+      @endif      
       @yield('content')
       @include('new_design.layout._detail_modal')
       @if (Route::is('basket.show'))        
@@ -156,56 +156,7 @@
             }
         }
       });
-    }
-
-    function buyProduct(product_id) {
-      if(confirm('Действительно хотите купить продукт онлайн?')) {
-        let product_price = 0;        
-        let product_count = $("#product_count").val();
-        $.ajax({
-          url: '/smartpay/get_price',
-          type: 'POST',
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          data: {
-            product_id: product_id
-          },
-          success: function (data) {            
-            if (data.status == false) {
-                showError(data.message);
-                return;
-            }
-            else {
-              product_price = data.message
-            }
-          }
-        });
-        console.log(product_price, product_count)
-        $.ajax({
-          url: 'https://spos.kz/merchant/api/create_invoice',
-          type: 'POST',
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          data: {
-            MERCHANT_ID: 17344,
-            PAYMENT_AMOUNT: product_count * product_price,
-            PAYMENT_CALLBACK_URL: 'http://januya.kz/smartpay/smartpay_processing',
-            PAYMENT_RETURN_URL: 'http://januya.kz/smartpay/smartpay_processing',
-            PAYMENT_RETURN_FAIL_URL: 'http://januya.kz/smartpay/smartpay_processing',
-            PAYMENT_ORDER_ID: 'prod:' + product_id + 'time:' + new Date()
-
-          },
-          success: function (data) {            
-            console.log(data)
-          },
-          error: function(err) {
-            console.log(err)
-          }
-        });
-      }
-    }
+    }    
   </script>
 </body>
 </html>

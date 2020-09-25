@@ -76,7 +76,7 @@ class IndexController extends Controller
             'cvProfitLastMonth' => $cvProfitLastMonth,
         ];
 
-        $userPackets = UserPacket::where(['user_id' => Auth::user()->user_id, 'is_active' => true])->get();
+        $userPackets = UserPacket::where(['user_id' => Auth::user()->user_id, 'is_active' => true])->leftJoin('packet', 'packet.packet_id', '=', 'user_packet.packet_id')->get();
 
         return view('admin.index.index', [
             'pvData' => $pvData,

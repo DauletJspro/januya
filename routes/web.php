@@ -67,7 +67,7 @@ Route::group([
         'prefix' => 'packet'
     ], function () {
         Route::get('paybox', 'PacketController@generatePayBoxCode');
-        Route::get('paybox/success/{id}', 'PacketController@acceptUserPacketPaybox');
+        Route::get('paybox/success/{id}', 'PacketController@acceptUserPacketPaybox');        
         Route::post('user', 'PacketController@sendResponseAddPacket');
         Route::post('user/balance', 'PacketController@buyPacketFromBalance');
         Route::delete('user', 'PacketController@cancelResponsePacket');
@@ -192,7 +192,7 @@ Route::group([
         Route::post('{id}', 'OnlineController@addProductToBasket');
         Route::delete('{id}', 'OnlineController@deleteProductFromBasket');
     });
-
+    
     Route::group([
         'prefix' => 'instagram'
     ], function () {
@@ -211,7 +211,7 @@ Route::group([
     Route::resource('instagram', 'InstagramController');
     Route::resource('group', 'GroupController');
     Route::resource('user-group', 'UserGroupController');
-
+    Route::get('/orders', 'OrderController@index');
     Route::get('basket', 'OnlineController@showBasket');
 
     Route::get('document', 'UserDocumentController@index');
@@ -293,10 +293,12 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'smartpay'
+    'prefix' => 'smartpay',
 ], function () {
-    Route::post('get_price', 'SmartPayController@getProductPrice');
-    Route::post('smartpay_processing', 'SmartPayController@smartpayProcessing');
+    Route::post('create_order', 'SmartPayController@createOrder')->name('smartpay_create_order');
+    Route::post('callback', 'SmartPayController@callback')->name('smartpay_callback');
+    Route::post('fail', 'SmartPayController@fail')->name('smartpay_fail');
+    Route::get('return', 'SmartPayController@return')->name('smartpay_return');
 });
 
 /******* Index *******/
