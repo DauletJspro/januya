@@ -67,7 +67,7 @@ class SmartPayController extends Controller
         }
         $data = [
             'MERCHANT_ID' => env('SMART_PAY_MERCHANT_ID'),
-            'PAYMENT_AMOUNT' => $price,
+            'PAYMENT_AMOUNT' => 100,
             'PAYMENT_ORDER_ID' => $order_code,
             'PAYMENT_INFO' => $name,
             'PAYMENT_CALLBACK_URL' => env('SMART_PAY_CALLBACK_URL'),
