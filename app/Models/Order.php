@@ -33,4 +33,8 @@ class Order extends Model
     public static function changeIsPaid($order_code) {
         return Order::where('order_code', $order_code)->update(['is_paid' => 1]);
     }
+
+    public static function getByCode($order_code) {
+        return Order::where('order_code', $order_code)->first();
+    }
 }

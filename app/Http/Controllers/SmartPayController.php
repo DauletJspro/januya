@@ -15,6 +15,7 @@ use App\Http\Helpers;
 
 class SmartPayController extends Controller
 {
+    public $sentMoney = 0;
     public function createOrder(Request $request) {
         $validator = Validator::make($request->all(), [
             'products' => 'required_without:packet_id|array',
@@ -106,11 +107,70 @@ class SmartPayController extends Controller
     public function callback(Request $request) {
 
         $input_data = $request->all();
-        Log::info($request);
+        Log::info($input_data);
         if(env('SMART_PAY_MERCHANT_ID') == $input_data['MERCHANT_ID']) {
             $sign = make_signature($input_data, env('SMART_PAY_KEY'));
         
-            if($input_data['PAYMENT_HASH'] == $sign) {                
+            if($input_data['PAYMENT_HASH'] == $sign) {
+                $order = Order::getByCode($input_data['PAYMENT_ORDER_ID']);
+                if ($order) {
+                    Order::changeIsPaid($input_data['PAYMENT_ORDER_ID']);
+                    if ($order->packet_id && $order->user_id) {
+                        $packet = Packet::where('packet_id', $order->packet_id)->first();
+
+                        $user_packet = new UserPacket();
+                        $user_packet->user_id = $order->user_id;
+                        $user_packet->packet_id = $order->packet_id;
+                        $user_packet->user_packet_type = null;
+                        $user_packet->packet_price = $packet->packet_price;
+                        $user_packet->is_active = false;
+                        $user_packet->is_portfolio = '';
+                        $user_packet->save();
+                        $data = [
+                            'packet_id' => $order->packet_id
+                        ];
+                        $bonus_system = app(\App\Http\Controllers\Admin\PacketController::class)->acceptInactiveUserPacket($data);
+                    }
+                    else {
+                        if ($order->user_id) {
+                            $inviter_order = 1;
+                            $user = Users::where(['user_id' => $order->user_id])->first();
+                            $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();
+                            $actualStatuses = [UserStatus::PARTNER, UserStatus::MANAGER, UserStatus::DIRECTOR, UserStatus::SILVER_DIRECTOR];
+                            while ($inviter) {                
+                                $bonus = 0;
+                                $bonusPercentage = $order->sum * (8 / 100);
+                                $inviterPacketId = UserPacket::where(['user_id' => $inviter->user_id])->where(['is_active' => true])->get();
+                                $inviterCount = (count($inviterPacketId));
+                                if ($inviterCount) {                                                                        
+                                    if (in_array($inviter->status_id, $actualStatuses)) {                                        
+                                        $bonus = $bonusPercentage; 
+                                    }
+                                }
+                    
+                                if ($bonus) {                                                        
+                                    $operation = new UserOperation();
+                                    $operation->author_id = $user->user_id;
+                                    $operation->recipient_id = $inviter->user_id;
+                                    $operation->money = $bonus;
+                                    $operation->operation_id = 1;
+                                    $operation->operation_type_id = 1;
+                                    $operation->operation_comment = 'За покупку продукта. Уровень - ' . $inviter_order;
+                                    $operation->save();
+                                    $inviter->user_money = $inviter->user_money + $bonus;
+                                    $inviter->save();
+                                    $this->sentMoney += $bonus;                                    
+                                }                                                                    
+                                $inviter = Users::where(['user_id' => $inviter->recommend_user_id])->first();
+                                if (!$inviter || $inviter_order >= 8) {
+                                    break;
+                                }
+                    
+                                $inviter_order++;
+                            }
+                        }                        
+                    }
+                }                
                 // маркируем заказ с ИД PAYMENT_ORDER_ID как оплаченый
                 return response()->json(['RESULT'=>'OK']);
             } else {
