@@ -623,11 +623,9 @@ class PacketController extends Controller
                 return $item->packet_id;
             });
             $inviterPacketId = max($inviterPacketId->all());
-            $inviterPacketId = is_array($inviterPacketId) ? 0 : $inviterPacketId;
-            if ($packet->packet_id != Packet::ELITE_FREE) {
-                $bonusPercentage = (17 / 100);
-                $bonus = $packetPrice * $bonusPercentage;       
-            }
+            $inviterPacketId = is_array($inviterPacketId) ? 0 : $inviterPacketId;            
+            $bonusPercentage = (17 / 100);
+            $bonus = $packetPrice * $bonusPercentage;
         }
         if ($bonus) {
             $operation = new UserOperation();
