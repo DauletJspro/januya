@@ -41,9 +41,9 @@
                         @if($user->pv_balance)
                             <span class="badge">PV:</span> {{$user->pv_balance}} pv<br>
                         @endif
-                        @if($user->gv_balance)
+                        {{-- @if($user->gv_balance)
                             <span class="badge">GV:</span> {{$user->gv_balance}} gv<br>
-                        @endif
+                        @endif --}}
                         @if($user->cv_balance)
                             <span class="badge">CV:</span> {{$user->cv_balance}} cv<br>
                         @endif
@@ -67,7 +67,7 @@
                     <div style="padding-top: 5px; color: rgb(58, 58, 58);">
                         <p style="color: #009551; margin: 0px">
                             Квалификация: {{$user->user_status_name ?: 'Нету'}}</p>
-                        @if($user->pv_balance)
+                        {{-- @if($user->pv_balance)
                             <span class="badge">PV:</span> {{$user->pv_balance}} pv<br>
                         @endif
                         @if($user->gv_balance)
@@ -75,7 +75,7 @@
                         @endif
                         @if($user->cv_balance)
                             <span class="badge">CV:</span> {{$user->cv_balance}} cv<br>
-                        @endif
+                        @endif --}}
 
                     </div>
                 </div>
