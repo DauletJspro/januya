@@ -692,23 +692,25 @@ class PacketController extends Controller
         }
 
         $users_sevent_percentage = Users::whereIn('user_id', Users::USER_SEVEN_PERCENT)->get();
+        $bonus = $userPacket->packet_price * (7/100);
         foreach ($users_sevent_percentage as $user_seven) {    
             $operation = new UserOperation();
             $operation->author_id = $user->user_id;
             $operation->recipient_id = $user_seven->user_id;
-            $operation->money = ($userPacket->packet_price * (7/100));
+            $operation->money = $bonus;
             $operation->operation_id = 1;
             $operation->operation_type_id = 35;
             $operation->operation_comment = 'За покупку пакета "' . $packet->packet_name_ru . '"';
             $operation->save();
-            $user_seven->user_money = $user_seven->user_money + ($userPacket->packet_price * (7/100));
+            $user_seven->user_money = $user_seven->user_money + $bonus;
             $user_seven->save();
-        }
 
-        $curatorPrice = 4 * ($userPacket->packet_price * (7/100));
+            $this->sentMoney += $bonus;
+        }
+        
 
         //пополнение фонда компании
-        $company_money = $userPacket->packet_price - ($this->sentMoney + $curatorPrice);
+        $company_money = $userPacket->packet_price - $this->sentMoney;
         $operation = new UserOperation();
         $operation->author_id = $userPacket->user_id;
         $operation->recipient_id = 1;
