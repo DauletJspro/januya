@@ -30,8 +30,11 @@ class SmartPayController extends Controller
         if (!Auth::check()) {                
             return response()->json($result);
         }
-        $packet = Packet::where('packet_id', $request->packet_id)->first();
         $packet_old_price = 0;
+        $packet = Packet::where('packet_id', $request->packet_id)->first();
+        if (!$packet) {
+            return response()->json($result);
+        }
         if ($packet->is_upgrade_packet == 1) {
 
             $is_check = UserPacket::where('user_id', Auth::user()->user_id)
@@ -63,7 +66,7 @@ class SmartPayController extends Controller
             $packet_old_price = UserPacket::beforePurchaseSum(Auth::user()->user_id);
         }
         $price = ($packet->packet_price - $packet_old_price) * \App\Models\Currency::pvToKzt();
-        $name = 'Покупка пакета' . $packet->packet_name_ru . 'на сайте Januya.kz';        
+        $name = 'Покупка пакета ' . $packet->packet_name_ru . ' на сайте Januya.kz';        
         $data = [
             'MERCHANT_ID' => env('SMART_PAY_MERCHANT_ID'),
             'PAYMENT_AMOUNT' => 100,
@@ -80,20 +83,20 @@ class SmartPayController extends Controller
         if($response->status === 0) { // проверяем статус выполнения            
             $data_order = [
                 'order_code' => $order_code,
-                'user_id' => Auth::check() ? Auth::user()->user_id : null,
-                'username' => Auth::check() ? Auth::user()->name .' '. Auth::user()->last_name : $request->username,
-                'email' => Auth::check() ? Auth::user()->email : $request->email,
-                'address' => $request->address ?? null,
-                'contact' => Auth::check() ? Auth::user()->phone : $request->contact,
+                'user_id' => Auth::user()->user_id,
+                'username' => Auth::user()->name .' '. Auth::user()->last_name,
+                'email' => Auth::user()->email,
+                'address' => null,
+                'contact' => Auth::user()->phone,
                 'sum' => $price,
-                'products' => $request->products ? \json_encode($products) : null,
-                'packet_id' => $request->packet_id ?? null,
+                'products' => null,
+                'packet_id' => $request->packet_id,
                 'payment_id' => $response->data->id
             ];
             $order = Order::createOrder($data_order);
             if ($order) {
-                return redirect()->away($response->data->url);
-                // return response()->json(['url' => $response->data->url]); // направляем пользователя на страницу оплаты
+                // return redirect()->away($response->data->url);
+                return response()->json(['url' => $response->data->url]); // направляем пользователя на страницу оплаты
             }
             return response()->json($result);
             // $payment_id = $response->data->id; // для удобства можно привязать к номеру заказа, чтобы проверять статус, используя запрос /merchant/api/status
@@ -113,8 +116,8 @@ class SmartPayController extends Controller
             $sign = Helpers::make_signature($input_data, env('SMART_PAY_KEY'));
         
             if($input_data['PAYMENT_HASH'] == $sign) {
-                if (!$input_data['PAYMENT_STATUS'] == 'paid') {
-                   return response()->json(['RESULT' => 'RETRY', 'DESC' => 'invalid_signature']);
+                if (!$input_data['PAYMENT_STATUS'] != 'paid') {
+                    return response()->json(['RESULT'=>'OK']);
                 }
                 $order = Order::getByCode($input_data['PAYMENT_ORDER_ID']);
                 if ($order) {                    
@@ -125,7 +128,7 @@ class SmartPayController extends Controller
                     $user_packet->user_id = $order->user_id;
                     $user_packet->packet_id = $order->packet_id;
                     $user_packet->user_packet_type = null;
-                    $user_packet->packet_price = $packet->packet_price;
+                    $user_packet->packet_price = $order->sum / \App\Models\Currency::pvToKzt();
                     $user_packet->is_active = false;
                     $user_packet->is_portfolio = '';
                     $user_packet->save();                    
@@ -200,7 +203,7 @@ class SmartPayController extends Controller
                 'contact' => Auth::check() ? Auth::user()->phone : $request->contact,
                 'sum' => $price,
                 'products' => $request->products ? \json_encode($products) : null,
-                'packet_id' => $request->packet_id ?? null,
+                'packet_id' => null,
                 'payment_id' => $response->data->id
             ];
             $order = Order::createOrder($data_order);

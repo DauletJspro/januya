@@ -398,7 +398,7 @@ function showBuyModal(ob,id) {
 function showBuyPacketModal(ob,id) {
     $('#buy_btn').attr('onclick','redirectPaybox("' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '",' + id + ')');
     $('#send_request_btn').attr('onclick','addResponseAddPacket($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
-    // $('#send_buy_online_btn').attr('onclick','buyPacketOnline($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
+    $('#send_buy_online_btn').attr('onclick','buyPacketOnline($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
     $('#buyPacketForm').find('input[name=packet_id]').val(id)
     $('#buy_packet_from_balance_btn').attr('onclick','buyPacketFromBalance($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
     $('#buy_modal').modal();
@@ -407,7 +407,7 @@ function showBuyPacketModal(ob,id) {
 function showBuyModal2(ob, id) {
     $('#buy_btn').attr('onclick','redirectPaybox("' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '",' + id + ')');
     $('#send_request_btn').attr('onclick','addResponseAddPacket($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
-    // $('#send_buy_online_btn').attr('onclick','buyPacketOnline($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
+    $('#send_buy_online_btn').attr('onclick','location.href="http://pk-januya.kz/"');
     $('#buyPacketForm').find('input[name=packet_id]').val(id)
     $('#buy_packet_from_balance_btn').attr('onclick','location.href="http://pk-januya.kz/"');
     $('#buy_modal').modal();

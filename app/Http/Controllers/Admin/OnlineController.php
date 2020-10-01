@@ -156,16 +156,16 @@ class OnlineController extends Controller
     {
 
         $sum = 0;
-        $actualStatuses = [
-            UserStatus::FREE_ELITE_OWNER,
-            UserStatus::AGENT,
+        $actualStatuses = [            
+            UserStatus::PARTNER,
             UserStatus::MANAGER,
-            UserStatus::SILVER_MANAGER,
+            UserStatus::DIRECTOR,
+            UserStatus::SILVER_DIRECTOR,
             UserStatus::GOLD_DIRECTOR,
             UserStatus::RUBIN_DIRECTOR,
             UserStatus::SAPPHIRE_DIRECTOR,
             UserStatus::EMERALD_DIRECTOR,
-            UserStatus::DIAMOND_DIRECTOR
+            UserStatus::BRILLIANT_DIRECTOR
         ];
 
         $products = UserBasket::where('user_id', Auth::user()->user_id)->where('is_active', 0)->get();
@@ -174,11 +174,11 @@ class OnlineController extends Controller
             $sum += $product_price->product_price * $item->unit;
         }
 
-        if (Auth::user()->user_money < $sum) {
-            $result['error'] = 'У вас недостаточно средств';
-            $result['status'] = false;
-            return response()->json($result);
-        }
+        // if (Auth::user()->user_money < $sum) {
+        //     $result['error'] = 'У вас недостаточно средств';
+        //     $result['status'] = false;
+        //     return response()->json($result);
+        // }
 
         $user = Auth::user();
         $products = UserBasket::where('user_id', Auth::user()->user_id)->where('is_active', 0)->get();
