@@ -127,7 +127,7 @@ class SmartPayController extends Controller
                     $user_packet->user_packet_type = null;
                     $user_packet->packet_price = $packet->packet_price;
                     $user_packet->is_active = false;
-                    $user_packet->is_portfolio = $packet->is_portfolio;
+                    $user_packet->is_portfolio = '';
                     $user_packet->save();                    
                     $bonus_system = app(\App\Http\Controllers\Admin\PacketController::class)->implementPacketBonuses($user_packet->user_packet_id);
                 }
