@@ -294,7 +294,7 @@ $tab = (explode('tab=', URL::current()));
                         </div>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('smartpay_create_order') }}" method="POST">
+                        <form action="{{ route('smartpay_create_order_product') }}" method="POST">
                             {{ csrf_field() }}
                             <input type="hidden" name="products[]" id="product_id">
                             <div id="user_not_partner">
