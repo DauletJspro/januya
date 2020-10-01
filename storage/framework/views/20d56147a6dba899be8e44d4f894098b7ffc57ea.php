@@ -24,8 +24,15 @@ $tab = (explode('tab=', URL::current()));
         <section class="mt-product-detial wow fadeInUp" data-wow-delay="0.4s">
             <div class="container">
 
-                <div class="row">
-                    <div class="col-xs-12">
+                <div class="row">                  
+                    <?php if(old('error')): ?>
+                        <div class="alert alert-danger" style="width: 100%; margin-top: 30px">
+                            <div class="">
+                                <p style="color:red;"><?php echo e(old('error')); ?></p>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <div class="col-xs-12">                        
                         <!-- Slider of the Page -->
                         <div class="slider">
                             <!-- Comment List of the Page -->
@@ -33,7 +40,7 @@ $tab = (explode('tab=', URL::current()));
                                 <li><a href="#"><i
                                                 class="fa fa-heart"></i><?php echo e(\App\Models\Product::getLike($product->product_id)); ?>
 
-                                    </a></li>                                    
+                                    </a></li>
                                 <li><a href="#"><i class="fa fa-comments"></i><?php echo e(count($reviews)); ?></a></li>
                             </ul>                                        
                             <!-- Comment List of the Page end -->
@@ -50,7 +57,7 @@ $tab = (explode('tab=', URL::current()));
                         </div>
                         <!-- Slider of the Page end -->
                         <!-- Detail Holder of the Page -->
-                        <div class="detial-holder">
+                        <div class="detial-holder">                            
                             <!-- Breadcrumbs of the Page -->
                             <ul class="list-unstyled breadcrumbs">
                                 <li><a href="/"> <?php echo app('translator')->get('app.home'); ?> <i class="fa fa-angle-right"></i></a></li>
@@ -77,18 +84,7 @@ $tab = (explode('tab=', URL::current()));
                                     <?php if(Auth::user()): ?>
                                         <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><i
                                                         class="fa fa-share-alt"></i> <?php echo app('translator')->get('app.share'); ?> </a></li>
-                                    <?php endif; ?>
-                                    
-                                    <li class=""><a style="cursor: pointer;"
-                                                    data-item-id="<?php echo e($product->product_id); ?>"
-                                                    data-method="add"
-                                                    data-user-id="<?php echo e(Auth::user() ? Auth::user()->user_id : NULL); ?>"
-                                                    data-session-id="<?php echo e(Session::getId()); ?>"
-                                                    data-route="<?php echo e(route('favorite.isAjax')); ?>"
-                                                    onclick="addItemToFavorites(this)"
-                                        ><i class="fa fa-heart"
-                                            ></i>
-                                            <?php echo app('translator')->get('app.add_favorite'); ?> </a></li>
+                                    <?php endif; ?>                               
                                 </ul>
                             </div>                            
                             <div class="txt-wrap">
@@ -98,17 +94,17 @@ $tab = (explode('tab=', URL::current()));
                                 <span class="price"> <?php echo app('translator')->get('app.price'); ?>: &nbsp; $<?php echo e($product->product_price); ?> &nbsp; (<?php echo e($product->product_price * \App\Models\Currency::DollarToKzt); ?> &#8376;)</span>
                             </div>
                             <!-- Product Form of the Page -->
-                            <form action="#" class="product-form">
+                            <div class="product-form">                                
                                 <fieldset>
                                     <div class="row-val">
                                         <label for="qty">Кол-во</label>
-                                        <input type="number" id="qty" placeholder="1">
+                                        <input type="number" value="1" id="product_count" />
                                     </div>
                                     <div class="row-val">
-                                        <button type="submit"> <?php echo app('translator')->get('app.add_basket'); ?> </button>
+                                        <button onclick="showOrderFormModal($(this), <?php echo e($product->product_id); ?>, <?php echo e(Auth::check()); ?>)"> <?php echo app('translator')->get('app.buy_product'); ?> </button>                                        
                                     </div>
                                 </fieldset>
-                            </form>
+                            </div>
                         <!-- Product Form of the Page end -->
                         </div>
                         <!-- Detail Holder of the Page end -->
@@ -269,7 +265,6 @@ $tab = (explode('tab=', URL::current()));
                                                         </div>
                                                     </a>
                                                     <span class="caption">
-
 														</span>
                                                     <ul class="mt-stars">
                                                         <?php for($i = 0; $i<5;$i++): ?>
@@ -279,21 +274,7 @@ $tab = (explode('tab=', URL::current()));
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                             <?php endif; ?>
                                                         <?php endfor; ?>
-                                                    </ul>
-                                                    <ul class="links">
-                                                        <li>
-                                                            <a style="cursor: pointer;"
-                                                               data-item-id="<?php echo e($product->product_id); ?>"
-                                                               data-user-id="<?php echo e(Auth::user() ? Auth::user()->user_id : NULL); ?>"
-                                                               data-method="add"
-                                                               onclick="addItemToBasket(this)">
-                                                                <i class="icon-handbag"></i><span> <?php echo app('translator')->get('app.add'); ?> </span>
-                                                            </a>
-                                                        </li>
-                                                        <li><a href="#"><i class="icomoon icon-heart-empty"></i></a>
-                                                        </li>
-                                                        <li><a href="#"><i class="icomoon icon-exchange"></i></a></li>
-                                                    </ul>
+                                                    </ul>                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -315,6 +296,50 @@ $tab = (explode('tab=', URL::current()));
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade " id="order_form" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <div class="title-group"
+                             style="margin-left: 20px; font-size: 120%; color: black; font-weight: 400;">
+                            <h4 class="modal-title">Форма заявки</h4>                            
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form action="<?php echo e(route('smartpay_create_order')); ?>" method="POST">
+                            <?php echo e(csrf_field()); ?>
+
+                            <input type="hidden" name="products[]" id="product_id">
+                            <div id="user_not_partner">
+                                <div class="form-group">
+                                    <label for="username">ФИО</label>
+                                    <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="ФИО">                              
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact">Контакт</label>
+                                    <input type="text" class="form-control" id="contact" name="contact" placeholder="+7 (777) 777 77 77">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="noreply@example.com">
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <label for="address">Адрес</label>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="г.Алматы ул.Абая 187а кв 94">
+                            </div>                            
+                            
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                     </div>
                 </div>
             </div>

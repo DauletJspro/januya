@@ -110,11 +110,14 @@ class SmartPayController extends Controller
         Log::info($input_data);
         Log::info('callback');
         if(env('SMART_PAY_MERCHANT_ID') == $input_data['MERCHANT_ID']) {
-            $sign = make_signature($input_data, env('SMART_PAY_KEY'));
+            $sign = Helpers::make_signature($input_data, env('SMART_PAY_KEY'));
         
             if($input_data['PAYMENT_HASH'] == $sign) {
+                if (!$input_data['PAYMENT_STATUS'] == 'paid') {
+                   return response()->json(['RESULT' => 'RETRY', 'DESC' => 'invalid_signature']);
+                }
                 $order = Order::getByCode($input_data['PAYMENT_ORDER_ID']);
-                if ($order) {
+                if ($order) {                    
                     Order::changeIsPaid($input_data['PAYMENT_ORDER_ID']);                    
                     $packet = Packet::where('packet_id', $order->packet_id)->first();
 
