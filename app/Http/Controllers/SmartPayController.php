@@ -92,7 +92,8 @@ class SmartPayController extends Controller
             ];
             $order = Order::createOrder($data_order);
             if ($order) {
-                return response()->json(['url' => $response->data->url]); // направляем пользователя на страницу оплаты
+                return redirect()->away($response->data->url);
+                // return response()->json(['url' => $response->data->url]); // направляем пользователя на страницу оплаты
             }
             return response()->json($result);
             // $payment_id = $response->data->id; // для удобства можно привязать к номеру заказа, чтобы проверять статус, используя запрос /merchant/api/status
