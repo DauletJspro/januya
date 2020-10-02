@@ -79,7 +79,7 @@ class SmartPayController extends Controller
 
         $sign = Helpers::make_signature($data, env('SMART_PAY_KEY')); // формируем ключ
         $data['PAYMENT_HASH'] = $sign;
-        $response = Helpers::send_request('http://beta.spos.kz/merchant/api/create_invoice', $data);        
+        $response = Helpers::send_request('https://spos.kz/merchant/api/create_invoice', $data);        
         if($response->status === 0) { // проверяем статус выполнения            
             $data_order = [
                 'order_code' => $order_code,
@@ -116,7 +116,7 @@ class SmartPayController extends Controller
             $sign = Helpers::make_signature($input_data, env('SMART_PAY_KEY'));
         
             if($input_data['PAYMENT_HASH'] == $sign) {
-                if (!$input_data['PAYMENT_STATUS'] != 'paid') {
+                if ($input_data['PAYMENT_STATUS'] != 'paid') {
                     return response()->json(['RESULT'=>'OK']);
                 }
                 $order = Order::getByCode($input_data['PAYMENT_ORDER_ID']);
