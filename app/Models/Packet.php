@@ -157,6 +157,54 @@ class Packet extends Model
         ];
     }
 
+    public static function limitBonus($user, $inviterPacketId)
+    {
+        $messageBody = '';
+        $success = true;
+        $userId = $user->user_id;
+        $userStatus = $user->user_status;
+        $availableBonuses = [1, 32, 22];
+        $firstDay = date('Y-m-d H:i:s', strtotime('first day of this month'));
+        $lastDay = date('Y-m-d H:i:s', strtotime('last day of this month'));
+
+        $incomeForMonth = UserOperation::where(['recipient_id' => $userId])
+            ->where(['operation_type_id' => $availableBonuses])
+            ->whereBetween(['created_at', [$firstDay, $lastDay]])
+            ->get();
+
+        $incomeForMonth = collect($incomeForMonth);
+        $incomeForMonth = $incomeForMonth->map(function ($item) {
+            return $item->money;
+        });
+
+        $incomeForMonth = array_map($incomeForMonth->all());    
+
+        switch ($inviterPacketId) {
+            case UserStatus::SMALL;                
+                if ($incomeForMonth >= 500) {
+                    $messageBody = 'Ваш лимит на месяц не превышает 500$. ';
+                    $success = false;
+                }
+                break;
+            case UserStatus::MEDIUM:
+                if ($incomeForMonth >= 1000) {
+                    $messageBody = 'Ваш лимит на месяц не превышает 1000$. ';
+                    $success = false;
+                }
+                break;
+            case UserStatus::LARGE:
+                if ($incomeForMonth >= 10000) {
+                    $messageBody = 'Ваш лимит на месяц не превышает 10 000$. ';
+                    $success = false;
+                }
+                break;
+        }
+        return [
+            'message' => $messageBody,
+            'success' => $success,
+        ];
+    }
+
     public function userPacket()
     {
         $this->hasMany('App\Models\UserPacket');
