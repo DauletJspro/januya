@@ -25,7 +25,7 @@ class AddPacketSeeder extends Seeder
             'packet_thing' => 'Обучение + 1 Продукт + Back office',
             'packet_lection' => '',
             'currency_id' => \App\Models\Currency::PV,
-            'packet_status_id' => \App\Models\UserStatus::PARTNER,
+            'packet_status_id' => \App\Models\UserStatus::CONSULTANT,
             'is_upgrade_packet' => true,
         ]);
         \App\Models\Packet::create([
@@ -40,7 +40,7 @@ class AddPacketSeeder extends Seeder
             'packet_thing' => 'Обучение + 3 Продукт + Back office',
             'packet_lection' => '',
             'currency_id' => \App\Models\Currency::PV,
-            'packet_status_id' => \App\Models\UserStatus::PARTNER,
+            'packet_status_id' => \App\Models\UserStatus::CONSULTANT,
             'is_upgrade_packet' => true,
         ]);
 
@@ -56,7 +56,7 @@ class AddPacketSeeder extends Seeder
             'packet_thing' => 'Обучение + 6 Продукт + Back office',
             'packet_lection' => '',
             'currency_id' => \App\Models\Currency::PV,
-            'packet_status_id' => \App\Models\UserStatus::PARTNER,
+            'packet_status_id' => \App\Models\UserStatus::CONSULTANT,
             'is_upgrade_packet' => true,
         ]);
 

@@ -157,7 +157,7 @@ class OnlineController extends Controller
 
         $sum = 0;
         $actualStatuses = [            
-            UserStatus::PARTNER,
+            UserStatus::CONSULTANT,
             UserStatus::MANAGER,
             UserStatus::DIRECTOR,
             UserStatus::SILVER_DIRECTOR,

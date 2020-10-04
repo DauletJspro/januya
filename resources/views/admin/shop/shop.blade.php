@@ -33,7 +33,10 @@
                             <button type="submit" style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="send_buy_online_btn">
                                 Купить онлайн
                             </button>
-                        </form>                        
+                        </form>  
+                        <button type="submit" style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="buy_vip_online_btn">
+                            Купить онлайн
+                        </button>                      
                     </div>
                     <hr>
                     <div class="btn-group">
@@ -47,6 +50,33 @@
                             Снять с баланса
                         </button>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade text-center" id="buy_modal2" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Купить пакет</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="btn-group">                        
+                        <button type="submit" onclick="location.href='http://pk-januya.kz/'" style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="buy_vip_online_btn">
+                            Перейти к оплате
+                        </button>                      
+                    </div>
+                    <hr>
+                    <div class="btn-group">
+                        <button style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="send_request_btn_second">
+                            Отправить запрос
+                        </button>
+                    </div>                                        
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>

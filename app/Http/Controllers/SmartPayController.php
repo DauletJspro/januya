@@ -233,7 +233,7 @@ class SmartPayController extends Controller
                         $inviter_order = 1;
                         $user = Users::where(['user_id' => $order->user_id])->first();
                         $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();
-                        $actualStatuses = [UserStatus::PARTNER, UserStatus::MANAGER, UserStatus::DIRECTOR, UserStatus::SILVER_DIRECTOR];
+                        $actualStatuses = [UserStatus::CONSULTANT, UserStatus::MANAGER, UserStatus::DIRECTOR, UserStatus::SILVER_DIRECTOR];
                         while ($inviter) {                
                             $bonus = 0;
                             $dollar_sum = round($order->sum / \App\Models\Currency::pvToKzt());

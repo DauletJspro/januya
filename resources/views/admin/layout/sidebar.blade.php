@@ -6,7 +6,20 @@
 
                 @if(isset($status_name->user_status_name))
 
-                Статус: {{ $status_name->user_status_name }}
+                Статус JC: {{ $status_name->user_status_name }}
+
+                @endif
+
+            </p>
+        </li>
+        <li class="header"
+            style="background: #fff; font-size: 14px; padding:5px 25px 0px">
+            <?php $status_name = \App\Models\UserStatus::where('user_status_id', Auth::user()->soc_status_id)->first(); ?>
+            <p style="color:#2e2e2e;margin:0px;font-weight: bold">
+
+                @if(isset($status_name->user_status_name))
+
+                Статус JPK: {{ $status_name->user_status_name }}
 
                 @endif
 

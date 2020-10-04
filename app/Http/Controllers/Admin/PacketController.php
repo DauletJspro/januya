@@ -498,7 +498,7 @@ class PacketController extends Controller
     {
         $inviter_order = 1;
         $userPacket = UserPacket::find($userPacketId);
-        $actualStatuses = [UserStatus::PARTNER, UserStatus::MANAGER, UserStatus::DIRECTOR, UserStatus::SILVER_DIRECTOR];        
+        $actualStatuses = [UserStatus::CONSULTANT, UserStatus::MANAGER, UserStatus::DIRECTOR, UserStatus::SILVER_DIRECTOR];        
         if (!$userPacket) {
             $result['message'] = 'Ошибка';
             $result['status'] = false;
@@ -777,7 +777,7 @@ class PacketController extends Controller
     function qualificationUp($packet, $user)
     {
         $willUpdate = false;
-        $actualPackets = [Packet::SMALL, Packet::MEDIUM, Packet::LARGE, Packet::VIP];
+        $actualPackets = [Packet::SMALL, Packet::MEDIUM, Packet::LARGE];
         if (in_array($packet->packet_id, $actualPackets)) {
 
             $operation = new UserOperation();
@@ -787,29 +787,8 @@ class PacketController extends Controller
             $operation->operation_id = 1;
             $operation->operation_type_id = 10;
 
-            if ($packet->packet_status_id == UserStatus::PARTNER)
-                $operation->operation_comment = 'Ваш статус Партнер';
-            elseif ($packet->packet_status_id == UserStatus::MANAGER)
-                $operation->operation_comment = 'Ваш статус Манаджер';
-            elseif ($packet->packet_status_id == UserStatus::DIRECTOR)
-                $operation->operation_comment = 'Ваш статус Директор';
-            // elseif ($packet->packet_status_id == UserStatus::DIRECTOR)
-            //     $operation->operation_comment = 'Ваш статус Директор';
-            // elseif ($packet->packet_status_id == UserStatus::BRONZE_DIRECTOR)
-            //     $operation->operation_comment = 'Ваш статус Бронзовый Директор';
-            elseif ($packet->packet_status_id == UserStatus::SLIVER_DIRECTOR)
-                $operation->operation_comment = 'Ваш статус Серябренный Директор';
-            elseif ($packet->packet_status_id == UserStatus::GOLD_DIRECTOR)
-                $operation->operation_comment = 'Ваш статус Золотой Директор';
-            elseif ($packet->packet_status_id == UserStatus::RUBIN_DIRECTOR)
-                $operation->operation_comment = 'Ваш статус Рубиновый Директор';
-            elseif ($packet->packet_status_id == UserStatus::SAPPHIRE_DIRECTOR)
-                $operation->operation_comment = 'Ваш статус Сапфировый Директор';
-            elseif ($packet->packet_status_id == UserStatus::EMERALD_DIRECTOR)
-                $operation->operation_comment = 'Ваш статус Изумрудный Директор';
-            elseif ($packet->packet_status_id == UserStatus::BRILLIANT_DIRECTOR)
-                $operation->operation_comment = 'Ваш статус Брилиантовый Директор';
-
+            if ($packet->packet_status_id == UserStatus::CONSULTANT)
+                $operation->operation_comment = 'Ваш статус Консультант';
 
             $operation->save();
             $user->status_id = $packet->packet_status_id;
@@ -818,21 +797,107 @@ class PacketController extends Controller
 
             $parentFollowers = Users::parentFollowers($user->recommend_user_id);
             $parent = Users::where('user_id', $user->recommend_user_id)->first();
-            $needNumber = 5; // Necessary number of followers for update parent status
+            $needNumber = 3; // Necessary number of followers for update parent status
             if (count($parentFollowers) >= $needNumber) {
                 $operation = new UserOperation();
-                if ($parent->status_id == UserStatus::DIRECTOR && $user->status_id == UserStatus::DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::DIRECTOR)) {
-                    $parent->status_id = UserStatus::BRONZE_DIRECTOR;
-                    $operation->operation_comment = "Ваш статус Бронзовый Директор";
-                } elseif ($parent->status_id == UserStatus::BRONZE_DIRECTOR && $user->status_id == UserStatus::BRONZE_DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::BRONZE_DIRECTOR)) {
+                if ($parent->status_id == UserStatus::CONSULTANT && $user->status_id == UserStatus::CONSULTANT && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::CONSULTANT)) {
+                    $parent->status_id = UserStatus::MANAGER;
+                    $operation->operation_comment = "Ваш статус Менеджер";
+                    $willUpdate = true;
+                } elseif ($parent->status_id == UserStatus::MANAGER && $user->status_id == UserStatus::MANAGER && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::MANAGER)) {
+                    $parent->status_id = UserStatus::DIRECTOR;
+                    $operation->operation_comment = "Ваш статус Директор";
+                    $willUpdate = true;
+                } elseif ($parent->status_id == UserStatus::DIRECTOR && $user->status_id == UserStatus::DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::DIRECTOR)) {
                     $parent->status_id = UserStatus::SLIVER_DIRECTOR;
-                    $operation->operation_comment = "Ваш статус Серебряный  Директор";
+                    $operation->operation_comment = "Ваш статус Серябренный Директор";
+                    $willUpdate = true;
                 } elseif ($parent->status_id == UserStatus::SLIVER_DIRECTOR && $user->status_id == UserStatus::SLIVER_DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::SLIVER_DIRECTOR)) {
                     $parent->status_id = UserStatus::GOLD_DIRECTOR;
                     $operation->operation_comment = "Ваш статус Золотой Директор";
-                } elseif ($parent->status_id == UserStatus::GOLD_DIRECTOR && $user->status_id == UserStatus::GOLD_DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::GOLD_DIRECTOR)) {
+                    $willUpdate = true;
+                }
+                elseif ($parent->status_id == UserStatus::GOLD_DIRECTOR && $user->status_id == UserStatus::GOLD_DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::GOLD_DIRECTOR)) {
+                    $parent->status_id = UserStatus::RUBIN_DIRECTOR;
+                    $operation->operation_comment = "Ваш статус Рубиновый Директор";
+                    $willUpdate = true;
+                }
+                elseif ($parent->status_id == UserStatus::RUBIN_DIRECTOR && $user->status_id == UserStatus::RUBIN_DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::RUBIN_DIRECTOR)) {
+                    $parent->status_id = UserStatus::SAPPHIRE_DIRECTOR;
+                    $operation->operation_comment = "Ваш статус Сапфировый Директор";
+                    $willUpdate = true;
+                }
+                elseif ($parent->status_id == UserStatus::SAPPHIRE_DIRECTOR && $user->status_id == UserStatus::SAPPHIRE_DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::SAPPHIRE_DIRECTOR)) {
+                    $parent->status_id = UserStatus::EMERALD_DIRECTOR;
+                    $operation->operation_comment = "Ваш статус Изумрудный Директор";
+                    $willUpdate = true;
+                }
+                elseif ($parent->status_id == UserStatus::EMERALD_DIRECTOR && $user->status_id == UserStatus::EMERALD_DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::EMERALD_DIRECTOR)) {
                     $parent->status_id = UserStatus::BRILLIANT_DIRECTOR;
                     $operation->operation_comment = "Ваш статус Бриллиантовый Директор";
+                    $willUpdate = true;
+                }
+
+                if ($willUpdate = true) {
+                    $operation->author_id = null;
+                    $operation->recipient_id = $parent->user_id;
+                    $operation->money = null;
+                    $operation->operation_id = 1;
+                    $operation->operation_type_id = 10;
+                    $parent->save();
+                    $operation->save();
+                }
+            }
+        }
+        else if ($packet->packet_id == Packet::VIP) {
+            $operation = new UserOperation();
+            $operation->author_id = null;
+            $operation->recipient_id = $user->user_id;
+            $operation->money = null;
+            $operation->operation_id = 1;
+            $operation->operation_type_id = 10;
+
+            if ($packet->packet_status_id == UserStatus::VIP)
+                $operation->operation_comment = 'Ваш статус VIP';          
+
+            $operation->save();
+            $user->soc_status_id = $packet->packet_status_id;
+            $user->save();
+
+
+            $parentFollowers = Users::parentFollowers($user->recommend_user_id);
+            $parent = Users::where('user_id', $user->recommend_user_id)->first();
+            $needNumber = 3; // Necessary number of followers for update parent status
+            if (count($parentFollowers) >= $needNumber) {
+                $operation = new UserOperation();
+                if ($parent->soc_status_id == UserStatus::VIP && $user->soc_status_id == UserStatus::VIP && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::VIP)) {
+                    $parent->soc_status_id = UserStatus::VIP_2;
+                    $operation->operation_comment = "Ваш статус VIP 2ур";
+                    $willUpdate = true;
+                } elseif ($parent->soc_status_id == UserStatus::VIP_2 && $user->soc_status_id == UserStatus::VIP_2 && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::VIP_2)) {
+                    $parent->soc_status_id = UserStatus::VIP_3;
+                    $operation->operation_comment = "Ваш статус VIP 3ур";
+                    $willUpdate = true;
+                } elseif ($parent->soc_status_id == UserStatus::VIP_3 && $user->soc_status_id == UserStatus::VIP_3 && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::VIP_3)) {
+                    $parent->soc_status_id = UserStatus::VIP_4;
+                    $operation->operation_comment = "Ваш статус VIP 4ур";
+                    $willUpdate = true;
+                } elseif ($parent->soc_status_id == UserStatus::VIP_4 && $user->soc_status_id == UserStatus::VIP_4 && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::VIP_4)) {
+                    $parent->soc_status_id = UserStatus::VIP_5;
+                    $operation->operation_comment = "Ваш статус VIP 5ур";
+                    $willUpdate = true;
+                } elseif ($parent->soc_status_id == UserStatus::VIP_5 && $user->soc_status_id == UserStatus::VIP_5 && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::VIP_5)) {
+                    $parent->soc_status_id = UserStatus::VIP_6;
+                    $operation->operation_comment = "Ваш статус VIP 6ур";
+                    $willUpdate = true;
+                } elseif ($parent->soc_status_id == UserStatus::VIP_6 && $user->soc_status_id == UserStatus::VIP_6 && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::VIP_6)) {
+                    $parent->soc_status_id = UserStatus::VIP_7;
+                    $operation->operation_comment = "Ваш статус VIP 7ур";
+                    $willUpdate = true;
+                } elseif ($parent->soc_status_id == UserStatus::VIP_7 && $user->soc_status_id == UserStatus::VIP_7 && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::VIP_7)) {
+                    $parent->soc_status_id = UserStatus::VIP_8;
+                    $operation->operation_comment = "Ваш статус VIP 8ур";
+                    $willUpdate = true;
                 }
 
                 if ($willUpdate = true) {

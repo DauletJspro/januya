@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class CleanAndAddStatusesSeeder extends Seeder
+class AddSocStatusSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,102 +11,89 @@ class CleanAndAddStatusesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('user_status')->truncate();
-
         \App\Models\UserStatus::create([
-            'user_status_id' => \App\Models\UserStatus::CONSULTANT,
-            'user_status_name' => 'Партнер',
+            'user_status_id' => \App\Models\UserStatus::VIP,
+            'user_status_name' => 'VIP',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
-            'sort_num' => 1,
+            'sort_num' => 10,
             'is_show' => true,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
         \App\Models\UserStatus::create([
-            'user_status_id' => \App\Models\UserStatus::MANAGER,
-            'user_status_name' => 'Менеджер',
+            'user_status_id' => \App\Models\UserStatus::VIP_2,
+            'user_status_name' => 'VIP 2ур',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
-            'sort_num' => 2,
+            'sort_num' => 11,
+            'is_show' => true,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        
+        \App\Models\UserStatus::create([
+            'user_status_id' => \App\Models\UserStatus::VIP_3,
+            'user_status_name' => 'VIP 3ур',
+            'user_status_money' => 0,
+            'user_status_available_level' => 0,
+            'sort_num' => 12,
             'is_show' => true,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
         \App\Models\UserStatus::create([
-            'user_status_id' => \App\Models\UserStatus::DIRECTOR,
-            'user_status_name' => 'Директор',
+            'user_status_id' => \App\Models\UserStatus::VIP_4,
+            'user_status_name' => 'VIP 4ур',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
-            'sort_num' => 3,
+            'sort_num' => 13,
             'is_show' => true,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
         \App\Models\UserStatus::create([
-            'user_status_id' => \App\Models\UserStatus::SILVER_DIRECTOR,
-            'user_status_name' => 'Серебрянный Директор',
+            'user_status_id' => \App\Models\UserStatus::VIP_5,
+            'user_status_name' => 'VIP 5ур',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
-            'sort_num' => 4,
+            'sort_num' => 14,
             'is_show' => true,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
         \App\Models\UserStatus::create([
-            'user_status_id' => \App\Models\UserStatus::GOLD_DIRECTOR,
-            'user_status_name' => 'Золотой директор',
+            'user_status_id' => \App\Models\UserStatus::VIP_6,
+            'user_status_name' => 'VIP 6ур',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
-            'sort_num' => 5,
+            'sort_num' => 15,
             'is_show' => true,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
         \App\Models\UserStatus::create([
-            'user_status_id' => \App\Models\UserStatus::RUBIN_DIRECTOR,
-            'user_status_name' => 'Рубиновый директор',
+            'user_status_id' => \App\Models\UserStatus::VIP_7,
+            'user_status_name' => 'VIP 7ур',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
-            'sort_num' => 6,
+            'sort_num' => 16,
             'is_show' => true,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
         \App\Models\UserStatus::create([
-            'user_status_id' => \App\Models\UserStatus::SAPPHIRE_DIRECTOR,
-            'user_status_name' => 'Сапфировый директор',
+            'user_status_id' => \App\Models\UserStatus::VIP_8,
+            'user_status_name' => 'VIP 8ур',
             'user_status_money' => 0,
             'user_status_available_level' => 0,
-            'sort_num' => 7,
-            'is_show' => true,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        \App\Models\UserStatus::create([
-            'user_status_id' => \App\Models\UserStatus::EMERALD_DIRECTOR,
-                'user_status_name' => 'Изумрудовый директор',
-            'user_status_money' => 0,
-            'user_status_available_level' => 0,
-            'sort_num' => 8,
-            'is_show' => true,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        \App\Models\UserStatus::create([
-            'user_status_id' => \App\Models\UserStatus::BRILLIANT_DIRECTOR,
-            'user_status_name' => 'Бриллиантовый директор',
-            'user_status_money' => 0,
-            'user_status_available_level' => 0,
-            'sort_num' => 9,
+            'sort_num' => 17,
             'is_show' => true,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),

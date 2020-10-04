@@ -98,7 +98,8 @@ function buyPacketOnline(ob,packet_id) {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                packet_id: packet_id                
+                packet_id: packet_id,
+                user_packet_type: user_packet_type                
             },
             beforeSend: function() {
                 closeModal();
@@ -110,6 +111,7 @@ function buyPacketOnline(ob,packet_id) {
                     return;
                 }
                 else {
+                    // console.log(data)
                     window.location.replace(data.url);
                 }
             }
@@ -406,11 +408,9 @@ function showBuyPacketModal(ob,id) {
 
 function showBuyModal2(ob, id) {
     $('#buy_btn').attr('onclick','redirectPaybox("' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '",' + id + ')');
-    $('#send_request_btn').attr('onclick','addResponseAddPacket($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
-    $('#send_buy_online_btn').attr('onclick','location.href="http://pk-januya.kz/"');
-    $('#buyPacketForm').find('input[name=packet_id]').val(id)
-    $('#buy_packet_from_balance_btn').attr('onclick','location.href="http://pk-januya.kz/"');
-    $('#buy_modal').modal();
+    $('#send_request_btn_second').attr('onclick','addResponseAddPacket($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
+    $('#buy_vip_online_btn').attr('onclick','location.href="http://pk-januya.kz/"');
+    $('#buy_modal2').modal();
 }
 
 function redirectPaybox(user_packet_type,id) {
