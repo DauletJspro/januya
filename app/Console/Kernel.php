@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\GlobalBonusBeginOfMonth',
+        'App\Console\Commands\RewriteStatus',
     ];
 
     /**
@@ -30,7 +31,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('globalBonus:everyMonth')
-            ->everyMinute();
+            ->everyMinute();       
     }
 
     /**

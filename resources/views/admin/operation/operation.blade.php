@@ -65,7 +65,13 @@ use \App\Models\Currency;
                                         </tr>
                                         @foreach($row as $key => $val)
 
-                                            <tr @if($val->operation_type_id == 10) style="background-color: #91ff91 !important;" @endif>
+                                            <tr @if($val->operation_type_id == 10) 
+                                                {{-- @if ($val->soc_status_id != null && $val->soc_status_id >= 10)
+                                                    style="background-color: gold !important;"
+                                                @else --}}
+                                                    style="background-color: #91ff91 !important;"
+                                                {{-- @endif  --}}
+                                            @endif>
                                                 <td> {{ $key + 1 }}</td>
                                                 <td class="arial-font">
                                                     <a class="main-label"

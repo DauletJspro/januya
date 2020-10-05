@@ -29,7 +29,7 @@ class PacketController extends Controller
     {
         $this->middleware('profile', ['except' => ['AcceptUserPacketPayBox', 'acceptPacketFunction', 'implementPacketBonuses']]);
         $this->middleware('admin', ['only' => ['inactiveUserPacket', 'activeUserPacket', 'deleteInactiveUserPacket', 'acceptInactiveUserPacket']]);
-    }
+    }    
 
     public function getPacketById($id)
     {
