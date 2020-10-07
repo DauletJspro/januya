@@ -169,7 +169,7 @@ class Packet extends Model
 
         $incomeForMonth = UserOperation::where(['recipient_id' => $userId])
             ->where(['operation_type_id' => $availableBonuses])
-            ->whereBetween(['created_at', [$firstDay, $lastDay]])
+            ->whereBetween('created_at', [$firstDay, $lastDay])
             ->get();
 
         $incomeForMonth = collect($incomeForMonth);
@@ -177,22 +177,22 @@ class Packet extends Model
             return $item->money;
         });
 
-        $incomeForMonth = array_map($incomeForMonth->all());    
+        $incomeForMonth = array_sum($incomeForMonth->all());    
 
         switch ($inviterPacketId) {
-            case UserStatus::SMALL;                
+            case Packet::SMALL;                
                 if ($incomeForMonth >= 500) {
                     $messageBody = 'Ваш лимит на месяц не превышает 500$. ';
                     $success = false;
                 }
                 break;
-            case UserStatus::MEDIUM:
+            case Packet::MEDIUM:
                 if ($incomeForMonth >= 1000) {
                     $messageBody = 'Ваш лимит на месяц не превышает 1000$. ';
                     $success = false;
                 }
                 break;
-            case UserStatus::LARGE:
+            case Packet::LARGE:
                 if ($incomeForMonth >= 10000) {
                     $messageBody = 'Ваш лимит на месяц не превышает 10 000$. ';
                     $success = false;

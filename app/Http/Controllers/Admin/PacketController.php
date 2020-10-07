@@ -536,7 +536,7 @@ class PacketController extends Controller
                 $packetPercentage = explode('-', $packetPercentage);
                 $limit = Packet::limitBonus($inviter, $inviterPacketId);
                 if ($inviterCount) {                    
-                    if ($limit['status']) {                        
+                    if ($limit['success']) {                        
                         if ($inviter_order == 1 && in_array($inviter->status_id, $actualStatuses)) {
                             $bonusPercentage = (3 / 100);
                             $bonus = $packetPrice * $bonusPercentage;                        
