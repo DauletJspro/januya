@@ -809,10 +809,10 @@ class PacketController extends Controller
                     $operation->operation_comment = "Ваш статус Директор";
                     $willUpdate = true;
                 } elseif ($parent->status_id == UserStatus::DIRECTOR && $user->status_id == UserStatus::DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::DIRECTOR)) {
-                    $parent->status_id = UserStatus::SLIVER_DIRECTOR;
+                    $parent->status_id = UserStatus::SILVER_DIRECTOR;
                     $operation->operation_comment = "Ваш статус Серябренный Директор";
                     $willUpdate = true;
-                } elseif ($parent->status_id == UserStatus::SLIVER_DIRECTOR && $user->status_id == UserStatus::SLIVER_DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::SLIVER_DIRECTOR)) {
+                } elseif ($parent->status_id == UserStatus::SILVER_DIRECTOR && $user->status_id == UserStatus::SILVER_DIRECTOR && Users::isEnoughStatuses($user->recommend_user_id, UserStatus::SILVER_DIRECTOR)) {
                     $parent->status_id = UserStatus::GOLD_DIRECTOR;
                     $operation->operation_comment = "Ваш статус Золотой Директор";
                     $willUpdate = true;
