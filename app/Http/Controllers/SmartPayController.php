@@ -245,6 +245,7 @@ class SmartPayController extends Controller
         
             if($input_data['PAYMENT_HASH'] == $sign) {
                 $order = Order::getByCode($input_data['PAYMENT_ORDER_ID']);
+                Log::info($order);
                 if ($order) {
                     if ($input_data['PAYMENT_STATUS'] != 'paid') {
                         return response()->json(['RESULT'=>'OK']);
