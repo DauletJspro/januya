@@ -27,7 +27,6 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                                         class="fa fa-arrow-right"></i></a>
                         @endif
                     @else
-
                         <a href="javascript:void(0)" onclick="showBuyModal2(this,'{{$packet->packet_id}}')"
                         class="buy_btn_{{$packet->packet_id}} shop_buy_btn btn  transparent">Купить пакет <i
                                     class="fa fa-arrow-right"></i></a>

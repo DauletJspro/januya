@@ -99,7 +99,42 @@ function buyPacketOnline(ob,packet_id) {
             },
             data: {
                 packet_id: packet_id,
-                user_packet_type: user_packet_type                
+                user_packet_type: 'item'                
+            },
+            beforeSend: function() {
+                closeModal();
+            },
+            success: function (data) {
+                document.getElementById('ajax-loader').style.display='none';
+                if (data.status == false) {
+                    showError(data.message);
+                    return;
+                }
+                else {
+                    // console.log(data)
+                    window.location.replace(data.url);
+                }
+            }
+        });
+    }
+}
+
+function buyProductOnline() {
+    if(confirm('Действительно хотите купить онлайн?')) {
+        let discount_type = $('#discount_type').val();
+        let address = $('#address').val();
+        let delivery_id = $('#delivery').val();
+        document.getElementById('ajax-loader').style.display='block';
+        $.ajax({
+            url: '/smartpay/create_order_partner_product',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                address: address,
+                delivery_id: delivery_id,
+                type: discount_type,                                
             },
             beforeSend: function() {
                 closeModal();

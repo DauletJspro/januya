@@ -25,7 +25,7 @@
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>            
-            <p style="color: red; font-size: 22px; margin-left: 25%; font-weight: 600; text-align: center; display: inline-block;">На сайте ведется технические работы</p>
+            {{-- <p style="color: red; font-size: 22px; margin-left: 25%; font-weight: 600; text-align: center; display: inline-block;">На сайте ведется технические работы</p> --}}
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">                        

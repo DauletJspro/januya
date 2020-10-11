@@ -155,8 +155,84 @@ class OnlineController extends Controller
     public function confirmBasket()
     {
 
-        $sum = 0;
-        $actualStatuses = [            
+        $result['error'] = 'Временно недоступно';
+        $result['status'] = false;
+        $validator = Validator::make($request->all(), [
+            // 'type' => 'required|string',
+            'address' => 'required|string',
+            'delivery_id' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->errors();
+            $error = $messages->all(); 
+            $result['message'] = $error[0];           
+            return response()->json($result);
+        }
+
+        $sum = 0;        
+        $products_all = [];
+        $products_item = [];
+        $user = Auth::user();
+        $products = UserBasket::where('user_id', Auth::user()->user_id)->where('is_active', 0)->get();
+        foreach ($products as $item) {
+            $product_price = Product::where('product_id', $item->product_id)->first();
+            $sum += $product_price->product_price * $item->unit;
+            $products_item['product_id'] = $product_price->product_id;
+            $products_item['product_name'] = $product_price->product_name_ru;
+            $products_item['count'] = $item->unit;
+            $products_item['ball'] = $product_price->ball;
+            array_push($products_all, $products_item);
+        }
+                
+        $is_partner = UserPacket::where('user_id', Auth::user()->user_id)->where('is_active', 1)->exists();
+        if ($is_partner) {
+            $sum = $sum - ($sum * \App\Models\Currency::PartnerDiscount);
+            $sum = round($sum);
+        }
+        
+
+        if (Auth::user()->user_money < $sum) {
+            $result['error'] = 'У вас недостаточно средств';
+            $result['status'] = false;
+            return response()->json($result);
+        }
+
+        $this->implementCashback(Auth::user()->user_id);
+
+        $operation = new UserOperation();
+        $operation->author_id = null;
+        $operation->recipient_id = $user->user_id;
+        $operation->money = $sum * -1;
+        $operation->operation_id = 2;
+        $operation->operation_type_id = 21;
+        $operation->operation_comment = '';
+        $operation->save();
+
+        $user->user_money = $user->user_money - $sum;
+        $user->save();
+        $data_order = [
+            'order_code' => time(),
+            'user_id' => Auth::user()->user_id,
+            'username' => Auth::user()->name .' '. Auth::user()->last_name ,
+            'email' => Auth::user()->email,
+            'address' => $request->address,
+            'contact' => Auth::user()->phone,
+            'sum' => $sum,
+            'products' => json_encode($products_all),
+            'packet_id' => null,
+            'payment_id' => 0,
+            'delivery_id' => $request->delivery_id,
+            'is_paid' => 1
+        ];
+        $order = Order::createOrder($data_order);  
+        
+        $result['status'] = true;
+        return response()->json($result);
+    }
+
+    public function implementCashback($user_id) {
+        $actualStatuses = [
             UserStatus::CONSULTANT,
             UserStatus::MANAGER,
             UserStatus::DIRECTOR,
@@ -165,23 +241,10 @@ class OnlineController extends Controller
             UserStatus::RUBIN_DIRECTOR,
             UserStatus::SAPPHIRE_DIRECTOR,
             UserStatus::EMERALD_DIRECTOR,
-            UserStatus::BRILLIANT_DIRECTOR
+            UserStatus::BRILLIANT_DIRECTOR,            
         ];
-
-        $products = UserBasket::where('user_id', Auth::user()->user_id)->where('is_active', 0)->get();
-        foreach ($products as $item) {
-            $product_price = Product::where('product_id', $item->product_id)->first();
-            $sum += $product_price->product_price * $item->unit;
-        }
-
-        // if (Auth::user()->user_money < $sum) {
-        //     $result['error'] = 'У вас недостаточно средств';
-        //     $result['status'] = false;
-        //     return response()->json($result);
-        // }
-
-        $user = Auth::user();
-        $products = UserBasket::where('user_id', Auth::user()->user_id)->where('is_active', 0)->get();
+        $user = Users::where('user_id', $user_id)->first();        
+        $products = UserBasket::where('user_id', $user->user_id)->where('is_active', 0)->get();
         foreach ($products as $item) {
             $product = Product::where('product_id', $item->product_id)->first();
             $user_basket = UserBasket::where('user_basket_id', $item->user_basket_id)->first();
@@ -197,15 +260,9 @@ class OnlineController extends Controller
                 $parent = Users::where('user_id', $user_id)->first();
                 if ($parent == null) break;
                 $user_id = $parent->recommend_user_id;
-                if (in_array($parent->status_id, $actualStatuses)) {
-                    $percent = 0;
-                    if ($counter == 1) $percent = 20;
-                    elseif ($counter == 2) $percent = 5;
-                    elseif ($counter == 3) $percent = 5;
-                    elseif ($counter == 4) $percent = 10;
-                    elseif ($counter == 5) $percent = 10;
-
-                    $cash = ($product->ball * $item->unit) * $percent / 100;
+                if (in_array($parent->status_id, $actualStatuses)) {                    
+                    $cash = ($product->ball * $item->unit) * (8 / 100);
+                    $cash = round($cash);
 
                     if ($cash > 0) {
                         $parent->user_money += $cash;
@@ -220,25 +277,11 @@ class OnlineController extends Controller
                         $operation->save();
                     }
                 }
-                if ($counter == 5) {
+                if ($counter == 8) {
                     break;
                 }
             }
         }
-        $user->user_money = $user->user_money - $sum;
-        $user->save();
-
-        $operation = new UserOperation();
-        $operation->author_id = null;
-        $operation->recipient_id = $user->user_id;
-        $operation->money = $sum * -1;
-        $operation->operation_id = 2;
-        $operation->operation_type_id = 21;
-        $operation->operation_comment = '';
-        $operation->save();
-
-        $result['status'] = true;
-        return response()->json($result);
     }
 
     public function showHistory(Request $request)

@@ -300,6 +300,8 @@ Route::group([
     Route::post('create_order_product', 'SmartPayController@createOrderProduct')->name('smartpay_create_order_product');
     Route::post('callback', 'SmartPayController@callback')->name('smartpay_callback');
     Route::post('callback_product', 'SmartPayController@callbackProduct')->name('smartpay_callback_product');
+    Route::post('create_order_partner_product', 'SmartPayController@createOrderPartnerProduct')->name('smartpay_create_order_partner_product');
+    Route::post('callback_partner_product', 'SmartPayController@callbackPartnerProduct')->name('smartpay_callback_partner_product');
     Route::post('fail', 'SmartPayController@fail')->name('smartpay_fail');
     Route::get('return', 'SmartPayController@return')->name('smartpay_return');
 });

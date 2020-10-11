@@ -27,14 +27,14 @@
                 </div>
                 <div class="modal-body">
                     <div class="btn-group">
-                        <form action="{{ route('smartpay_create_order') }}" method="post" id="buyPacketForm">
+                        {{-- <form action="{{ route('smartpay_create_order') }}" method="post" id="buyPacketForm">
                             {{ csrf_field() }}
                             <input type="hidden" name="packet_id">
-                            <button type="submit" style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="send_buy_online_btn">
+                            <button type="submit" style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="buy_vip_online_btn">
                                 Купить онлайн
                             </button>
-                        </form>  
-                        <button type="submit" style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="buy_vip_online_btn">
+                        </form>   --}}
+                        <button type="submit" style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="send_buy_online_btn">
                             Купить онлайн
                         </button>                      
                     </div>
@@ -84,10 +84,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 
 @endsection
 

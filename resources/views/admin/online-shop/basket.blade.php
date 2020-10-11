@@ -36,6 +36,25 @@
                 <h2 class="modal-title" id="modal_title">Подтвердить заказ</h2>
             </div>
             <div class="modal-body">
+                <div class="form-group">
+                    <label for="address">Адрес</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="г.Алматы ул.Абая 187а кв 94">
+                </div>
+                <div class="form-group">
+                    <label for="delivery">Доставка</label>
+                    <select class="form-control" name="delivery" id="delivery">
+                        <option value="1" selected>Самовывоз</option>
+                        <option value="2">Курьером</option>
+                        <option value="3">По почте</option>
+                    </select>                                
+                </div>    
+                @if ($row->is_packet)
+                    <input type="hidden" name="type" id="discount_type" value="is_packet">
+                @elseif($row->is_partner)
+                    <input type="hidden" name="type" id="discount_type" value="is_partner">
+                @else
+                    <input type="hidden" name="type" id="discount_type" value="is_client">
+                @endif                 
                 <p><span>Общая сумма: </span><span id="modal_desc"></span></p>
             </div>
             <div class="modal-footer">
@@ -44,8 +63,12 @@
                 </button>
                 <button onclick="confirmBasket()"
                         style="margin-left:0px; background-color: #6cba5b; width: 100%; margin-bottom: 20px"
-                        type="button" class="btn btn-default pull-left">Купить
+                        type="button" class="btn btn-default pull-left">Снять с баланса
                 </button>
+                <button onclick="buyProductOnline()"
+                    style="margin-left:0px; background-color: #6cba5b; width: 100%; margin-bottom: 20px"
+                    type="button" class="btn btn-default pull-left">Купить онлайн
+                </button>                
             </div>
         </div>
     </div>
