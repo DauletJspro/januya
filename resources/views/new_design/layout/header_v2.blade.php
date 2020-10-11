@@ -53,10 +53,10 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
               @if(!Auth::check())
                   <!-- mt top lang start from here -->  
                   <div class="mt-top-lang">
-                      <a href="/register" class="lang-opener"> @lang('app.sign_up')</a>
+                      {{-- <a href="/register" class="lang-opener"> @lang('app.sign_up')</a> --}}
                   </div>
                   <!-- mt top lang end from here -->
-                  <span class="account"><a href="/login">@lang('app.sign_in')</a></span>
+                  {{-- <span class="account"><a href="/login">@lang('app.sign_in')</a></span> --}}
               @else                    
                   <span class="account"><a href="/admin/index"> @lang("app.cabinet")</a></span>
               @endif              

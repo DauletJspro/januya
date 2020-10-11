@@ -18,9 +18,9 @@ Route::group([
     'middleware' => 'web',
     'namespace' => 'Admin',
 ], function () {
-    // Route::any('/register', 'AuthController@showRegister');
-    // Route::any('/login', 'AuthController@login')->name('login.show');
-    // Route::get('/register', 'AuthController@showRegister');
+    Route::any('/register', 'AuthController@showRegister');
+    Route::any('/login', 'AuthController@login')->name('login.show');
+    Route::get('/register', 'AuthController@showRegister');
     Route::get('/confirm', 'AuthController@confirmEmail');
     Route::get('/confirm-email', 'AuthController@showSendConfirm');
     Route::post('/send-confirm', 'AuthController@sendHashConfirm');
