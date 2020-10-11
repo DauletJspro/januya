@@ -136,7 +136,8 @@ class SmartPayController extends Controller
                         $user_packet->is_portfolio = '';
                         $user_packet->save();                    
                         app(\App\Http\Controllers\Admin\PacketController::class)->implementPacketBonuses($user_packet->user_packet_id);
-                        Order::changeIsPaid($input_data['PAYMENT_ORDER_ID']);
+                        $order->is_paid = 1;
+                        $order->save();
                         return response()->json(['RESULT'=>'OK']);
                     }
                 }                
@@ -249,7 +250,8 @@ class SmartPayController extends Controller
                     }
                     if (!$order->is_paid) {
                         app(\App\Http\Controllers\Admin\OnlineController::class)->implementCashback($order->user_id);
-                        Order::changeIsPaid($input_data['PAYMENT_ORDER_ID']);
+                        $order->is_paid = 1;
+                        $order->save();
                         return response()->json(['RESULT'=>'OK']);
                     }
                 }
@@ -337,7 +339,8 @@ class SmartPayController extends Controller
                 $order = Order::getByCode($input_data['PAYMENT_ORDER_ID']);                
                 if ($order) {
                     if ($input_data['PAYMENT_STATUS'] == 'paid') {
-                        Order::changeIsPaid($input_data['PAYMENT_ORDER_ID']);   
+                        $order->is_paid = 1;
+                        $order->save();   
                     }
                     // маркируем заказ с ИД PAYMENT_ORDER_ID как оплаченый
                     return response()->json(['RESULT'=>'OK']);

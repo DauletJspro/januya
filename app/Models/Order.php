@@ -10,7 +10,7 @@ use DB;
 class Order extends Model
 {    
     protected $primaryKey = 'id';
-    protected $fillable = ['order_code', 'user_id', 'username', 'email', 'address', 'contact', 'sum', 'products', 'packet_id', 'is_paid', 'payment_id'];
+    protected $fillable = ['order_code', 'user_id', 'username', 'email', 'address', 'contact', 'sum', 'products', 'packet_id', 'is_paid', 'payment_id', 'delivery_id'];
 
     public static function createOrder($data) {
         $order = Order::create([
@@ -23,7 +23,7 @@ class Order extends Model
             'sum' => $data['sum'],
             'products' => $data['products'],
             'packet_id' => $data['packet_id'],
-            'is_paid' => 0,
+            'is_paid' => $data['is_paid'] ?? 0,
             'payment_id' => $data['payment_id'],
             'delivery_id' => $data['delivery_id'],
         ]);
