@@ -29,7 +29,7 @@ $subsidiaries = \App\Models\Brand::whereIn('id', $needSubsidiaryIds)->get();
                     <ul class="mt-top-list">
                         @if(!Auth::check())                            
                             {{-- <li><a href="/register"> @lang('app.sign_up') </a></li> --}}
-                            {{-- <li class="active"><a href="/login"> @lang('app.sign_in') </a></li>                             --}}
+                            <li class="active"><a href="/login"> @lang('app.sign_in') </a></li>                            
                         @else
                             <li class="active"><a href="/admin/index"> @lang('app.cabinet') </a></li>                            
                         @endif                        
