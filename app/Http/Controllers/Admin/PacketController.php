@@ -670,7 +670,7 @@ class PacketController extends Controller
 
         $users_sevent_percentage = Users::whereIn('user_id', Users::USER_SEVEN_PERCENT)->get();
         $bonus = $userPacket->packet_price * (7/100);
-        foreach ($users_sevent_percentage as $user_seven) {    
+        foreach ($users_sevent_percentage as $user_seven) {
             $operation = new UserOperation();
             $operation->author_id = $user->user_id;
             $operation->recipient_id = $user_seven->user_id;

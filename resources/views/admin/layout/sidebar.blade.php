@@ -109,12 +109,12 @@
         </a>
     </li>
 
-    <li class="treeview">
+    {{-- <li class="treeview">
         <a href="/admin/shop">
             <i class="fa fa-shopping-cart"></i>
             <span>Бизнес пакеты </span>
         </a>
-    </li>
+    </li> --}}
 
     <li class="treeview">
         <a href="/admin/operation">
@@ -130,12 +130,12 @@
         </a>
     </li>
 
-    <li class="treeview">
+    {{-- <li class="treeview">
         <a href="/admin/online">
             <i class="fa fa-shopping-cart"></i>
             <span>Интернет магазин</span>
         </a>
-    </li>
+    </li> --}}
 
     <li class="treeview">
         <a href="/admin/orders">

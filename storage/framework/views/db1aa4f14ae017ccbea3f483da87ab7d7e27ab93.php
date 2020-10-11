@@ -6,7 +6,21 @@
 
                 <?php if(isset($status_name->user_status_name)): ?>
 
-                Статус: <?php echo e($status_name->user_status_name); ?>
+                Статус JC: <?php echo e($status_name->user_status_name); ?>
+
+
+                <?php endif; ?>
+
+            </p>
+        </li>
+        <li class="header"
+            style="background: #fff; font-size: 14px; padding:5px 25px 0px">
+            <?php $status_name = \App\Models\UserStatus::where('user_status_id', Auth::user()->soc_status_id)->first(); ?>
+            <p style="color:#2e2e2e;margin:0px;font-weight: bold">
+
+                <?php if(isset($status_name->user_status_name)): ?>
+
+                Статус JPK: <?php echo e($status_name->user_status_name); ?>
 
 
                 <?php endif; ?>
