@@ -140,7 +140,8 @@ class SmartPayController extends Controller
                         $order->save();
                         return response()->json(['RESULT'=>'OK']);
                     }
-                }                
+                }
+                return response()->json(['RESULT'=>'OK']);       
             } else {
                 Log::info('true hash');
                 // не совпадает цифровая подпись.
@@ -255,6 +256,7 @@ class SmartPayController extends Controller
                         return response()->json(['RESULT'=>'OK']);
                     }
                 }
+                return response()->json(['RESULT'=>'OK']);
             } else {
                 // не совпадает цифровая подпись.
                 return response()->json(['RESULT' => 'RETRY', 'DESC' => 'invalid_signature']);
@@ -344,7 +346,8 @@ class SmartPayController extends Controller
                     }
                     // маркируем заказ с ИД PAYMENT_ORDER_ID как оплаченый
                     return response()->json(['RESULT'=>'OK']);
-                }                
+                }  
+                return response()->json(['RESULT'=>'OK']);              
             } else {
                 // не совпадает цифровая подпись.
                 return response()->json(['RESULT' => 'RETRY', 'DESC' => 'invalid_signature']);
