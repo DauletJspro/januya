@@ -24,7 +24,8 @@ class Order extends Model
             'products' => $data['products'],
             'packet_id' => $data['packet_id'],
             'is_paid' => 0,
-            'payment_id' => $data['payment_id']            
+            'payment_id' => $data['payment_id'],
+            'delivery_id' => $data['delivery_id'],
         ]);
 
         return $order;
