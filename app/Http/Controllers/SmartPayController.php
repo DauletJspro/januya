@@ -190,6 +190,7 @@ class SmartPayController extends Controller
         if ($is_partner) {
             $sum = $sum - ($sum * \App\Models\Currency::PartnerDiscount);
             $sum = round($sum);
+            $sum = $sum * \App\Models\Currency::pvToKzt();
         }
         else {
             $sum = $sum * \App\Models\Currency::pvToKzt();
