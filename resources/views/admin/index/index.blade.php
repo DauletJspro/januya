@@ -158,7 +158,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
     .profits .card-text {
         font-size: 3rem;
         font-weight: bolder;
-        color: green;
+        color: white;
     }
 
     .profits .card-title {
