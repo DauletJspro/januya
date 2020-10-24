@@ -15,7 +15,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                     <h5 class="card-title">На сегодня</h5>
                     <p class="card-text">{{round($pvData['pvProfitToday'],2)}} $</p>
                     <p class="card-text">{{round($pvData['pvProfitToday'] * \App\Models\Currency::DollarToKzt,2)}} &#8376; </p>
-                    <a href="#" class="btn btn-primary">Доход</a>
+                    <a href="#" class="btn btn-primary cart-btn">Доход</a>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                     <h5 class="card-title">За неделю</h5>
                     <p class="card-text">{{round($pvData['pvProfitLastWeek'],2)}} $</p>
                     <p class="card-text">{{round($pvData['pvProfitLastWeek'] * \App\Models\Currency::DollarToKzt,2)}} &#8376; </p>
-                    <a href="#" class="btn btn-primary">Доход</a>
+                    <a href="#" class="btn btn-primary cart-btn">Доход</a>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                     <h5 class="card-title">За месяц</h5>
                     <p class="card-text">{{round($pvData['pvProfitLastMonth'],2)}} $</p>
                     <p class="card-text">{{round($pvData['pvProfitLastMonth'] * \App\Models\Currency::DollarToKzt,2)}} &#8376; </p>
-                    <a href="#" class="btn btn-primary">Доход</a>
+                    <a href="#" class="btn btn-primary cart-btn">Доход</a>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                     <h5 class="card-title">За весь период</h5>
                     <p class="card-text">{{round($pvData['pvProfitAll'],2)}} $</p>
                     <p class="card-text">{{round($pvData['pvProfitAll'] * \App\Models\Currency::DollarToKzt,2)}} &#8376; </p>
-                    <a href="#" class="btn btn-primary">Доход</a>
+                    <a href="#" class="btn btn-primary cart-btn">Доход</a>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                     <h5 class="card-title">На сегодня</h5>
                     <p class="card-text">{{round($gvData['gvProfitToday'],2)}} gv</p>
                     <p class="card-text">{{round($gvData['gvProfitToday'] * \App\Models\Currency::GVtoKzt,2)}} &#8376; </p>
-                    <a href="#" class="btn btn-primary">Доход</a>
+                    <a href="#" class="btn btn-primary cart-btn">Доход</a>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                     <h5 class="card-title">За последнюю неделю</h5>
                     <p class="card-text">{{round($gvData['gvProfitLastWeek'],2)}} gv</p>
                     <p class="card-text">{{round($gvData['gvProfitLastWeek'] * \App\Models\Currency::GVtoKzt,2)}} &#8376; </p>
-                    <a href="#" class="btn btn-primary">Доход</a>
+                    <a href="#" class="btn btn-primary cart-btn">Доход</a>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                     <h5 class="card-title">За последний месяц</h5>
                     <p class="card-text">{{round($gvData['gvProfitLastMonth'],2)}} gv</p>
                     <p class="card-text">{{round($gvData['gvProfitLastMonth'] * \App\Models\Currency::GVtoKzt,2)}} &#8376; </p>
-                    <a href="#" class="btn btn-primary">Доход</a>
+                    <a href="#" class="btn btn-primary cart-btn">Доход</a>
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                     <h5 class="card-title">За весь период</h5>
                     <p class="card-text">{{round($gvData['gvProfitAll'],2)}} gv</p>
                     <p class="card-text">{{round($gvData['gvProfitAll'] * \App\Models\Currency::GVtoKzt,2)}} &#8376; </p>
-                    <a href="#" class="btn btn-primary">Доход</a>
+                    <a href="#" class="btn btn-primary cart-btn">Доход</a>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                     <h5 class="card-title">В долларах</h5>
                     <p class="card-text">{{Auth::user()->user_money}} $</p>
                     <p class="card-text">{{Auth::user()->user_money * App\Models\Currency::DollarToKzt}} &#8376; </p>
-                    <a href="#" class="btn btn-primary">Доход</a>
+                    <a href="#" class="btn btn-primary cart-btn">Доход</a>
                 </div>
             </div>
         </div>
