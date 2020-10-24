@@ -35,12 +35,10 @@ class SmartPayController extends Controller
         if (!$packet) {
             return response()->json($result);
         }
-        if ($packet->is_upgrade_packet == 1) {
-
-            $is_check = UserPacket::where('user_id', Auth::user()->user_id)
-                ->where('is_active', '=', '0')
-                ->where('user_packet.packet_id', '!=', 9)
-                ->where('is_portfolio', '=', $packet->is_portfolio)
+        if ($packet->is_upgrade_packet) {
+            $is_check = UserPacket::leftJoin('packet', 'packet.packet_id', '=', 'user_packet.packet_id')
+                ->where('user_id', Auth::user()->user_id)
+                ->where('user_packet.is_active', '=', '0')
                 ->count();
 
             if ($is_check > 0) {
@@ -49,25 +47,31 @@ class SmartPayController extends Controller
                 return response()->json($result);
             }
 
-            if ($request->packet_id > 2) {
-                $is_check = UserPacket::where('user_id', Auth::user()->user_id)
-                    ->where('packet_id', '>=', $request->packet_id)
-                    ->where('is_portfolio', '=', $packet->is_portfolio)
-                    ->where('user_packet.packet_id', '!=', 9)
-                    ->where('is_active', 1)
-                    ->count();
+            $is_check = UserPacket::leftJoin('packet', 'packet.packet_id', '=', 'user_packet.packet_id')
+                ->where('user_packet.user_id', Auth::user()->user_id)
+                ->where('user_packet.packet_id', '>=', $request->packet_id)
+                ->where('user_packet.is_active', 1)
+                ->count();
 
-                if ($is_check > 0) {
-                    $result['message'] = 'Вы не можете купить этот пакет, так как вы уже приобрели другой пакет';
-                    $result['status'] = false;
-                    return response()->json($result);
-                }
+            if ($is_check > 0) {
+                $result['message'] = 'Вы не можете купить этот пакет, так как вы уже приобрели другой пакет';
+                $result['status'] = false;
+                return response()->json($result);
             }
-            $packet_old_price = UserPacket::beforePurchaseSum(Auth::user()->user_id);
+
+        }
+
+        $packet_old_price = UserPacket::beforePurchaseSum(Auth::user()->user_id);
+
+        $is_check = UserPacket::where('user_id', Auth::user()->user_id)->where('packet_id', '=', $request->packet_id)->count();
+        if ($is_check > 0) {
+            $result['message'] = 'Вы уже отправили запрос на этот пакет';
+            $result['status'] = false;
+            return response()->json($result);
         }
         
         $price = ($packet->packet_price - $packet_old_price) * \App\Models\Currency::pvToKzt();
-        $name = 'Покупка пакета ' . $packet->packet_name_ru . ' на сайте Qpartner.club';        
+        $name = 'Покупка пакета ' . $packet->packet_name_ru . ' на сайте Januya.kz';        
         $data = [
             'MERCHANT_ID' => env('SMART_PAY_MERCHANT_ID'),
             'PAYMENT_AMOUNT' => $price,
@@ -172,7 +176,7 @@ class SmartPayController extends Controller
             return response()->json($result);
         }
         $order_code = time();
-        $name = 'Покупка товаров на сайте Qpartner.club';
+        $name = 'Покупка товаров на сайте Januya.kz';
         $sum = 0;
         $products_all = [];
         $products_item = [];
@@ -290,7 +294,7 @@ class SmartPayController extends Controller
         $product = Product::where('product_id', $request->product_id)->first();
         
         $price = 0;
-        $name = 'Покупка товара на сайте Qpartner.club';
+        $name = 'Покупка товара на сайте Januya.kz';
         $order_code = time();
         $price = ($product->product_price * $request->product_count ) * \App\Models\Currency::pvToKzt();
         $products = [['product_id' => $product->product_id, 'product_name' => $product->product_name_ru, 'count' => $request->product_count]];
