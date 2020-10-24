@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Mockery\CountValidator\Exception;
+use Illuminate\Support\Facades\Validator;
 use URL;
 use View;
 
@@ -145,10 +146,74 @@ class PacketController extends Controller
 
         $row = $row->paginate(10);
 
+        $vip_packets = [Packet::VIP_ECONOMY, Packet::VIP_STANDARD, Packet::VIP_PREMIUM ];
+
         return view('admin.inactive-user-packet.packet', [
             'row' => $row,
-            'request' => $request
+            'request' => $request,
+            'vip_packets' => $vip_packets
         ]);
+    }
+
+    public function sendResponseAddVipPacket(Request $request)
+    {
+        $result['message'] = 'Временно недоступно';
+        $result['status'] = false;
+        $validator = Validator::make($request->all(), [
+            'packet_id' => 'required|integer|exists:packet,packet_id',
+            'desired_price' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            $messages = $validator->errors();
+            $error = $messages->all(); 
+            $result['message'] = $error[0];           
+            return response()->json($result);
+        }        
+        $packet = Packet::where('packet_id', $request->packet_id)->first();
+        $vip_packets = [Packet::VIP_ECONOMY, Packet::VIP_STANDARD, Packet::VIP_PREMIUM ];
+        $is_check = UserPacket::where('user_id', Auth::user()->user_id)->where('packet_id', '=', $request->packet_id)->count();
+        if ($is_check > 0) {
+            $result['message'] = 'Вы уже отправили запрос на этот пакет';
+            $result['status'] = false;
+            return response()->json($result);
+        }
+
+        $is_check = UserPacket::whereIn('user_packet.packet_id', $vip_packets)
+            ->where('user_id', Auth::user()->user_id)
+            ->where('user_packet.is_active', '=', '0')
+            ->count();
+
+        if ($is_check > 0) {
+            $result['message'] = 'Вы уже отправили запрос на другой пакет, сначала отмените тот запрос';
+            $result['status'] = false;
+            return response()->json($result);
+        }
+
+        $is_check = UserPacket::whereIn('user_packet.packet_id', $vip_packets)
+            ->where('user_packet.user_id', Auth::user()->user_id)            
+            ->where('user_packet.is_active', 1)
+            ->count();
+
+        if ($is_check > 0) {
+            $result['message'] = 'Вы не можете купить этот пакет, так как вы уже приобрели другой пакет';
+            $result['status'] = false;
+            return response()->json($result);
+        }
+    
+        $user_packet = new UserPacket();
+        $user_packet->user_id = Auth::user()->user_id;
+        $user_packet->packet_id = $request->packet_id;
+        $user_packet->user_packet_type = null;
+        $user_packet->packet_price = $packet->packet_price;
+        $user_packet->is_active = false;
+        $user_packet->is_portfolio = '';
+        $user_packet->desired_price = $request->desired_price;
+        $user_packet->pre_desired_price = $request->desired_price * ($packet->pre_percent/100);
+        $user_packet->save();
+
+        $result['url'] = 'http://pk-januya.kz/';
+        $result['status'] = true;
+        return response()->json($result);
     }
 
     public function sendResponseAddPacket(Request $request)
@@ -347,6 +412,16 @@ class PacketController extends Controller
         return response()->json($result);
     }
 
+    public function acceptInactiveUserVipPacket(Request $request)
+    {
+
+        $isImplementPacketBonus = $this->implementVipPacketBonuses($request->packet_id);
+
+        $result['message'] = 'Вы успешно приняли запрос';
+        $result['status'] = true;
+        return response()->json($result);
+    }
+
     public function generatePayBoxCode(Request $request)
     {
         $packet = Packet::where('packet_id', $request->packet_id)->first();
@@ -494,6 +569,73 @@ class PacketController extends Controller
         }
     }
 
+    public function implementVipPacketBonuses($userPacketId)
+    {        
+        $inviter_order = 1;
+        $userPacket = UserPacket::find($userPacketId);
+        if (!$userPacket) {
+            $result['message'] = 'Ошибка';
+            $result['status'] = false;
+            return response()->json($result);
+        }
+
+        $packet = Packet::where(['packet_id' => $userPacket->packet_id])->first();
+        $user = Users::where(['user_id' => $userPacket->user_id])->first();
+        if (!$packet || !$user) {
+            $result['message'] = 'Ошибка, пользователь, пригласитель или пакет был не найден!';
+            $result['status'] = false;
+            return response()->json($result);
+        }
+        
+        $this->activatePackage($userPacket);
+        $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();
+        if ($inviter) {            
+            $bonus = 0;
+            $packetPrice = $userPacket->packet_price;
+            $inviterPacketId = UserPacket::where(['user_id' => $inviter->user_id])->where(['is_active' => true])->get();
+            $inviterCount = (count($inviterPacketId));
+            if ($inviterCount) {                
+                $bonusPercentage = (intval($packet->level_percentage) / 100);
+                $bonus = $packetPrice * $bonusPercentage;
+            }
+        }
+
+        if ($bonus) {
+            $operation = new UserOperation();
+            $operation->author_id = $user->user_id;
+            $operation->recipient_id = $inviter->user_id;
+            $operation->money = $bonus;
+            $operation->operation_id = 1;
+            $operation->operation_type_id = 1;
+            $operation->operation_comment = 'Рекрутинговый бонус. "' . $packet->packet_name_ru . '". Уровень - ' . $inviter_order;
+            $operation->save();
+            $inviter->user_money = $inviter->user_money + $bonus;
+            $inviter->save();
+            $this->sentMoney += $bonus;
+        }
+
+        $this->sentMoney = 0;
+        $check_user_gold_packet = UserPacket::where(['user_id' => $user->user_id, 'packet_id' => Packet::LARGE])->whereNull('deleted_at')->exists();
+        if ($check_user_gold_packet) {
+            $user_gold_packet = UserPacket::where(['user_id' => $user->user_id, 'packet_id' => Packet::LARGE])->whereNull('deleted_at')->first();
+            if (!$user_gold_packet->is_active) {
+                $this->implementPacketBonuses($user_gold_packet);
+            }
+        }
+        else {
+            $packet = Packet::find(Packet::LARGE);
+            $user_packet = new UserPacket();
+            $user_packet->user_id = $user->user_id;
+            $user_packet->packet_id = $packet->packet_id;
+            $user_packet->user_packet_type = 'item';
+            $user_packet->packet_price = $packet->packet_price;
+            $user_packet->is_active = false;
+            $user_packet->is_portfolio = '';
+            $user_packet->save();
+            $this->implementPacketBonuses($user_packet->user_packet_id);
+        }
+    }
+
     public function implementPacketBonuses($userPacketId)
     {
         $inviter_order = 1;
@@ -539,7 +681,7 @@ class PacketController extends Controller
                     if ($limit['success']) {                        
                         if ($inviter_order == 1 && in_array($inviter->status_id, $actualStatuses)) {
                             $bonusPercentage = (3 / 100);
-                            $bonus = $packetPrice * $bonusPercentage;                        
+                            $bonus = $packetPrice * $bonusPercentage;
                         } elseif ($this->hasNeedPackets($packet, $inviterPacketId, $inviter_order)) {
                             $bonusPercentage = ($packetPercentage[$inviter_order - 1] / 100);
                             $bonus = $packetPrice * $bonusPercentage;
@@ -558,7 +700,7 @@ class PacketController extends Controller
                     $operation->save();
                     $inviter->user_money = $inviter->user_money + $bonus;
                     $inviter->save();
-                    $this->sentMoney += $bonus;                    
+                    $this->sentMoney += $bonus;
                 }
     
     
@@ -667,7 +809,7 @@ class PacketController extends Controller
             $operation->operation_comment = 'За покупку пакета "' . $packet->packet_name_ru . '" Вы получаете ' . $packet->packet_lection;
             $operation->save();
         }
-
+        
         $users_sevent_percentage = Users::whereIn('user_id', Users::USER_SEVEN_PERCENT)->get();
         $bonus = $userPacket->packet_price * (7/100);
         foreach ($users_sevent_percentage as $user_seven) {
@@ -683,9 +825,7 @@ class PacketController extends Controller
             $user_seven->save();
 
             $this->sentMoney += $bonus;
-        }
-        
-
+        }            
         //пополнение фонда компании
         $company_money = $userPacket->packet_price - $this->sentMoney;
         $operation = new UserOperation();
@@ -851,7 +991,7 @@ class PacketController extends Controller
         $inviterPacket = Packet::where(['packet_id' => $inviterPacketId])->first();
         Log::info($inviterPacket);        
         $packet_available_level = $inviterPacket->packet_available_level;
-        if (in_array($inviterPacketId, $actualPackets) && $order <= $packet_available_level) {
+        if (in_array($inviterPacketId, $actualPackets) && $packet->packet_available_level <= $packet_available_level && $order <= $packet_available_level) {
             $boolean = true;
         }
         return $boolean;

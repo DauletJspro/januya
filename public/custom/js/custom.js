@@ -88,6 +88,40 @@ function addResponseAddPacket(ob,packet_id,user_packet_type){
     }
 }
 
+function addResponseAddVipPacket(ob,packet_id) {
+    if(confirm('Действительно хотите купить онлайн?')) {
+        document.getElementById('ajax-loader').style.display='block';
+        let desired_price = $('#desired_price').val();
+        $.ajax({
+            url: '/admin/packet/user/active_kooperative',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                packet_id: packet_id,
+                desired_price: desired_price,
+                user_packet_type: 'item'                
+            },
+            beforeSend: function() {
+                closeModal();
+            },
+            success: function (data) {
+                document.getElementById('ajax-loader').style.display='none';
+                console.log(data)
+                if (data.status == false) {
+                    showError(data.message);
+                    return;
+                }
+                else {
+                    // console.log(data)
+                    window.location.replace(data.url);
+                }
+            }
+        });
+    }
+}
+
 function buyPacketOnline(ob,packet_id) {
     if(confirm('Действительно хотите купить онлайн?')) {
         document.getElementById('ajax-loader').style.display='block';
@@ -184,11 +218,12 @@ function buyPacketFromBalance(ob,packet_id,user_packet_type){
     }
 }
 
-function acceptUserPacket(ob,packet_id){
+function acceptUserPacket(ob,packet_id, type){
     if(confirm('Действительно хотите принять запрос?')) {
+        let url = type == '1' ? '/admin/packet/user/inactive' : '/admin/packet/user/inactive_vip'
         document.getElementById('ajax-loader').style.display='block';
         $.ajax({
-            url: '/admin/packet/user/inactive',
+            url: url,
             type: 'POST',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -446,6 +481,20 @@ function showBuyModal2(ob, id) {
     $('#send_request_btn_second').attr('onclick','addResponseAddPacket($(".buy_btn_' + id + '"),' + id + ',"' + $(ob).closest('.packet-item-list').find('.packet_type').val() + '")');
     $('#buy_vip_online_btn').attr('onclick','location.href="http://pk-januya.kz/"');
     $('#buy_modal2').modal();
+}
+
+function showBuyModal3(ob, id, percent) {    
+    $('#vip_packet_id').val(id);
+    $('#percent_packet').text(percent)
+    $('#desired_price').attr('onkeyup','calcPreDesiredPrice(' + percent + ')');
+    $('#send_packet_vip_btn').attr('onclick','addResponseAddVipPacket($(".buy_btn_' + id + '"),' + id + ')');
+    $('#buy_modal3').modal();
+}
+
+function calcPreDesiredPrice(percent) {
+    let price = parseInt($('#desired_price').val())
+    let percent_of_price = price ? price * (parseInt(percent) /100) : 0
+    $('#percent_of_price').val(parseInt(percent_of_price))    
 }
 
 function redirectPaybox(user_packet_type,id) {

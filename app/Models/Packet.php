@@ -23,6 +23,15 @@ class Packet extends Model
     const LARGE = 3; // Gold
     const VIP = 4; //VIP
 
+    const VIP_ECONOMY = 5;
+    const VIP_STANDARD = 6;
+    const VIP_PREMIUM = 7;
+    
+    const VIP_ECONOMY_PERCENT = 15/100;
+    const VIP_STANDARD_PERCENT = 30/100;
+    const VIP_PREMIUM_PERCENT = 50/100;
+
+
     public static function actualPacket()
     {
         return [

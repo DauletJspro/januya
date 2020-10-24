@@ -250,6 +250,12 @@
             </a>
         </li>
         <li class="treeview">
+            <a href="/admin/vip_client">
+                <i class="fa fa-users"></i>
+                <span>VIP Пользователи</span>
+            </a>
+        </li>
+        <li class="treeview">
             <a href="/admin/packet-item">
                 <i class="fa fa-list"></i>
                 <span>Пакеты</span>

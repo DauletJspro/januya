@@ -7,7 +7,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
         <div class="card col col-sm-6 col-md-3 col-xl-3 col-xs-12">
             <div class="card-body" style="position:relative;background-color:{{'#' . $packet->packet_css_color}}; height: 250px;">
                 <h2 class="card-title">{{$packet->packet_name_ru}}</h2>
-                <h3 style="font-weight: bold;">                    
+                <h3 style="font-weight: bold; color: #fff;">                    
                     {{$packet->packet_price * $currency}}
                     &#8376;</h3>
                 <p class="card-text">
@@ -15,7 +15,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                 </p>
                 <div id="bag-icon">
                     <i class="ion ion-bag"></i>
-                </div>
+                </div>                
                 <div class="card-body text-center" style="padding: 1px;">
                     @if(\App\Models\UserPacket::hasPacket($packet->packet_id))
                         @if(\App\Models\UserPacket::isActive($packet->packet_id))
@@ -27,18 +27,24 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                                         class="fa fa-arrow-right"></i></a>
                         @endif
                     @else
-                        <a href="javascript:void(0)" onclick="showBuyModal2(this,'{{$packet->packet_id}}')"
-                        class="buy_btn_{{$packet->packet_id}} shop_buy_btn btn  transparent">Купить пакет <i
-                                    class="fa fa-arrow-right"></i></a>
+                        @if ($packet->packet_id != \App\Models\Packet::VIP)
+                            <a href="javascript:void(0)" onclick="showBuyModal3(this,'{{$packet->packet_id}}', '{{$packet->pre_percent}}')"
+                                class="buy_btn_{{$packet->packet_id}} shop_buy_btn btn  transparent">Купить пакет <i
+                                            class="fa fa-arrow-right"></i></a>
+                        @else
+                            <a href="javascript:void(0)" onclick="showBuyModal2(this,'{{$packet->packet_id}}')"
+                                class="buy_btn_{{$packet->packet_id}} shop_buy_btn btn  transparent">Купить пакет <i
+                                            class="fa fa-arrow-right"></i></a>                            
+                        @endif                        
                     @endif
                 </div>
             </div>
         </div>
-    @else        
+    @else
         <div class="card col col-sm-6 col-md-3 col-xl-3 col-xs-12">
             <div class="card-body" style="position:relative;background-color:{{'#' . $packet->packet_css_color}}; height: 250px;">
                 <h2 class="card-title">{{$packet->packet_name_ru}}</h2>
-                <h3 style="font-weight: bold;">{{$packet->packet_price - \App\Models\UserPacket::userHasPacketsPrice($packet->packet_id)}} pv
+                <h3 style="font-weight: bold;  color: #fff;">{{$packet->packet_price - \App\Models\UserPacket::userHasPacketsPrice($packet->packet_id)}} pv
                     &emsp;
                     {{($packet->packet_price - \App\Models\UserPacket::userHasPacketsPrice($packet->packet_id)) * $currency}}
                     &#8376;</h3>
@@ -81,6 +87,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
     .card-title {
         font-family: "Consolas", "Monaco", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
         font-weight: bold;
+        color: #fff;
     }
 
     .card-body {

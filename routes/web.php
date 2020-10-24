@@ -78,6 +78,8 @@ Route::group([
         Route::get('robot/month', 'IndexController@profitRobotAfterMonth');
         Route::get('robot/day', 'IndexController@deleteInactiveUserPacketAfterDay');
         Route::get('{id}', 'PacketController@getPacketById');
+        Route::post('user/active_kooperative', 'PacketController@sendResponseAddVipPacket');
+        Route::post('user/inactive_vip', 'PacketController@acceptInactiveUserVipPacket');
     });
 
     Route::group([
@@ -265,6 +267,10 @@ Route::group([
     Route::post('client/is_show', 'ClientController@changeIsBan');
     Route::resource('client', 'ClientController');
     Route::post('client/share', 'ClientController@editIntersHolderStatus')->name('client.share');
+
+    Route::post('vip_client/is_show', 'VipClientController@changeIsBan');
+    Route::resource('vip_client', 'VipClientController');
+    Route::post('vip_client/share', 'VipClientController@editIntersHolderStatus')->name('client.share');
 
     Route::post('video/is_show', 'VideoController@changeIsBan');
     Route::resource('video', 'VideoController');

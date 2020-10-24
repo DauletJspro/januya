@@ -186,6 +186,16 @@
         </li>
 
         <li class="treeview">
+            <a href="/admin/document/confirm">
+                <i class="fa fa-list-ul"></i>
+                <span>Подтверж. документа</span>
+                <?php $user_packet_notice = \App\Models\UserConfirmDocument::where('user_confirm_document.is_active', 1)->leftJoin('users', 'users.user_id', '=', 'user_confirm_document.user_id')->where('users.is_valid_document', 0)->count();?>
+                <span class="label label-primary pull-right"
+                      style="<?php if($user_packet_notice == 0): ?> display: none; <?php endif; ?> background-color: rgb(253, 58, 53) ! important;"><?php echo e($user_packet_notice); ?></span>
+            </a>
+        </li>
+
+        <li class="treeview">
             <a href="/admin/packet/user/inactive">
                 <i class="fa fa-list-ul"></i>
                 <span>Запросы на пакет</span>
@@ -230,6 +240,12 @@
             <a href="/admin/client">
                 <i class="fa fa-users"></i>
                 <span>Пользователи</span>
+            </a>
+        </li>
+        <li class="treeview">
+            <a href="/admin/vip_client">
+                <i class="fa fa-users"></i>
+                <span>VIP Пользователи</span>
             </a>
         </li>
         <li class="treeview">
