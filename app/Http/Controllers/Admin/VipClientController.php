@@ -23,12 +23,12 @@ class VipClientController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('admin')->except('index');
     }
 
     public function index(Request $request)
     {
-        $vip_packets = [Packet::VIP_ECONOMY, Packet::VIP_STANDARD, Packet::VIP_PREMIUM ];        
+        $vip_packets = [Packet::VIP_ECONOMY, Packet::VIP_STANDARD, Packet::VIP_PREMIUM ];
         $request->row = UserPacket::whereIn('user_packet.packet_id', $vip_packets)->where('user_packet.is_active', true)
         ->leftJoin('users', 'user_packet.user_id', '=', 'users.user_id')
         ->leftJoin('city', 'city.city_id', '=', 'users.city_id')
@@ -47,7 +47,9 @@ class VipClientController extends Controller
         )
         ->groupBy('users.user_id');
 
-        $accumulated_amount = UserPacket::whereIn('packet_id', $vip_packets)->where('is_active', true)->where('is_paid', false)->sum('pre_desired_price');
+        $accumulated_amount = UserPacket::whereIn('packet_id', $vip_packets)->where('is_active', true)->sum('pre_desired_price');
+        $is_paid_amount = UserPacket::whereIn('packet_id', $vip_packets)->where('is_active', true)->where('is_paid', true)->sum('desired_price');
+        $accumulated_amount = $accumulated_amount - $is_paid_amount;
       
         if (isset($request->user_name) && $request->user_name != '')
             $request->row->where(function ($query) use ($request) {
@@ -73,12 +75,12 @@ class VipClientController extends Controller
                     ->orWhere('country.country_name_ru', 'like', '%' . $request->city_name . '%');
             });
 
-        if (isset($request->is_ban))
-            $request->row->where('users.is_ban', $request->is_ban);
-        else $request->row->where('users.is_ban', '0');
+        if (isset($request->is_paid))
+            $request->row->where('user_packet.is_paid', $request->is_paid);
+        else $request->row->where('user_packet.is_paid', '0');
 
-        if (isset($request->is_active))
-            $request->row->where('users.is_activated', $request->is_active);
+        if (isset($request->is_expected))
+            $request->row->where('user_packet.desired_price', '<=', $accumulated_amount);
 
         if (isset($request->packet_name) && $request->packet_name != '') {
             $request->row->where('packet.packet_name_ru', 'like', '%' . $request->packet_name . '%')
@@ -87,15 +89,25 @@ class VipClientController extends Controller
         if ($request->is_interest_holder) {
             $request->row->where(['users.is_interest_holder' => true]);
         }
-
+        
         $request->row = $request->row->paginate(10);
         // dd($request->row[0]);
-        return view('admin.vip_client.client', [
-            'row' => $request,
-            'title' => 'Все пользователи',
-            'request' => $request,
-            'accumulated_amount' => $accumulated_amount
-        ]);
+        if (Auth::user()->role_id == 1) {
+            return view('admin.vip_client.client', [
+                'row' => $request,
+                'title' => 'Все пользователи',
+                'request' => $request,
+                'accumulated_amount' => $accumulated_amount
+            ]);
+        }
+        else {
+            return view('admin.vip_client.users_client', [
+                'row' => $request,
+                'title' => 'Все пользователи',
+                'request' => $request,
+                'accumulated_amount' => $accumulated_amount
+            ]);
+        }
     }
 
     public function destroy($id)
@@ -126,5 +138,16 @@ class VipClientController extends Controller
         }
         $request->session()->flash('danger', 'Произошла ошибка');
         return back();
+    }
+
+    public function changeIsPaid(Request $request)
+    {
+        $vip_packets = [Packet::VIP_ECONOMY, Packet::VIP_STANDARD, Packet::VIP_PREMIUM ];
+        $accumulated_amount = UserPacket::whereIn('packet_id', $vip_packets)->where('is_active', true)->sum('pre_desired_price');
+        $is_paid_amount = UserPacket::whereIn('packet_id', $vip_packets)->where('is_active', true)->where('is_paid', true)->sum('desired_price');
+        $accumulated_amount = $accumulated_amount - $is_paid_amount;
+        UserPacket::whereIn('packet_id', $vip_packets)->where(['user_id' => $request->id, 'is_active' => true, 'is_paid' => false])
+        ->where('desired_price', '<=', $accumulated_amount)
+        ->update(['is_paid' => $request->is_paid]);
     }
 }

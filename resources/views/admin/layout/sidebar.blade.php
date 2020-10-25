@@ -1,4 +1,8 @@
 <ul class="sidebar-menu">
+    @php
+        $vip_packets = [\App\Models\Packet::VIP_ECONOMY, \App\Models\Packet::VIP_STANDARD, \App\Models\Packet::VIP_PREMIUM ];
+        $vip_user = \App\Models\UserPacket::whereIn('packet_id', $vip_packets)->where('user_id', Auth::user()->user_id)->where('is_active', true)->count();
+    @endphp
     @if(Auth::user()->status_id > 0)
         <li class="header"
             style="background: #fff; font-size: 14px; padding:5px 25px 0px"> <?php $status_name = \App\Models\UserStatus::where('user_status_id', Auth::user()->status_id)->first(); ?>
@@ -130,6 +134,15 @@
         </a>
     </li>
 
+    @if ($vip_user > 0 && Auth::user()->role_id != 1)
+        <li class="treeview">
+            <a href="/admin/vip_client">
+                <i class="fa fa-users"></i>
+                <span>VIP Пользователи</span>
+            </a>
+        </li>
+    @endif
+
     <li class="treeview">
         <a href="/admin/online">
             <i class="fa fa-shopping-cart"></i>
@@ -163,7 +176,7 @@
             <i class="fa fa-money"></i>
             <span>Отправить деньги</span>
         </a>
-    </li>
+    </li>    
 
     {{-- <li class="treeview">
         <a href="/admin/instagram/partners/request">
@@ -248,7 +261,7 @@
                 <i class="fa fa-users"></i>
                 <span>Пользователи</span>
             </a>
-        </li>
+        </li>        
         <li class="treeview">
             <a href="/admin/vip_client">
                 <i class="fa fa-users"></i>

@@ -26,22 +26,15 @@
                 </div>
                 <div>
                     <div style="text-align: right" class="form-group col-md-6">
-                        <h4 class="box-title box-edit-click">                                                        
+                        <h4 class="box-title box-edit-click">
                             {{-- <a href="javascript:void(0)" onclick="deleteAll('user')">Удалить отмеченные</a>--}}
                         </h4>
                     </div>
                     <div style="text-align: right" class="form-group col-md-6">
-                        <h4 class="box-title box-edit-click">                            
+                        <h4 class="box-title box-edit-click">
                             Накопленная сумма: {{ $accumulated_amount }}
                             {{-- <a href="javascript:void(0)" onclick="deleteAll('user')">Удалить отмеченные</a>--}}
                         </h4>
-
-                        <h4 class="box-title box-edit-click">
-                            <a href="javascript:void(0)" onclick="isPaidEnabledAll('vip_client')"> Активировать
-                                отмеченные
-                            </a>
-                        </h4>
-
                     </div>
                 </div>
                 <div class="box-body">
@@ -65,12 +58,6 @@
                                         <th>Предоплата</th>
                                         <th>Оставшиеся сумма</th>
                                         <th>Желаемая сумма</th>
-                                        <th></th>
-                                        <th class="no-sort"
-                                            style="width: 0px; text-align: center; padding-right: 16px; padding-left: 14px;">
-                                            <input onclick="selectAllCheckbox(this)" style="font-size: 15px"
-                                                   type="checkbox" value="1"/>
-                                        </th>
                                     </tr>
                                     </thead>
 
@@ -107,8 +94,6 @@
                                                        name="city_name" placeholder="Поиск">
                                             </form>
                                         </td>                                       
-                                        <td></td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -177,25 +162,6 @@
                                                     {{ $val->country_name_ru }}</br>
                                                     {{ $val->desired_price }}
                                                 </div>
-                                            </td>                                            
-                                            <td style="text-align: center">
-                                                <a href="javascript:void(0)"
-                                                   onclick="delItem(this,'{{ $val->user_id }}','user')">
-                                                    <li class="fa fa-trash-o" style="font-size: 20px; color: red;"></li>
-                                                </a>
-                                                <a data-user-id="{{$val->user_id}}"
-                                                   data-user-full_name="{{sprintf('%s', $val->email)}}"
-                                                   data-share="{{$val->share}}"
-                                                   data-is_holder="{{$val->is_interest_holder}}"
-                                                   onclick="share(this)">
-                                                    <li class="fa fa-user"
-                                                        style="cursor:pointer;font-size: 20px; color: blue;">
-                                                    </li>
-                                                </a>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <input class="select-all" style="font-size: 15px" type="checkbox"
-                                                       value="{{$val->user_id}}"/>
                                             </td>
                                         </tr>
 
@@ -219,51 +185,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Пользователь: <span id="user_modal_full_name"></span></h4>
-                </div>
-                <div class="modal-body">
-                    <form action="{{route('client.share')}}" method="POST">
-                        {!! Form::token() !!}
-                        <input type="hidden" id="modal_user_id" name="user_id" value="">
-                        <div class="form-box">
-                            <label for="" class="form-group">
-                                Является дольщиком:
-                            </label>
-                            <select name="is_holder" id="is_holder" class="form-control">
-                                <option value="1">
-                                    Да
-                                </option>
-                                <option value="0">
-                                    Нет
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-box" style="margin-top: 3rem !important;">
-                            <label for="share" class="form-group">
-                                Укажите количество доли пользователя
-                            </label>
-                            <input max="100" id="modal_user_share" type="number" name="share" class="form-control">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                            <button type="submit" class="btn btn-primary">Сохранить изменение</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
+    </div>    
 
 @endsection
 

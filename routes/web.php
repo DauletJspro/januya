@@ -271,6 +271,7 @@ Route::group([
     Route::post('vip_client/is_show', 'VipClientController@changeIsBan');
     Route::resource('vip_client', 'VipClientController');
     Route::post('vip_client/share', 'VipClientController@editIntersHolderStatus')->name('client.share');
+    Route::post('vip_client/is_paid', 'VipClientController@changeIsPaid');
 
     Route::post('video/is_show', 'VideoController@changeIsBan');
     Route::resource('video', 'VideoController');
