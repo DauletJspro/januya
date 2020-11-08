@@ -18,17 +18,17 @@
             <span class="logo-lg">
             <img src="/logo_text.png?v=3" style="width:140px">
           </span>
-        </a>
+        </a>                
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
-            </a>
-
+            </a>            
+            
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown user user-menu">
+                    <li class="dropdown user user-menu">                        
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="<?php echo e(Auth::user()->avatar); ?>" class="user-image" alt="User Image">
                             <span class="hidden-xs"><?php echo e(Auth::user()->surname .' ' .Auth::user()->name); ?></span>

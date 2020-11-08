@@ -23,8 +23,7 @@ class Users extends Model implements AuthenticatableContract
     const USER_SEVEN_PERCENT = [2,3,4,5];    
 
 //    use SoftDeletes;
-//    protected $dates = ['deleted_at'];
-
+//    protected $dates = ['deleted_at']; 
 
     public static function parentFollowers($parent_id)
     {

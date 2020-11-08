@@ -113,7 +113,7 @@
                         
                     </ul>
 
-                    @if(isset($is_own))
+                    @if(isset($is_own) && $row->is_valid_document == 0)
                         <a href="/admin/profile/edit" class="btn btn-primary btn-block"><b>Редактировать данные</b></a>
                     @endif
 

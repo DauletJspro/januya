@@ -205,7 +205,7 @@ class ProfileController extends Controller
     }
 
     public function update(Request $request)
-    {
+    {        
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'last_name' => 'required',
@@ -220,6 +220,7 @@ class ProfileController extends Controller
             'login' => 'required|unique:users,login,' .Auth::user()->user_id .',user_id,deleted_at,NULL',
             'phone' => 'required|unique:users,phone,' .Auth::user()->user_id .',user_id,deleted_at,NULL'
         ]);
+        
 
         if ($validator->fails()) {
             $messages = $validator->errors();
@@ -243,6 +244,32 @@ class ProfileController extends Controller
                 'title' => 'Редактировать данные',
                 'row' => (object) $request->all(),
                 'error' => $error[0],
+                'country_row' => $country_row,
+                'statuses' => $statuses,
+                'city_row' => $city_row
+            ]);
+        }
+
+        if (Auth::user()->is_valid_document) {
+
+            $country_row = Country::orderBy('sort_num','asc')
+                ->orderBy('country_name_ru','asc')
+                ->where('is_show',1)
+                ->get();
+
+            $city_row = City::orderBy('city_name_ru','asc')
+                ->where('is_show',1)
+                ->where('country_id',1)
+                ->get();
+
+            $statuses = UserStatus::orderBy('sort_num','asc')
+                ->where('is_show',1)
+                ->get();
+
+            return  view('admin.profile.profile-edit', [
+                'title' => 'Редактировать данные',
+                'row' => (object) $request->all(),
+                'error' => 'Админ уже подтвердил вашу верификацию',
                 'country_row' => $country_row,
                 'statuses' => $statuses,
                 'city_row' => $city_row
