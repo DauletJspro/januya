@@ -25,11 +25,11 @@ $dollar = $dollar->money;
                         <div class="form-group">
                             <label>Укажите сумму ($)</label>
                             <input id="money" min="0"
-                                   onchange="changeMoney('@if(Auth::user()->is_individual == 1){{0.21}}@else{{0}}@endif')"
+                                   onchange="changeMoney('@if(Auth::user()->is_individual == 1){{0.05}}@else{{0}}@endif')"
                                    required value="" type="numeric" class="form-control" name="money"
                                    placeholder="Введите">
                             <p style="font-family: Tahoma; font-weight: 700; margin-top: 9px; font-size: 13px; color: rgb(253, 58, 53);"> @if(Auth::user()->is_individual == 1)
-                                    Комиссия 21%: @else Индивидуальный предприниматель 0% @endif <span id="money_label"
+                                    Комиссия 5%: @else Индивидуальный предприниматель 0% @endif <span id="money_label"
                                                                                                        style="color: black"></span>
                             </p>
                         </div>
