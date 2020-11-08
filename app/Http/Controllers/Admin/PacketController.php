@@ -208,7 +208,7 @@ class PacketController extends Controller
         $user_packet->is_active = false;
         $user_packet->is_portfolio = '';
         $user_packet->desired_price = $request->desired_price;
-        $user_packet->pre_desired_price = $request->desired_price * ($packet->pre_percent/100);
+        $user_packet->pre_desired_price = $request->desire  d_price * ($packet->pre_percent/100);
         $user_packet->save();
 
         $result['url'] = 'http://pk-januya.kz/';
@@ -587,43 +587,17 @@ class PacketController extends Controller
             return response()->json($result);
         }
         
-        $this->activatePackage($userPacket);
-        $inviter = Users::where(['user_id' => $user->recommend_user_id])->first();
-        if ($inviter) {            
-            $bonus = 0;
-            $packetPrice = $userPacket->packet_price;
-            $inviterPacketId = UserPacket::where(['user_id' => $inviter->user_id])->where(['is_active' => true])->get();
-            $inviterCount = (count($inviterPacketId));
-            if ($inviterCount) {                
-                $bonusPercentage = (intval($packet->level_percentage) / 100);
-                $bonus = $packetPrice * $bonusPercentage;
-            }
-        }
-
-        if ($bonus) {
-            $operation = new UserOperation();
-            $operation->author_id = $user->user_id;
-            $operation->recipient_id = $inviter->user_id;
-            $operation->money = $bonus;
-            $operation->operation_id = 1;
-            $operation->operation_type_id = 1;
-            $operation->operation_comment = 'Рекрутинговый бонус. "' . $packet->packet_name_ru . '". Уровень - ' . $inviter_order;
-            $operation->save();
-            $inviter->user_money = $inviter->user_money + $bonus;
-            $inviter->save();
-            $this->sentMoney += $bonus;
-        }
-
+        $this->activatePackage($userPacket);        
         $this->sentMoney = 0;
-        $check_user_gold_packet = UserPacket::where(['user_id' => $user->user_id, 'packet_id' => Packet::LARGE])->whereNull('deleted_at')->exists();
+        $check_user_gold_packet = UserPacket::where(['user_id' => $user->user_id, 'packet_id' => Packet::SMALL])->whereNull('deleted_at')->exists();
         if ($check_user_gold_packet) {
-            $user_gold_packet = UserPacket::where(['user_id' => $user->user_id, 'packet_id' => Packet::LARGE])->whereNull('deleted_at')->first();
+            $user_gold_packet = UserPacket::where(['user_id' => $user->user_id, 'packet_id' => Packet::SMALL])->whereNull('deleted_at')->first();
             if (!$user_gold_packet->is_active) {
                 $this->implementPacketBonuses($user_gold_packet);
             }
         }
         else {
-            $packet = Packet::find(Packet::LARGE);
+            $packet = Packet::find(Packet::SMALL);
             $user_packet = new UserPacket();
             $user_packet->user_id = $user->user_id;
             $user_packet->packet_id = $packet->packet_id;
