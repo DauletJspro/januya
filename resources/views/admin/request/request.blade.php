@@ -43,8 +43,7 @@
                 <td></td>
             </tr>
 
-                  @foreach($row as $key => $val)
-
+                  @foreach($row as $key => $val)                    
                      <tr>
                         <td> {{ $key + 1 }}</td>
                          <td>
@@ -64,10 +63,10 @@
                             <p style="margin: 0px"><b>КАРТОЧКА: </b>{{$val->card_number}}</p>
                          </td>
                          <td>
-                             {{$val->money*0.9}} $ ({{round($val->money *0.9* \App\Models\Currency::where('currency_name','тенге')->first()->money,2)}}тг)
+                             {{$val->money ? $val->money : 0}} $ ({{round($val->money * \App\Models\Currency::DollarToKzt,2)}}тг)
                          </td>
                          <td>
-                             {{$val->money*0.1}} $ ({{round($val->money *0.1* \App\Models\Currency::where('currency_name','тенге')->first()->money,2)}}тг)
+                             {{$val->money*0.05}} $ ({{round($val->money *0.05* \App\Models\Currency::DollarToKzt,2)}}тг)
                          </td>
                         <td>
                             {{ $val->date }}
