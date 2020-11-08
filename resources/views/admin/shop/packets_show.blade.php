@@ -29,7 +29,7 @@ $userPacket = \App\Models\UserPacket::where(['user_id' => \Illuminate\Support\Fa
                     @else
                         @if ($packet->packet_id != \App\Models\Packet::VIP)
                             <a href="javascript:void(0)" onclick="showBuyModal3(this,'{{$packet->packet_id}}', '{{$packet->pre_percent}}')"
-                                class="buy_btn_{{$packet->packet_id}} shop_buy_btn btn  transparent">Купить пакет <i
+                                class="buy_btn_{{$packet->packet_id}} shop_buy_btn btn  transparent">Отправить запрос <i
                                             class="fa fa-arrow-right"></i></a>
                         @else
                             <a href="javascript:void(0)" onclick="showBuyModal2(this,'{{$packet->packet_id}}')"

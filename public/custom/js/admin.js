@@ -442,12 +442,18 @@ function setBasketUnit(ob, id) {
 }
 
 function confirmBasket() {
+    let address = $('#address').val();
+    let delivery_id = $('#delivery').val();
     $.ajax({
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         url: "/admin/online/confirm",
+        data: {
+            address: address,
+            delivery_id: delivery_id,
+        },
         success: function (data) {
             if (data.status == true) {
                 window.location.href = '/admin/online/history';

@@ -12,6 +12,7 @@ use App\Models\UserOperation;
 use App\Models\UserPacket;
 use App\Models\Users;
 use App\Models\UserStatus;
+use App\Models\Order;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -152,7 +153,7 @@ class OnlineController extends Controller
         return response()->json($result);
     }
 
-    public function confirmBasket()
+    public function confirmBasket(Request $request)
     {
 
         $result['error'] = 'Временно недоступно';
@@ -166,7 +167,7 @@ class OnlineController extends Controller
         if ($validator->fails()) {
             $messages = $validator->errors();
             $error = $messages->all(); 
-            $result['message'] = $error[0];           
+            $result['error'] = $error[0];           
             return response()->json($result);
         }
 
