@@ -40,6 +40,7 @@ class UserDocumentController extends Controller
         if($user_id == null) {
             $user_id = Auth::user()->user_id;
             $user = Auth::user();
+            $user_info = UserInfo::where('user_id', $user_id)->first();
             $is_own = 1;
         }
         else {
