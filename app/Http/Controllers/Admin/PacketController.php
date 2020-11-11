@@ -208,7 +208,7 @@ class PacketController extends Controller
         $user_packet->is_active = false;
         $user_packet->is_portfolio = '';
         $user_packet->desired_price = $request->desired_price;
-        $user_packet->pre_desired_price = $request->desire  d_price * ($packet->pre_percent/100);
+        $user_packet->pre_desired_price = $request->desired_price * ($packet->pre_percent/100);
         $user_packet->save();
 
         $result['url'] = 'http://pk-januya.kz/';
@@ -245,6 +245,7 @@ class PacketController extends Controller
                 ->where('user_packet.user_id', Auth::user()->user_id)
                 ->where('user_packet.packet_id', '>=', $request->packet_id)
                 ->where('user_packet.is_active', 1)
+                ->where('packet.is_upgrade_packet', true)
                 ->count();
 
             if ($is_check > 0) {
@@ -307,6 +308,7 @@ class PacketController extends Controller
                     ->where('user_packet.user_id', Auth::user()->user_id)
                     ->where('user_packet.packet_id', '>=', $request->packet_id)
                     ->where('user_packet.is_active', 1)
+                    ->where('packet.is_upgrade_packet', true)
                     ->count();
 
                 if ($is_check > 0) {
