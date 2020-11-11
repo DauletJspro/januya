@@ -598,4 +598,3 @@ ResponsiveHelper = (function ($) {
     };
 }(jQuery));
 
-

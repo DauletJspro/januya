@@ -100,7 +100,7 @@ $tab = (explode('tab=', URL::current()));
                                         <input type="number" value="1" id="product_count" />
                                     </div>
                                     <div class="row-val">
-                                        <button onclick="showOrderFormModal($(this), {{ $product->product_id }}, {{ Auth::check() }})"> @lang('app.buy_product') </button>                                        
+                                        <button onclick="showOrderFormModal($(this), {{ $product->product_id }})"> @lang('app.buy_product') </button>                                        
                                     </div>
                                 </fieldset>
                             </div>
@@ -294,9 +294,10 @@ $tab = (explode('tab=', URL::current()));
                         </div>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('smartpay_create_order_product') }}" method="POST">
+                        <form id="form_order" action="{{ route('smartpay_create_order_product') }}" method="POST">
                             {{ csrf_field() }}
-                            <input type="hidden" name="products[]" id="product_id">
+                            <input type="hidden" name="product_id" id="product_id">
+                            <input type="hidden" name="product_count" id="product_cnt">
                             <div id="user_not_partner">
                                 <div class="form-group">
                                     <label for="username">ФИО</label>
@@ -314,7 +315,15 @@ $tab = (explode('tab=', URL::current()));
                             <div class="form-group">
                                 <label for="address">Адрес</label>
                                 <input type="text" class="form-control" id="address" name="address" placeholder="г.Алматы ул.Абая 187а кв 94">
-                            </div>                            
+                            </div>         
+                            <div class="form-group">
+                                <label for="delivery">Доставка</label>
+                                <select class="form-control" name="delivery" id="delivery">
+                                    <option value="1" selected>Самовывоз</option>
+                                    <option value="2">Курьером</option>
+                                    <option value="3">По почте</option>
+                                </select>                                
+                            </div>                   
                             {{-- <div class="form-group form-check">
                               <input type="checkbox" class="form-check-input" id="exampleCheck1">
                               <label class="form-check-label" for="exampleCheck1">Я ознакомлен(а)</label>

@@ -158,18 +158,11 @@
       });
     } 
     
-    function showOrderFormModal(ob,id, is_partner) {      
+    function showOrderFormModal(ob,id) {      
       let modal = $('#order_form');
-      let product_count = $(ob).closest('.product-form').find('#product_count').val();      
-      $('<input>').attr({
-          type: 'hidden',
-          name: 'products_count['+id+']',
-          value: product_count
-      }).appendTo($(modal).find('form'));
-      $(modal).find('#product_id').val(id)      
-      if (is_partner) {
-        $(modal).find('#user_not_partner').hide()
-      }
+      let product_count = $(ob).closest('.product-form').find('#product_count').val();
+      $(modal).find('#product_cnt').val(product_count)
+      $(modal).find('#product_id').val(id)
       $(modal).modal();
     }
   </script>
