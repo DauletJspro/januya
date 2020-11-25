@@ -330,9 +330,9 @@ class PacketController extends Controller
             }
             if (Auth::user()->user_money < $packet->packet_price - $packet_old_price) {
                 $result['message'] = 'У вас не хватает баланса чтобы купить этот пакет';
-                $result['status'] = false;
+                $result['status'] = false;                
                 return response()->json($result);
-            }
+            }            
 
             $packet = Packet::where('packet_id', $request->packet_id)->first();
 

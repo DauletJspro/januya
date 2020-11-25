@@ -43,6 +43,7 @@ class UserPacket extends Model
 
         $userPackets = UserPacket::where(['user_packet.user_id' => $user_id])->where('user_packet.is_active', 1)
             ->join('packet', 'packet.packet_id', '=', 'user_packet.packet_id')
+            ->where('packet.is_upgrade_packet', true)
             ->whereIn('user_packet.packet_id', Packet::actualPacket())
             ->get()->sortBy('packet.packet_id');
 
