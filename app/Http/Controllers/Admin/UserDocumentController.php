@@ -89,7 +89,7 @@ class UserDocumentController extends Controller
 
     public function saveDocumentList(Request $request){        
         
-        if (!isset($request->user_document) || count($request->user_document) != 5) {
+        if (!isset($request->user_document) || count($request->user_document) != 3) {
             $result['error'] = 'Загрузите все документы';
             $result['status'] = false;
             return response()->json($result);
