@@ -275,11 +275,11 @@ class UserRequestController extends Controller
 
     public function sendMoneyToAccount(Request $request)
     {
-       /* if(Auth::user()->is_valid_document == 0){
+        if(Auth::user()->is_valid_document == 0){
             $result['message'] = 'Вы не прошли верификацию';
             $result['status'] = false;
             return response()->json($result);
-        }*/
+        }
 
         if($request->recipient_id == 0 || $request->recipient_id == ''){
             $result['message'] = 'Вы не выбрали получателя';
