@@ -95,7 +95,7 @@ class SmartPayController extends Controller
                 'address' => null,
                 'contact' => Auth::user()->phone,
                 'sum' => $price,
-                'products' => null,
+                'products' => null, 
                 'packet_id' => $request->packet_id,
                 'payment_id' => $response->data->id,
                 'delivery_id' => null
