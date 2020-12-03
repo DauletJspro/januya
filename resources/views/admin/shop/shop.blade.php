@@ -32,11 +32,11 @@
                         </button>
                     </div>
                     <hr>
-                    <div class="btn-group">
-                        <button style="font-size: 2rem; font-weight: bolder;" class="btn btn-warning" type="button" id="buy_packet_from_balance_btn">
-                            Снять с баланса
-                        </button>
-                    </div>
+{{--                    <div class="btn-group">--}}
+{{--                        <button style="font-size: 2rem; font-weight: bolder;" class="btn btn-warning" type="button" id="buy_packet_from_balance_btn">--}}
+{{--                            Снять с баланса--}}
+{{--                        </button>--}}
+{{--                    </div>--}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
