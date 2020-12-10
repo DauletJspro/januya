@@ -65,10 +65,10 @@
                              <p style="margin: 0px"><b>КАРТОЧКА: </b>{{$val->card_number}}</p>
                          </td>
                          <td>
-                             {{$val->money*0.9}} $ ({{round($val->money *0.9* \App\Models\Currency::where('currency_name','тенге')->first()->money,2)}}тг)
+                             {{$val->money*0.9}} $ ({{round($val->money *0.9* \App\Models\Currency::where('currency_name','dollar')->first()->amount_in_kzt,2)}}тг)
                          </td>
                          <td>
-                             {{$val->money*0.1}} $ ({{round($val->money *0.1* \App\Models\Currency::where('currency_name','тенге')->first()->money,2)}}тг)
+                             {{$val->money*0.1}} $ ({{round($val->money *0.1* \App\Models\Currency::where('currency_name','dollar')->first()->amount_in_kzt,2)}}тг)
                          </td>
                         <td>
                             {{ $val->date }}
