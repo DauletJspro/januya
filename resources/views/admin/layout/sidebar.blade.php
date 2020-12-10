@@ -165,6 +165,13 @@
     </li>
 
     <li class="treeview">
+        <a href="/admin/document">
+            <i class="fa fa-user"></i>
+            <span>Мои документы</span>
+        </a>
+    </li>
+
+    <li class="treeview">
         <a href="/admin/request/send">
             <i class="fa fa-money"></i>
             <span>Снятие денег</span>
@@ -214,6 +221,7 @@
                       style="@if($user_packet_notice == 0) display: none; @endif background-color: rgb(253, 58, 53) ! important;">{{$user_packet_notice}}</span>
             </a>
         </li>
+
 
         <li class="treeview">
             <a href="/admin/packet/user/inactive">

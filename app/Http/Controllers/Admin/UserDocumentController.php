@@ -134,8 +134,8 @@ class UserDocumentController extends Controller
     public function getConfirmDocumentList(Request $request)
     {
         $row = UserConfirmDocument::leftJoin('users','users.user_id','=','user_confirm_document.user_id')
-            ->leftJoin('user_info','user_info.user_id','=','users.user_id')
-            ->leftJoin('users as recommend','recommend.user_id','=','users.recommend_user_id')
+              ->leftJoin('user_info','user_info.user_id','=','users.user_id')
+              ->leftJoin('users as recommend','recommend.user_id','=','users.recommend_user_id')
             ->where('user_confirm_document.is_active',1)
             ->where('users.is_valid_document',0)
             ->orderBy('user_confirm_document.user_confirm_document_id','desc')
@@ -143,12 +143,14 @@ class UserDocumentController extends Controller
             ->select('users.*',
                 'user_confirm_document.*',
                 'user_info.*',
-                'recommend.name as recommend_name',
+               'recommend.name as recommend_name',
                 'recommend.user_id as recommend_id',
                 'recommend.login as recommend_login',
                 'recommend.last_name as recommend_last_name',
-                'recommend.user_id as recommend_user_id',
-                DB::raw('DATE_FORMAT(user_confirm_document.created_at,"%d.%m.%Y %H:%i") as date'));
+ 'recommend.user_id as recommend_user_id',
+               DB::raw('DATE_FORMAT(user_confirm_document.created_at,"%d.%m.%Y %H:%i") as date'));
+
+//          dd($row);
 
         if(isset($request->user_name) && $request->user_name != '')
             $row->where(function($query) use ($request){
