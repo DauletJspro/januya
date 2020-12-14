@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CheckForActive;
 use App\Models\Fond;
 use App\Models\Operation;
 use App\Models\UserOperation;
@@ -9,6 +10,7 @@ use App\Models\Users;
 use App\Models\UserStatus;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Psy\Command\Command;
 
 class Kernel extends ConsoleKernel
 {
@@ -18,7 +20,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\GlobalBonusBeginOfMonth',
+        CheckForActive::class,
     ];
 
     /**
@@ -29,8 +31,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('globalBonus:everyMonth')
-            ->everyMinute();
+        $schedule->command('command:chactive');
     }
 
     /**

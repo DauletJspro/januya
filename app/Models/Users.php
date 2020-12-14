@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use http\Client\Curl\User;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -12,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class Users extends Model implements AuthenticatableContract
 {
     use Authenticatable;
-
+    use SoftDeletes;
     protected $table = 'users';
     protected $primaryKey = 'user_id';
 
@@ -23,6 +22,10 @@ class Users extends Model implements AuthenticatableContract
 //    use SoftDeletes;
 //    protected $dates = ['deleted_at'];
 
+
+   public function packets(){
+       return $this->belongsToMany(Packet::class,'user_packet', 'user_id', 'packet_id')->where('is_active', true);
+   }
 
     public static function parentFollowers($parent_id)
     {

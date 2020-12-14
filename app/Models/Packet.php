@@ -23,6 +23,10 @@ class Packet extends Model
     const LARGE = 3; // Gold
     const VIP = 4; //VIP
 
+    public function users(){
+        return $this->belongsToMany(Users::class, 'user_packet','packet_id', 'user_id')->where('is_activate', true);
+    }
+
     public static function actualPacket()
     {
         return [
