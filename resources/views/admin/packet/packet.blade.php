@@ -28,7 +28,7 @@
             <tbody>
 
                   @foreach($row as $key => $val)
-
+                    @if($val->packet_id != 6)
                      <tr>
                         <td> {{ $key + 1 }}</td>
                          <td>
@@ -57,7 +57,7 @@
                             </a>
                         </td>
                      </tr>
-
+                  @endif
                   @endforeach
 
             </tbody>

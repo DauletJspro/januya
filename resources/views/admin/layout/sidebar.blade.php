@@ -60,7 +60,7 @@
             <span style="color: black">Реферальная ссылка</span>
         </a>
     </li>
-
+    @if(Auth::user()->user_id !=158)
     <li class="treeview">
         <a href="/admin/index">
             <i class="fa fa-user"></i>
@@ -133,8 +133,9 @@
             <span>Структура</span>
         </a>
     </li>
+    @endif
 
-    @if ($vip_user > 0 && Auth::user()->role_id != 1)
+    @if ($vip_user > 0 && Auth::user()->user_id != 158)
         <li class="treeview">
             <a href="/admin/vip_client">
                 <i class="fa fa-users"></i>
@@ -149,7 +150,7 @@
             <span>Интернет магазин</span>
         </a>
     </li>
-
+    @if(Auth::user()->user_id !=158)
     <li class="treeview">
         <a href="/admin/orders">
             <i class="fa fa-shopping-cart"></i>
@@ -183,7 +184,8 @@
             <i class="fa fa-money"></i>
             <span>Отправить деньги</span>
         </a>
-    </li>    
+    </li>
+    @endif
 
     {{-- <li class="treeview">
         <a href="/admin/instagram/partners/request">
@@ -203,8 +205,8 @@
 
 {{--    @endif--}}
 
-    @if(Auth::user()->role_id == 1)
-
+    @if(Auth::user()->role_id == 1 )
+    @if(Auth::user()->user_id !=158)
         <li class="treeview">
             <a href="/admin/packet/user/active">
                 <i class="fa fa-list-ul"></i>
@@ -221,7 +223,7 @@
                       style="@if($user_packet_notice == 0) display: none; @endif background-color: rgb(253, 58, 53) ! important;">{{$user_packet_notice}}</span>
             </a>
         </li>
-
+         @endif
 
         <li class="treeview">
             <a href="/admin/packet/user/inactive">
@@ -240,6 +242,8 @@
                 <span class="label label-primary pull-right" id="inactive_user_request_count"
                       style="@if($user_packet_notice == 0) display: none; @endif background-color: rgb(253, 58, 53) ! important;">{{$user_packet_notice}}</span>
             </a>
+
+
             <ul class="treeview-menu">
                 <li class="treeview">
                     <a href="/admin/request">
@@ -264,6 +268,7 @@
             </ul>
         </li>
 
+        @if(Auth::user()->user_id !=158)
         <li class="treeview">
             <a href="/admin/client">
                 <i class="fa fa-users"></i>
@@ -288,12 +293,14 @@
                 <span>Товары</span>
             </a>
         </li>
+            @endif
         <li class="treeview">
             <a href="/admin/accounting">
                 <i class="fa fa-money"></i>
                 <span>Учет</span>
             </a>
         </li>
+        @if(Auth::user()->user_id !=158)
         <li>
             <a href="/admin/representative">
                 <i class="fa fa-user"></i>
@@ -306,6 +313,7 @@
                 <span>Часта задаваемые вопросы</span>
             </a>
         </li>
+        @endif
 {{--    @endif--}}
     {{-- <li class="treeview">
          <a href="/admin/binar/config">

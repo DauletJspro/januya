@@ -1,3 +1,4 @@
+<?php $packets = \App\Models\Packet::all()?>
 @extends('admin.layout.layout')
 @section('breadcrump')
     <section class="content-header">
@@ -66,10 +67,8 @@
                     <h2 class="modal-title">Купить пакет</h2>
                 </div>
                 <div class="modal-body">
-                    <div class="btn-group">                        
-                        <button type="submit" onclick="location.href='http://pk-januya.kz/'" style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" type="button" id="buy_vip_online_btn">
-                            Перейти к оплате
-                        </button>                      
+                    <div class="btn-group">
+                        <h2 class="modal-title">Окно запроса</h2>
                     </div>
                     <hr>
                     <div class="btn-group">
@@ -92,7 +91,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h2 class="modal-title">Купить пакет</h2>
                 </div>
-                <div class="modal-body">                                            
+                <div class="modal-body">
                     <input type="hidden" class="form-control" id="vip_packet_id" name="packet_id">
                     <div class="form-group">
                         <label for="desired_price">Желаемая сумма</label>
@@ -106,7 +105,7 @@
                         <button type="submit" style="font-size: 2rem; font-weight: bolder;" class="btn btn-success" id="send_packet_vip_btn">
                             Перейти к оплате
                         </button>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
