@@ -29,8 +29,10 @@ class UserStatus extends Model
 
     public static function getStatusName($id)
     {
+
         $statusName = UserStatus::where(['user_status_id' => $id])->first();
         $statusName = $statusName ? $statusName->user_status_name : NULL;
         return $statusName;
+
     }
 }

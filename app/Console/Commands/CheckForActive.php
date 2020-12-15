@@ -38,11 +38,13 @@ class   CheckForActive extends Command
      */
     public function handle()
     {
+
         $users = Users::where('created_at', date('Y-m-d'))->get();
         foreach ($users as $user) {
             if (!$user->packets) {
                 $user->delete();
             }
         }
+
     }
 }

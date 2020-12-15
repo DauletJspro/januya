@@ -12,6 +12,7 @@ class Users extends Model implements AuthenticatableContract
 {
     use Authenticatable;
     use SoftDeletes;
+
     protected $table = 'users';
     protected $primaryKey = 'user_id';
 
@@ -23,9 +24,10 @@ class Users extends Model implements AuthenticatableContract
 //    protected $dates = ['deleted_at'];
 
 
-   public function packets(){
-       return $this->belongsToMany(Packet::class,'user_packet', 'user_id', 'packet_id')->where('is_active', true);
-   }
+    public function packets()
+    {
+        return $this->belongsToMany(Packet::class, 'user_packet', 'user_id', 'packet_id')->where('is_active', true);
+    }
 
     public static function parentFollowers($parent_id)
     {
@@ -35,7 +37,7 @@ class Users extends Model implements AuthenticatableContract
 
     public static function getUserStatus($user_status)
     {
-        $status =  UserStatus::where('user_status_id',$user_status )->first();
+        $status = UserStatus::where('user_status_id', $user_status)->first();
         return $status->user_status_name;
     }
 
