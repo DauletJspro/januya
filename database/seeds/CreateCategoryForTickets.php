@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use  Illuminate\Database\Query\Builder;
+
 class CreateCategoryForTickets extends Seeder
 {
     /**
@@ -11,6 +12,8 @@ class CreateCategoryForTickets extends Seeder
      */
     public function run()
     {
+
+        DB::table('category2s')->truncate();
         \App\Models\Category2::create([
             'name' => 'Проблема с бонусами'
         ]);
