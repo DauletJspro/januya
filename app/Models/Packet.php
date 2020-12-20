@@ -190,20 +190,20 @@ class Packet extends Model
 
         switch ($inviterPacketId) {
             case Packet::SMALL;                
+                if ($incomeForMonth >= 200) {
+                    $messageBody = 'Ваш лимит на месяц не превышает 200$. ';
+                    $success = false;
+                }
+                break;
+            case Packet::MEDIUM:
                 if ($incomeForMonth >= 500) {
                     $messageBody = 'Ваш лимит на месяц не превышает 500$. ';
                     $success = false;
                 }
                 break;
-            case Packet::MEDIUM:
+            case Packet::LARGE:
                 if ($incomeForMonth >= 1000) {
                     $messageBody = 'Ваш лимит на месяц не превышает 1000$. ';
-                    $success = false;
-                }
-                break;
-            case Packet::LARGE:
-                if ($incomeForMonth >= 10000) {
-                    $messageBody = 'Ваш лимит на месяц не превышает 10 000$. ';
                     $success = false;
                 }
                 break;

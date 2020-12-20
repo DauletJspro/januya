@@ -763,8 +763,7 @@ class PacketController extends Controller
         $userPacket->save();
     }
 
-    private
-    function implementPacketThings($packet, $user, $userPacket)
+    private  function implementPacketThings($packet, $user, $userPacket)
     {
         if ($userPacket->user_packet_type == 'item' && $packet->packet_type == 1) {
             $operation = new UserOperation();
@@ -819,8 +818,7 @@ class PacketController extends Controller
         
     }
    
-    private
-    function qualificationUp($packet, $user)
+    private function qualificationUp($packet, $user)
     {
         $willUpdate = false;
         $actualPackets = [Packet::SMALL, Packet::MEDIUM, Packet::LARGE];
@@ -959,8 +957,7 @@ class PacketController extends Controller
         }
     }
 
-    public
-    function hasNeedPackets($packet, $inviterPacketId, $order)
+    public function hasNeedPackets($packet, $inviterPacketId, $order)
     {
         $actualPackets = [Packet::SMALL, Packet::MEDIUM, Packet::LARGE, Packet::VIP];
         $boolean = false;        
