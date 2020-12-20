@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class Users extends Model implements AuthenticatableContract
 {
     use Authenticatable;
-    use SoftDeletes;
+//    use SoftDeletes;
 
     protected $table = 'users';
     protected $primaryKey = 'user_id';
