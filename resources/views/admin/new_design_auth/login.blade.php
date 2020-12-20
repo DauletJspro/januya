@@ -2,9 +2,9 @@
 
 @section('meta-tags')
 
-    <title>JanElim.kz</title>
+    <title>Januya.kz</title>
     <meta name="description"
-          content="«JanELim» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
+          content="«Januya» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
     <meta name="keywords" content="Qpartners"/>
 
 @endsection
@@ -12,11 +12,11 @@
 @section('content')
     <main id="mt-main">
         <section class="mt-contact-banner"
-                 style="background-color: lightgrey;">
+                 style="background-color: green;">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 text-center" >
-                        <h1>Войти</h1>
+                        <h1 style="color: #fff;">Войти</h1>
                         <nav class="breadcrumbs">
                             <ul class="list-unstyled">
                                 {{--                                <li><a href="index.html"> <i class="fa fa-angle-right"></i></a></li>--}}
@@ -61,7 +61,7 @@
                                        placeholder="Пароль"/>
                                 <br>
                                 <br>
-                                <button type="submit" class="btn btn-danger btn-type1">Войти</button>
+                                <button type="submit" class="btn btn-danger btn-type1" style="background: green; border-color: green;">Войти</button>
                             </form>
                             <header>
                                 <div class="form-group already-registered-div">

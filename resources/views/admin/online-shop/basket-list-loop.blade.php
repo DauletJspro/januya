@@ -37,8 +37,11 @@
                            value="{{ $val->unit }}"/>
                 </td>
                 <td>
-                    {{ $val['product_price']}}PV
-                    ({{round($val->product_price * \App\Models\Currency::pvToKzt(),2)}}
+                    @php
+                        $discount_price = $val->product_price - ($val->product_price * \App\Models\Currency::PartnerDiscount)
+                    @endphp
+                    {{ round($discount_price, 0)}}PV
+                    ({{round($discount_price * \App\Models\Currency::pvToKzt(),0)}}
                     тг)
                 </td>
                 <td>
@@ -51,7 +54,7 @@
                 </td>
             </tr>
 
-            <?php $sum += $val->product_price; ?>
+            <?php $sum += round($discount_price); ?>
             <?php $ballSum += $val->ball ?>
 
         @endforeach

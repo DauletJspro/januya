@@ -393,9 +393,15 @@ ul.level_1 {
     cursor: pointer;
     font-size: 18px;
 }
+
 .btn-primary {
     background-color: #3c8dbc !important;
     border-color: #367fa9 !important;
+}
+
+.cart-btn {
+    background-color: transparent !important;
+    border-color: #fff !important;
 }
 
 .full-width .left-part,.full-width .right-part {

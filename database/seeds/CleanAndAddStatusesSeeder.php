@@ -15,7 +15,7 @@ class CleanAndAddStatusesSeeder extends Seeder
         DB::table('user_status')->truncate();
 
         \App\Models\UserStatus::create([
-            'user_status_id' => \App\Models\UserStatus::PARTNER,
+            'user_status_id' => \App\Models\UserStatus::CONSULTANT,
             'user_status_name' => 'Партнер',
             'user_status_money' => 0,
             'user_status_available_level' => 0,

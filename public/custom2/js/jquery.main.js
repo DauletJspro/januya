@@ -69,6 +69,8 @@ function initNavOpener() {
 function initSlickSlider() {
 	jQuery(".banner-slider").slick({
 		dots: true,
+		autoplay:true,
+  		autoplaySpeed:2000,
 		arrows: false,
 		infinite: true,
 		adaptiveHeight: true
@@ -201,6 +203,8 @@ function initSlickSlider() {
 	});
 	jQuery(".centerslider-1").slick({
 		dots: false,
+		autoplay:true,
+  		autoplaySpeed:2000,
 		arrows: false,
 		infinite: true,
 		slidesToShow: 1,
@@ -571,3 +575,41 @@ ResponsiveHelper = (function($){
 }(jQuery));
 
 
+$(document).ready(function() {    
+    $('#form_order').submit(function(e) {
+        e.preventDefault()    
+        let formData = new FormData($(this)[0]);
+        // document.getElementById('ajax-loader').style.display='block';
+        // $('#ajax-loader').css('display', 'block')
+        $.ajax({
+            url: '/smartpay/create_order_product',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: 'json',
+            data: $(this).serialize(),
+            cache : false,
+            processData: false,
+            beforeSend: function() {
+                $(this).parents('.modal').modal()
+            },
+            success: function (data) {
+                // document.getElementById('ajax-loader').style.display='none';
+                // $('#ajax-loader').css('display', 'none')
+                if (data.status == false) {
+                    showError(data.message);
+                    $(this).parents('.modal').modal()
+                    return;
+                }
+                else {
+                    // console.log(data)
+                    $(this).parents('.modal').modal()
+                    window.location.replace(data.url);
+                }
+            }
+        });
+        
+    })
+   
+})

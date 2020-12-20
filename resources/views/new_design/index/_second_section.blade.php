@@ -4,7 +4,7 @@
         <!-- producttabs start here -->
         <div class="producttabs">
             <p class="producttabs_title">
-                Компания Өнімдері
+                @lang('app.company_products')
             </p>
         </div>
         <!-- producttabs end here -->
@@ -29,11 +29,11 @@
                             <a href="{{ route('product.detail',$product->product_id, ['id' => $product->product_id]) }}"
                                 data-img = "{{$product->product_image}}"
                                 data-name = "{{$product->product_name_ru}}"
-                                data-desc = "{{$product->product_desc_ru}}"
+                                data-desc = "{{ mb_substr($product->product_desc_ru, 0, 100)}}"
                                 data-price = "{{$product->product_price}}"
                                 data-rating = "{{\App\Models\Review::ratingCalculator($product->product_id, \App\Models\Review::PRODUCT_REVIEW)}}"
-                            >Толығырақ</a>
-                        </div>
+                            >@lang('app.read_more')</a>
+                        </div>                        
                     </div><!-- mt product 3 end here -->
                 </div><!-- product_card end here -->
             @endforeach

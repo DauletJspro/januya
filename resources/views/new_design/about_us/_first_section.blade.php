@@ -1,12 +1,12 @@
 <!-- Mt Content Banner of the Page -->
 {{-- style="background-image: url(/custom2/img/Jan_Elim_ban.png);" --}}
 <section class="mt-contact-banner wow fadeInUp" data-wow-delay="0.4s">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 text-center">
-          <h1>Компания жайлы</h1>          
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <h1>@lang('app.about_us')</h1>
       </div>
     </div>
-  </section>
-  <!-- Mt Content Banner of the Page end -->
+  </div>
+</section>
+<!-- Mt Content Banner of the Page end -->

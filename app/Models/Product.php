@@ -53,9 +53,8 @@ class Product extends Model
             $hasLiked = Favorite::where(['item_id' => $item_id]);
         } elseif (!$user_id) {
             $hasLiked = Favorite::where(['ip_address' => self::get_mac_address()]);
-        }
-        $hasLiked = $hasLiked->first();
-
+        }        
+        $hasLiked =  $hasLiked ? $hasLiked->first() : null;        
         if (count($hasLiked)) {
             return true;
         }

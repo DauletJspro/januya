@@ -8,8 +8,7 @@
         </h1>
 
         <div class="alert alert-warning">
-            <h4>* Активный Партнер - это Партнер совершающий покупку продукции не менее 10$ каждый месяц</h4>
-            <h4>** Cash Back бонус получает со статуса AGENT и выше</h4>
+            <h4>* Активный Консультант - это Партнер совершающий покупку продукции не менее 25$ (12 500тг) каждый месяц</h4>            
         </div>
 
         <div style="text-align: right">
@@ -34,7 +33,7 @@
         {!! $row->products->links() !!}
     </div>
 
-    <div class="modal-dialog" id="shop_modal">
+    <div class="modal-dialog" id="shop_modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" onclick="closeModal()"><span aria-hidden="true">×</span></button>

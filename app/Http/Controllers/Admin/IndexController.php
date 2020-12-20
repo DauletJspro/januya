@@ -27,14 +27,18 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
-        $userOperation = new UserOperation();
-        $pvProfitAll = $userOperation->where(['operation_id' => 2, 'operation_type_id' => 30])->where(['author_id' => Auth::user()->user_id])->sum('pv_balance');
-        $pvProfitToday = $userOperation->where(['operation_id' => 2, 'operation_type_id' => 30])->where(['author_id' => Auth::user()->user_id])
+        if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+        }
+        $userOperation = new UserOperation();        
+
+        $pvProfitAll = $userOperation->where(['operation_id' => 1, 'operation_type_id' => 1])->where(['recipient_id' => Auth::user()->user_id])->sum('money');
+        $pvProfitToday = $userOperation->where(['operation_id' => 1, 'operation_type_id' => 1])->where(['recipient_id' => Auth::user()->user_id])
             ->where('created_at', '>', date("Y-m-d"))->sum('money');
-        $pvProfitLastWeek = $userOperation->where(['operation_id' => 2, 'operation_type_id' => 30])
-            ->where('created_at', '>', date("Y-m-d", strtotime("-7 day")))->where(['author_id' => Auth::user()->user_id])->sum('pv_balance');
-        $pvProfitLastMonth = $userOperation->where(['operation_id' => 2, 'operation_type_id' => 30])
-            ->where('created_at', '>', date("Y-m-d", strtotime("-30 day")))->where(['author_id' => Auth::user()->user_id])->sum('pv_balance');
+        $pvProfitLastWeek = $userOperation->where(['operation_id' => 1, 'operation_type_id' => 1])
+            ->where('created_at', '>', date("Y-m-d", strtotime("-7 day")))->where(['recipient_id' => Auth::user()->user_id])->sum('money');
+        $pvProfitLastMonth = $userOperation->where(['operation_id' => 1, 'operation_type_id' => 1])
+            ->where('created_at', '>', date("Y-m-d", strtotime("-30 day")))->where(['recipient_id' => Auth::user()->user_id])->sum('money');
 
         $gvProfitAll = $userOperation->where(['operation_id' => 1, 'operation_type_id' => 1])->where(['recipient_id' => Auth::user()->user_id])->sum('gv_balance');
         $gvProfitToday = $userOperation->where(['operation_id' => 1, 'operation_type_id' => 1])
@@ -72,7 +76,7 @@ class IndexController extends Controller
             'cvProfitLastMonth' => $cvProfitLastMonth,
         ];
 
-        $userPackets = UserPacket::where(['user_id' => Auth::user()->user_id, 'is_active' => true])->get();
+        $userPackets = UserPacket::where(['user_id' => Auth::user()->user_id, 'is_active' => true])->leftJoin('packet', 'packet.packet_id', '=', 'user_packet.packet_id')->get();
 
         return view('admin.index.index', [
             'pvData' => $pvData,

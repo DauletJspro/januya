@@ -76,7 +76,7 @@
                         </td>
                          <td style="text-align: center">
                              @if($val->is_epay == 0)
-                                <button class="btn btn-block btn-success btn-sm" onclick="acceptUserPacket(this,'{{ $val->user_packet_id }}')">Принять</button>
+                                <button class="btn btn-block btn-success btn-sm" onclick="acceptUserPacket(this,'{{ $val->user_packet_id }}', '{{ in_array($val->packet_id, $vip_packets) ? 0 : 1 }}')">Принять</button>
                              @else
                                  <button class="btn btn-block btn-success btn-sm">PayBox</button>
                              @endif

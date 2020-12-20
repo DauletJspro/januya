@@ -10,10 +10,10 @@ $tab = (explode('tab=', URL::current()));
 
 @section('meta-tags')
 
-    <title>Jan Elim</title>
+    <title>Januya</title>
     <meta name="description"
-          content="«Jan Elim» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
-    <meta name="keywords" content="Jan Elim"/>
+          content="Januya - это проект предлагающий уникальную натуральную продукцию с широкими бизнес возможностями"/>
+    <meta name="keywords" content="Januya"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -24,8 +24,15 @@ $tab = (explode('tab=', URL::current()));
         <section class="mt-product-detial wow fadeInUp" data-wow-delay="0.4s">
             <div class="container">
 
-                <div class="row">
-                    <div class="col-xs-12">
+                <div class="row">                  
+                    @if(old('error'))
+                        <div class="alert alert-danger" style="width: 100%; margin-top: 30px">
+                            <div class="">
+                                <p style="color:red;">{{ old('error') }}</p>
+                            </div>
+                        </div>
+                    @endif
+                    <div class="col-xs-12">                        
                         <!-- Slider of the Page -->
                         <div class="slider">
                             <!-- Comment List of the Page -->
@@ -34,20 +41,13 @@ $tab = (explode('tab=', URL::current()));
                                                 class="fa fa-heart"></i>{{\App\Models\Product::getLike($product->product_id)}}
                                     </a></li>
                                 <li><a href="#"><i class="fa fa-comments"></i>{{count($reviews)}}</a></li>
-                            </ul>
+                            </ul>                                        
                             <!-- Comment List of the Page end -->
                             <!-- Product Slider of the Page -->
                             <div class="product-slider">
                                 <div class="slide">
-                                    <div style="
-                                            background-image: url('{{$product->product_image}}');
-                                            background-size: contain;
-                                            background-position: center;
-                                            background-repeat: no-repeat;
-                                            width: 610px;
-                                            height: 490px;
-                                            border: 1px solid lightgrey;
-                                            border-radius: 5px;
+                                    <div class="slide_image" style="
+                                            background-image: url('{{$product->product_image}}');                                            
                                             ">
 
                                     </div>
@@ -56,11 +56,11 @@ $tab = (explode('tab=', URL::current()));
                         </div>
                         <!-- Slider of the Page end -->
                         <!-- Detail Holder of the Page -->
-                        <div class="detial-holder">
+                        <div class="detial-holder">                            
                             <!-- Breadcrumbs of the Page -->
                             <ul class="list-unstyled breadcrumbs">
-                                <li><a href="#">Chairs <i class="fa fa-angle-right"></i></a></li>
-                                <li>Products</li>
+                                <li><a href="/"> @lang('app.home') <i class="fa fa-angle-right"></i></a></li>
+                                <li> @lang('app.products') </li>
                             </ul>
                             <!-- Breadcrumbs of the Page end -->
                             <h2>{{ $product->product_name_ru }}</h2>
@@ -75,47 +75,35 @@ $tab = (explode('tab=', URL::current()));
                                         @endif
                                     @endfor
                                 </ul>
-                                <span class="total-price">Отзывы ({{count($reviews)}})</span>
+                                <span class="total-price"> @lang('app.reviews') ({{count($reviews)}})</span>
                             </div>
                             <!-- Rank Rating of the Page end -->
                             <div id="reload-heart">
                                 <ul class="list-unstyled list">
                                     @if(Auth::user())
                                         <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><i
-                                                        class="fa fa-share-alt"></i>Поделиться</a></li>
-                                    @endif
-                                    <li><a href="#"><i class="fa fa-exchange"></i>Сравнить</a></li>
-                                    <li class=""><a style="cursor: pointer;"
-                                                    data-item-id="{{$product->product_id}}"
-                                                    data-method="add"
-                                                    data-user-id="{{Auth::user() ? Auth::user()->user_id : NULL}}"
-                                                    data-session-id="{{ Session::getId()}}"
-                                                    data-route="{{route('favorite.isAjax')}}"
-                                                    onclick="addItemToFavorites(this)"
-                                        ><i class="fa fa-heart"
-                                            style="color: {{\App\Models\Product::hasLiked($product->product_id, (Auth::user() ? Auth::user()->user_id : null)) ? 'red' : ''}};"></i>Добавить
-                                            в избранные</a></li>
+                                                        class="fa fa-share-alt"></i> @lang('app.share') </a></li>
+                                    @endif                               
                                 </ul>
-                            </div>
-
+                            </div>                            
                             <div class="txt-wrap">
                                 <p>{{$product->product_desc_ru}}</p>
                             </div>
                             <div class="text-holder">
-                                <span class="price">Цена: &nbsp; ${{$product->product_price}} &nbsp; ({{$product->product_price * (\App\Models\Currency::where(['currency_id' => 1])->first())->money}} &#8376;)</span>
+                                <span class="price"> @lang('app.price'): &nbsp; ${{$product->product_price}} &nbsp; ({{$product->product_price * \App\Models\Currency::DollarToKzt}} &#8376;)</span>
                             </div>
                             <!-- Product Form of the Page -->
-                            <form action="#" class="product-form">
+                            <div class="product-form">                                
                                 <fieldset>
                                     <div class="row-val">
                                         <label for="qty">Кол-во</label>
-                                        <input type="number" id="qty" placeholder="1">
+                                        <input type="number" value="1" id="product_count" />
                                     </div>
                                     <div class="row-val">
-                                        <button type="submit">Добавить в корзину</button>
+                                        <button onclick="showOrderFormModal($(this), {{ $product->product_id }})"> @lang('app.buy_product') </button>                                        
                                     </div>
                                 </fieldset>
-                            </form>
+                            </div>
                         <!-- Product Form of the Page end -->
                         </div>
                         <!-- Detail Holder of the Page end -->
@@ -128,9 +116,9 @@ $tab = (explode('tab=', URL::current()));
                 <div class="row">
                     <div class="col-xs-12">
                         <ul class="mt-tabs text-center text-uppercase">
-                            <li><a href="#tab1" class="{{!isset($tab[1]) ? 'active' : ''}}">Описание</a></li>
-                            <li><a href="#tab2">Информация</a></li>
-                            <li><a href="#tab3" class="{{isset($tab[1]) && $tab[1] == 'review' ? 'active' : ''}}">Отзывы({{count($reviews)}}
+                            <li><a href="#tab1" class="{{!isset($tab[1]) ? 'active' : ''}}"> @lang('app.description') </a></li>
+                            <li><a href="#tab2"> @lang('app.consist') </a></li>
+                            <li><a href="#tab3" class="{{isset($tab[1]) && $tab[1] == 'review' ? 'active' : ''}}"> @lang('app.reviews') ({{count($reviews)}}
                                     )</a>
                             </li>
                         </ul>
@@ -187,10 +175,10 @@ $tab = (explode('tab=', URL::current()));
                                             </div>
                                         @endif
 
-                                        <h2>Добавить комментарий</h2>
+                                        <h2> @lang('app.add_comment') </h2>
 
                                         <div class="mt-row">
-                                            <label style="color: black;">Рейтинг</label>
+                                            <label style="color: black;"> @lang('app.rating') </label>
                                             <div class="rating">
                                                 <input id="demo-1" type="radio" name="rating" value="1">
                                                 <label for="demo-1">1 star</label>
@@ -239,9 +227,9 @@ $tab = (explode('tab=', URL::current()));
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h2>ПОХОЖАЯ ПРДУКЦИЯ</h2>
+                        <h2> @lang('app.simple_products') </h2>
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col-xs-12 text_center">
                                 @foreach($relatedProducts as $product)
                                     <div class="mt-product1 mt-paddingbottom20">
                                         <div class="box">
@@ -260,7 +248,6 @@ $tab = (explode('tab=', URL::current()));
                                                         </div>
                                                     </a>
                                                     <span class="caption">
-{{--															<span class="new">NEW</span>--}}
 														</span>
                                                     <ul class="mt-stars">
                                                         @for($i = 0; $i<5;$i++)
@@ -270,21 +257,7 @@ $tab = (explode('tab=', URL::current()));
                                                                 <li><i class="fa fa-star-o"></i></li>
                                                             @endif
                                                         @endfor
-                                                    </ul>
-                                                    <ul class="links">
-                                                        <li>
-                                                            <a style="cursor: pointer;"
-                                                               data-item-id="{{$product->product_id}}"
-                                                               data-user-id="{{Auth::user() ? Auth::user()->user_id : NULL}}"
-                                                               data-method="add"
-                                                               onclick="addItemToBasket(this)">
-                                                                <i class="icon-handbag"></i><span>Добавить</span>
-                                                            </a>
-                                                        </li>
-                                                        <li><a href="#"><i class="icomoon icon-heart-empty"></i></a>
-                                                        </li>
-                                                        <li><a href="#"><i class="icomoon icon-exchange"></i></a></li>
-                                                    </ul>
+                                                    </ul>                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -309,6 +282,61 @@ $tab = (explode('tab=', URL::current()));
                 </div>
             </div>
         </div>
+        <div class="modal fade " id="order_form" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <div class="title-group"
+                             style="margin-left: 20px; font-size: 120%; color: black; font-weight: 400;">
+                            <h4 class="modal-title">Форма заявки</h4>                            
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form_order" action="{{ route('smartpay_create_order_product') }}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="product_id" id="product_id">
+                            <input type="hidden" name="product_count" id="product_cnt">
+                            <div id="user_not_partner">
+                                <div class="form-group">
+                                    <label for="username">ФИО</label>
+                                    <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="ФИО">                              
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact">Контакт</label>
+                                    <input type="text" class="form-control" id="contact" name="contact" placeholder="+7 (777) 777 77 77">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="noreply@example.com">
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <label for="address">Адрес</label>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="г.Алматы ул.Абая 187а кв 94">
+                            </div>         
+                            <div class="form-group">
+                                <label for="delivery">Доставка</label>
+                                <select class="form-control" name="delivery" id="delivery">
+                                    <option value="1" selected>Самовывоз</option>
+                                    <option value="2">Курьером</option>
+                                    <option value="3">По почте</option>
+                                </select>                                
+                            </div>                   
+                            {{-- <div class="form-group form-check">
+                              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                              <label class="form-check-label" for="exampleCheck1">Я ознакомлен(а)</label>
+                            </div> --}}
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -319,7 +347,7 @@ $tab = (explode('tab=', URL::current()));
                              style="margin-left: 20px; font-size: 120%; color: black; font-weight: 400;">
                             <h4 class="modal-title">Пригласить друга</h4>
                             <h5 class="modal-title">Вы можете поделиться со своими друзьями в социальной сети</h5>
-                            <h5 class="modal-title">http://local.qpartners.club/1/admin</h5>
+                            <h5 class="modal-title">https://Januya.kz/</h5>
                         </div>
                     </div>
                     <div class="modal-body">

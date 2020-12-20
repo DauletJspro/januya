@@ -22,9 +22,32 @@ class AuthController extends Controller
 {
     public function __construct()
     {
+        if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+        }
+        $country_row = Country::orderBy('sort_num','asc')
+                    ->orderBy('country_name_ru','asc')
+                    ->where('is_show',1)
+                    ->get();
 
-        $users_row = Users::all();
+        $users_row = Users::orderBy('last_name','asc')
+                    ->get();
+
+        $city_row = City::orderBy('city_name_ru','asc')
+                    ->where('is_show',1)
+                    ->where('country_id',1)
+                    ->get();
+
+        // $speaker_row = Users::orderBy('last_name','asc')->where('is_speaker',1)->get();
+        // $director_row = Users::orderBy('last_name','asc')->where('is_director_office',1)->get();
+
+        View::share('country_row', $country_row);
         View::share('recommend_row', $users_row);
+        View::share('city_row', $city_row);
+        // View::share('speaker_row', $speaker_row);
+        // View::share('office_row', $director_row);
+        // $users_row = Users::all();
+        // View::share('recommend_row', $users_row);
     }
 
     public function login(Request $request)
@@ -102,10 +125,11 @@ class AuthController extends Controller
             'last_name' => 'required',
             'password' => 'required|min:5',
             'recommend_user_id' => 'required',
+            'inviter_user_id' => 'required',
             'confirm_password' => 'required|same:password',
-            'email' => 'required|email|unique:users,email,NULL,user_id,deleted_at,NULL',
-            'login' => 'required|unique:users,login,NULL,user_id,deleted_at,NULL',
-            'phone' => 'required|unique:users,phone,NULL,user_id,deleted_at,NULL',
+            'email' => 'required|email|unique:users',
+            'login' => 'required|unique:users',
+            'phone' => 'required|unique:users',
         ]);
 
         if ($validator->fails()) {
@@ -117,7 +141,7 @@ class AuthController extends Controller
                 'error' => $error[0]
             ]);
         }
-
+       
         $user = new Users();
         $user->name = $request->name;
         $user->last_name = $request->last_name;
@@ -133,11 +157,30 @@ class AuthController extends Controller
         $user->is_confirm_email = 0;
         $user->is_activated = 1;
         $user->recommend_user_id = is_numeric($request->recommend_user_id) ? $request->recommend_user_id : null;
-
+        $user->inviter_user_id = is_numeric($request->inviter_user_id) ? $request->inviter_user_id:null;
+        if (is_numeric($request->recommend_user_id)) {
+            $recommend_user = Users::where('user_id', $request->recommend_user_id)->first();
+            if ($recommend_user) {
+                $recommend_user_count = Users::where('recommend_user_id', $request->recommend_user_id)->get();
+                if (count($recommend_user_count) >= 3) {
+                    return view('admin.new_design_auth.register', [
+                        'title' => '',
+                        'row' => (object)$request->all(),
+                        'error' => 'Спонсор уже имеет более 3 участников 1 уровня'
+                    ]); 
+                }
+            }
+            else {
+                return view('admin.new_design_auth.register', [
+                    'title' => '',
+                    'row' => (object)$request->all(),
+                    'error' => 'Спонсор уже имеет более 3 участников 1 уровня'
+                ]);
+            }
+        }
         $hash_email = md5(uniqid(time(), true));
         $user->hash_email = $hash_email;
-        $user->activated_date = date("Y-m-d");
-        $recommend_user = Users::where('user_id', $request->recommend_user_id)->first();
+        $user->activated_date = date("Y-m-d");        
         $user->recommend_user_id = $recommend_user->user_id;
         $user->parent_id = $recommend_user->user_id;
 

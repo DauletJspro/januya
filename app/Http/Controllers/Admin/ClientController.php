@@ -43,6 +43,11 @@ class ClientController extends Controller
             )
             ->groupBy('users.user_id');
 
+        if (isset($request->user_id) && $request->user_id != '')
+            $request->row->where(function ($query) use ($request) {
+                $query->where('users.user_id', 'like', '%' . $request->user_id . '%');
+            });
+
         if (isset($request->user_name) && $request->user_name != '')
             $request->row->where(function ($query) use ($request) {
                 $query->where('users.name', 'like', '%' . $request->user_name . '%')
@@ -59,6 +64,11 @@ class ClientController extends Controller
                     ->orWhere('recommend.login', 'like', '%' . $request->sponsor_name . '%')
                     ->orWhere('recommend.email', 'like', '%' . $request->sponsor_name . '%')
                     ->orWhere('recommend.middle_name', 'like', '%' . $request->sponsor_name . '%');
+            });
+
+        if (isset($request->phone) && $request->phone != '')
+            $request->row->where(function ($query) use ($request) {
+                $query->where('users.phone', 'like', '%' . $request->phone . '%');
             });
 
         if (isset($request->city_name) && $request->city_name != '')

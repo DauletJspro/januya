@@ -1,3 +1,9 @@
+@php
+  if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+    error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+  }
+@endphp
+
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>
@@ -5,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
   
-    @yield('meta-tags')    
+    @yield('meta-tags')
     <link rel="shortcut icon" href="/favicon.png?v=4" />
   
     <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]-->
@@ -43,7 +49,7 @@
         @include('new_design.layout.header_v2')
       @else
         @include('new_design.layout.header')
-      @endif
+      @endif      
       @yield('content')
       @include('new_design.layout._detail_modal')
       @if (Route::is('basket.show'))        
@@ -104,53 +110,61 @@
     }
 
 
-      function ajax(route, method, item_id = null, user_id, session_id = null) {
-        var controllerName = route.split('/')[3];
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-          url: route,
-          type: "POST",
-          data: {
-              _token: CSRF_TOKEN,
-              method_name: method,
-              item_id: item_id,
-              user_id: user_id,
-              session_id: session_id
-          },
-          success: function (data) {
-              if (controllerName == 'basket') {
-                  if (method == 'delete') {
-                      $("#product-section").load(location.href + " #product-section");
-                      $("#total-price-div").load(location.href + " #total-price-div");
-                  } else if (data.method == 'add') {
-                      if (data.success == 1) {
-                          $.notify(data.message, "success");
-                      } else if (data.success == -1) {
-                          $.notify(data.message, "error");
-                      } else if (data.success == 0) {
-                          $.notify(data.message, "error");
-                      }
-                      $("#basket-box").load(location.href + " #basket-box");
-                  }
-              } else if (controllerName == 'favorite') {
-                  if (data.success == 1) {
-                      $.notify(data.message, "success");
-                      $("#favoriteCount").load(location.href + " #favoriteCount");
-                      $("#reload-items").load(location.href + " #reload-items");
-                      $("#reload-heart").load(location.href + " #reload-heart");
-                  } else if (data.success == 2) {
-                      $.notify(data.message, "warning");
-                      $("#favoriteCount").load(location.href + " #favoriteCount");
-                      $("#reload-items").load(location.href + " #reload-items");
-                      $("#reload-heart").load(location.href + " #reload-heart");
-                  } else if (data.success == 0) {
-                      $.notify(data.message, "danger");
-                      $("#favoriteCount").load(location.href + " #favoriteCount");
-                  }
-              }
-          }
-        });
-      }
+    function ajax(route, method, item_id = null, user_id, session_id = null) {
+      var controllerName = route.split('/')[3];
+      var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+      $.ajax({
+        url: route,
+        type: "POST",
+        data: {
+            _token: CSRF_TOKEN,
+            method_name: method,
+            item_id: item_id,
+            user_id: user_id,
+            session_id: session_id
+        },
+        success: function (data) {
+            if (controllerName == 'basket') {
+                if (method == 'delete') {
+                    $("#product-section").load(location.href + " #product-section");
+                    $("#total-price-div").load(location.href + " #total-price-div");
+                } else if (data.method == 'add') {
+                    if (data.success == 1) {
+                        $.notify(data.message, "success");
+                    } else if (data.success == -1) {
+                        $.notify(data.message, "error");
+                    } else if (data.success == 0) {
+                        $.notify(data.message, "error");
+                    }
+                    $("#basket-box").load(location.href + " #basket-box");
+                }
+            } else if (controllerName == 'favorite') {
+                if (data.success == 1) {
+                    $.notify(data.message, "success");
+                    $("#favoriteCount").load(location.href + " #favoriteCount");
+                    $("#reload-items").load(location.href + " #reload-items");
+                    $("#reload-heart").load(location.href + " #reload-heart");
+                } else if (data.success == 2) {
+                    $.notify(data.message, "warning");
+                    $("#favoriteCount").load(location.href + " #favoriteCount");
+                    $("#reload-items").load(location.href + " #reload-items");
+                    $("#reload-heart").load(location.href + " #reload-heart");
+                } else if (data.success == 0) {
+                    $.notify(data.message, "danger");
+                    $("#favoriteCount").load(location.href + " #favoriteCount");
+                }
+            }
+        }
+      });
+    } 
+    
+    function showOrderFormModal(ob,id) {      
+      let modal = $('#order_form');
+      let product_count = $(ob).closest('.product-form').find('#product_count').val();
+      $(modal).find('#product_cnt').val(product_count)
+      $(modal).find('#product_id').val(id)
+      $(modal).modal();
+    }
   </script>
 </body>
 </html>

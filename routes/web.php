@@ -20,7 +20,7 @@ Route::group([
 ], function () {
     Route::any('/register', 'AuthController@showRegister');
     Route::any('/login', 'AuthController@login')->name('login.show');
-    // Route::get('/register', 'AuthController@showRegister');
+    Route::get('/register', 'AuthController@showRegister');
     Route::get('/confirm', 'AuthController@confirmEmail');
     Route::get('/confirm-email', 'AuthController@showSendConfirm');
     Route::post('/send-confirm', 'AuthController@sendHashConfirm');
@@ -49,6 +49,18 @@ Route::group([
     Route::get('support', 'SupportController@index')->name('support.index');
     Route::get('support/{id}', 'SupportController@edit')->name('support.edit');
 
+    Route::get('new_ticket', 'TicketsController@create');
+    Route::post('new_ticket', 'TicketsController@store');
+    Route::get('tickets/{ticket_id}', 'TicketsController@show');
+    Route::get('my_tickets', 'TicketsController@userTickets');
+
+    Route::get('tickets', 'TicketsController@index');
+    Route::post('close_ticket/{ticket_id}', 'TicketsController@close');
+
+    Route::post('comment', 'CommentsController@postComment');
+
+
+
     Route::group([
         'prefix' => 'profile'
     ], function () {
@@ -67,7 +79,7 @@ Route::group([
         'prefix' => 'packet'
     ], function () {
         Route::get('paybox', 'PacketController@generatePayBoxCode');
-        Route::get('paybox/success/{id}', 'PacketController@acceptUserPacketPaybox');
+        Route::get('paybox/success/{id}', 'PacketController@acceptUserPacketPaybox');        
         Route::post('user', 'PacketController@sendResponseAddPacket');
         Route::post('user/balance', 'PacketController@buyPacketFromBalance');
         Route::delete('user', 'PacketController@cancelResponsePacket');
@@ -78,6 +90,8 @@ Route::group([
         Route::get('robot/month', 'IndexController@profitRobotAfterMonth');
         Route::get('robot/day', 'IndexController@deleteInactiveUserPacketAfterDay');
         Route::get('{id}', 'PacketController@getPacketById');
+        Route::post('user/active_kooperative', 'PacketController@sendResponseAddVipPacket');
+        Route::post('user/inactive_vip', 'PacketController@acceptInactiveUserVipPacket');
     });
 
     Route::group([
@@ -192,7 +206,7 @@ Route::group([
         Route::post('{id}', 'OnlineController@addProductToBasket');
         Route::delete('{id}', 'OnlineController@deleteProductFromBasket');
     });
-
+    
     Route::group([
         'prefix' => 'instagram'
     ], function () {
@@ -207,11 +221,11 @@ Route::group([
         Route::get('corporative', 'InstagramController@showCorporative');
         Route::get('recommend', 'InstagramController@showRecommend');
     });
-
+    
     Route::resource('instagram', 'InstagramController');
     Route::resource('group', 'GroupController');
     Route::resource('user-group', 'UserGroupController');
-
+    Route::get('/orders', 'OrderController@index');
     Route::get('basket', 'OnlineController@showBasket');
 
     Route::get('document', 'UserDocumentController@index');
@@ -266,6 +280,11 @@ Route::group([
     Route::resource('client', 'ClientController');
     Route::post('client/share', 'ClientController@editIntersHolderStatus')->name('client.share');
 
+    Route::post('vip_client/is_show', 'VipClientController@changeIsBan');
+    Route::resource('vip_client', 'VipClientController');
+    Route::post('vip_client/share', 'VipClientController@editIntersHolderStatus')->name('client.share');
+    Route::post('vip_client/is_paid', 'VipClientController@changeIsPaid');
+
     Route::post('video/is_show', 'VideoController@changeIsBan');
     Route::resource('video', 'VideoController');
     Route::post('user/is_show', 'UserController@changeIsBan');
@@ -290,6 +309,20 @@ Route::group([
     Route::post('image/upload/doc', 'ImageController@uploadDocument');
     Route::post('images/upload', 'ImageController@uploadMultipleImages');
     Route::get('media/{file_name}', 'ImageController@getImage')->where('file_name', '.*');
+});
+
+Route::group([
+    'middleware' => 'web',
+    'prefix' => 'smartpay',
+], function () {
+    Route::post('create_order', 'SmartPayController@createOrder')->name('smartpay_create_order');
+    Route::post('create_order_product', 'SmartPayController@createOrderProduct')->name('smartpay_create_order_product');
+    Route::post('callback', 'SmartPayController@callback')->name('smartpay_callback');
+    Route::post('callback_product', 'SmartPayController@callbackProduct')->name('smartpay_callback_product');
+    Route::post('create_order_partner_product', 'SmartPayController@createOrderPartnerProduct')->name('smartpay_create_order_partner_product');
+    Route::post('callback_partner_product', 'SmartPayController@callbackPartnerProduct')->name('smartpay_callback_partner_product');
+    Route::post('fail', 'SmartPayController@fail')->name('smartpay_fail');
+    Route::get('return', 'SmartPayController@return')->name('smartpay_return');
 });
 
 /******* Index *******/

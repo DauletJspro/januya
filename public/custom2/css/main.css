@@ -1304,7 +1304,7 @@ a:hover {
   position: relative;
   z-index: 3;
   padding: 0 0 1px 16px;
-  margin: 3px 0 8px 16px;
+  margin: 3px 0 0px 16px;
   border-left: 1px solid #808080;
   font: 11px/14px "Oxygen", sans-serif;
 }
@@ -1324,18 +1324,19 @@ a:hover {
 
 .mt-top-bar .mt-top-lang .drop {
   top: 100%;
-  right: 0;
-  width: 84px;
+  /* right: 0; */
+  /* width: 84px; */
   display: none;
   position: absolute;
 }
 
 .mt-top-bar .mt-top-lang ul {
-  overflow: hidden;
-  margin: 0;
-  text-align: left;
-  padding: 10px 10px 10px 18px;
-  background: #3d3d3d;
+	overflow: hidden;
+    margin: 0;
+    text-align: center;
+    padding: 5px 0px;
+    width: 100%;
+    background: #3d3d3d;
 }
 
 .mt-top-bar .mt-top-lang ul li {
@@ -1438,12 +1439,13 @@ a:hover {
 
 .mt-bottom-bar .mt-logo {
 	float: left;
+	margin-top: 14px;
 }
 
 .mt-bottom-bar .mt-logo img {
 	display: block;
-	height: 45px;
-    width: 135px;
+	height: 20px;
+    width: 100px;
     margin-top: -4px;
 }
 
@@ -2810,7 +2812,7 @@ a:hover {
 
 #mt-footer.style5 {
 	margin: 0 auto;
-	max-width: 1200px;
+	/* max-width: 1200px; */
 }
 
 #mt-footer.style5 .footer-holder {
@@ -3045,10 +3047,10 @@ a:hover {
 }
 
 #mt-footer .footer-holder.black {
-	background: #000;
+	background: green;
 	position: relative;
 	border-bottom: none;
-	color: #666;
+	color: #fff;	
 }
 
 #mt-footer .footer-holder.black .nav-widget-1 .f-widget-nav li a {
@@ -3070,7 +3072,7 @@ a:hover {
 }
 
 #mt-footer .footer-holder.black a {
-	color: #666;
+	color: #fff;
 }
 
 #mt-footer .footer-holder.black .f-widget-heading {
@@ -3263,6 +3265,14 @@ a:hover {
 	float: left;
 }
 
+#mt-footer .nav-widget-1:nth-child(1) {
+	width: 45%;;
+}
+
+#mt-footer .nav-widget-1:nth-child(2) {
+	width: 21%;;
+}
+
 #mt-footer .nav-widget-1.f-nav {
 	width: 25%;
 }
@@ -3300,7 +3310,7 @@ a:hover {
 	border-width: 1px;
 	border-style: solid;
 	border-radius: 25px;
-	border-color: #868686;
+	/* border-color: #868686; */
 }
 
 #mt-footer .f-widget-newsletter .newsletter-form ::-webkit-input-placeholder {
@@ -4708,7 +4718,8 @@ a:hover {
 	right: 0;
 	bottom: 0;
 	position: absolute;
-	padding: 42px 38px 20px 41px;
+	padding: 42px 38px 20px 40px;
+	text-align: right;
 }
 
 .banner-frame h2 {
@@ -5438,7 +5449,7 @@ a:hover {
 }
 
 .banner-18 h2 {
-	color: #5f3b34;
+	color: #fff;
 	margin: 0 0 11px;
 	letter-spacing: 1.6px;
 	font: 700 18px/28px "Montserrat", sans-serif;
@@ -5563,7 +5574,7 @@ a:hover {
 
 .banner-20 h2 {
 	margin: 0 0 14px;
-	color: #2b3d66;
+	color: #fff;
 	font-weight: bold;
 	text-transform: uppercase;
 	font-size: 21px;
@@ -5652,10 +5663,12 @@ a:hover {
 	text-transform: none;
 	letter-spacing: -1.0px;
 	font: 100 37px/40px "Source Sans Pro", "Arial", "Helvetica", sans-serif;
+	color: #fff;
 }
 
 .banner-21 h2 strong {
 	font-weight: 600;
+	margin-left: 50%;
 }
 
 .banner-21 .view {
@@ -6221,6 +6234,7 @@ a:hover {
 	text-align: center;
 	display: inline-block;
 	vertical-align: top;
+	width: 95%;
 }
 
 .product-3:hover .links {
@@ -6364,7 +6378,7 @@ a:hover {
 
 .product-3 p {
 	color: #a8a8a8;
-	font-size: 14px;
+	font-size: 20px;
 	line-height: 21px;
 	font-weight: 300;
 	margin: 0 0 49px;
@@ -11165,6 +11179,7 @@ a:hover {
 	background-size: cover;
 	text-transform: capitalize;
 	background-position: 50% 50%;
+	background: green;
 }
 
 .mt-contact-banner.style4 {
@@ -11204,7 +11219,7 @@ a:hover {
 	margin: 0 0 15px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
-	color: #383838;
+	color: #fff;
 }
 
 .mt-contact-banner .breadcrumbs {
@@ -11266,7 +11281,7 @@ a:hover {
 }
 
 .mt-about-sec .txt p {
-	margin: 0 0 37px;
+	margin: 40px 0 37px;
 }
 
 .mt-about-sec .txt strong {
@@ -12576,7 +12591,7 @@ a:focus {
 	line-height: 47px;
 	text-align: center;
 	border-radius: 5px;
-	background: #252525;
+	background: red;
 	-webkit-transition: all .6s ease;
 	transition: all .6s ease;
 	-webkit-transform: translateY(40px);
@@ -12627,3 +12642,7 @@ a:focus {
 	margin: 0;
 }
 
+
+.holder .price-tag {
+	margin-left: 50%;
+}

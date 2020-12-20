@@ -189,6 +189,32 @@ function isShowDisabledAll(model) {
     }
 }
 
+function isPaidEnabledAll(model) {
+    if (confirm('Действительно хотите сделать активным?')) {
+        $('.ajax-loader').fadeIn(100);
+        $('.select-all').each(function () {
+            if ($(this).is(':checked')) {
+                $.ajax({
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        is_paid: 1,
+                        id: $(this).val()
+                    },
+                    url: "/admin/" + model + "/is_paid",
+                    success: function (data) {
+
+                    }
+                });
+                $(this).closest('tr').remove();
+            }
+        });
+        $('.ajax-loader').fadeOut(100);
+    }
+}
+
 function isShowEnabledAll(model) {
     if (confirm('Действительно хотите сделать активным?')) {
         $('.ajax-loader').fadeIn(100);
@@ -416,12 +442,18 @@ function setBasketUnit(ob, id) {
 }
 
 function confirmBasket() {
+    let address = $('#address').val();
+    let delivery_id = $('#delivery').val();
     $.ajax({
         type: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         url: "/admin/online/confirm",
+        data: {
+            address: address,
+            delivery_id: delivery_id,
+        },
         success: function (data) {
             if (data.status == true) {
                 window.location.href = '/admin/online/history';

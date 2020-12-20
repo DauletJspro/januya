@@ -51,10 +51,15 @@ class IndexController extends Controller
     }
 
     public function index(Request $request)
-    {
-        $products = Product::all();
-        $packets = Packet::all();
-        // dd($products[0]->product_id);        
+    {        
+        if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+        }
+        $products = Product::all();        
+        // $packets = Packet::all();
+        // $products = [];
+        $packets = [];
+        // dd($products[0]->product_id);
         // $popularProducts = Product::where(['is_popular' => true])->get();
         // $brands = Brand::where(['is_show' => true])->get();
         // $elixirs = Product::where(['category_id' => Category::ELIXIR])->get();
@@ -62,7 +67,7 @@ class IndexController extends Controller
         // $sprays = Product::where(['category_id' => Category::SPRAY])->get();
         // $creams = Product::where(['category_id' => Category::CREAM])->get();
 
-        return 'Сайт в стадии разработки';
+        // return 'Сайт в стадии разработки';
 
         return view('new_design.index.index',
             [
@@ -148,7 +153,7 @@ class IndexController extends Controller
 
     public function contact(Request $request)
     {
-        return view('design_index.index.contact',
+        return view('new_design.contact.index',
             [
                 'menu' => 'contact'
             ]

@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Session;
 
 @section('meta-tags')
 
-    <title>Jan Elim</title>
+    <title>Januya.kz</title>
     <meta name="description"
-          content="«Jan Elim» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
-    <meta name="keywords" content="Jan Elim"/>
+          content="Januya - это проект предлагающий уникальную натуральную продукцию с широкими бизнес возможностями"/>
+    <meta name="keywords" content="Januya"/>
 
 @endsection
 

@@ -1,53 +1,82 @@
-<div class="col-xs-12">							
-    <!-- mt producttabs style2 start here -->
-    <div class="mt-producttabs style2 wow fadeInUp" data-wow-delay="0.6s">
-        <!-- producttabs start here -->
-        <div class="producttabs">
-            <p class="producttabs_title">
-                Пакеттер
-            </p>
-        </div>								
-        <!-- producttabs end here -->								
-        <!-- tabs slider start here -->
-        <div class="tabs-sliderlg">				
-            @foreach ($packets as $packet)
-                <!-- packet_card start here -->
-                <div class="packet_card">
-                    <!-- mt product start here -->
-                    <div class="product-3">
-                        <!-- img start here -->
-                        <div class="img">
-                            <img alt="image description" src="{{ $packet->packet_image }}">
-                        </div>
-                        <!-- txt start here -->
-                        <div class="txt">
-                            <strong class="title">{{ $packet->packet_name_ru }}</strong>
-                            <span class="price"> {{ $packet->packet_price }} тг</span>
-                            <p>{{ $packet->packet_desc_ru }}</p>
-                            <a href="{{ route('packet.detail',$packet->packet_id, ['id' => $packet->packet_id]) }}">Толығырақ</a>
-                        </div>
-                        <!-- links start here -->
-                        <ul class="links">
-                            <li><a href="#"
-                                data-item-id="{{$packet->packet_id}}"
-                                data-method="add"
-                                data-user-id="{{Auth::user() ? Auth::user()->user_id : NULL}}"
-                                data-route="{{route('basket.isAjax')}}"
-                                onclick="addItemToBasket(this)"    
-                            ><i class="icon-handbag"></i></a></li>
-                            <li><a href="#"
-                                data-item-id="{{$packet->packet_id}}"
-                                data-method="add"
-                                data-user-id="{{Auth::user() ? Auth::user()->user_id : NULL}}"
-                                data-session-id="{{ Session::getId()}}"
-                                data-route="{{route('favorite.isAjax')}}"
-                                onclick="addItemToFavorites(this)"
-                            ><i class="icomoon icon-heart-empty"></i></a></li>
-                            <li><a href="#"><i class="icomoon fa fa-eye"></i></a></li>
-                        </ul>
-                    </div><!-- mt product 3 end here -->
-                </div><!-- packet_card end here -->
-            @endforeach
-        </div><!-- tabs slider end here -->
-    </div><!-- mt producttabs end here -->
-</div>
+<!-- banner-frame start here -->
+<div class="banner-frame">
+    <!-- banner-box fourth start here -->
+    <div class="banner-box fourth">
+        <!-- banner-box sixth start here -->
+        <div class="banner-box sixth">
+            <!-- banner-17 white start here -->
+            <div class="banner-18 right">
+                <img src="/custom2/img/banners/4.png" alt="image description">
+                <div class="holder">
+                    <h2><strong>Super Elixir <br>Clean</strong></h2>                    
+                    <div class="price-tag">
+                        <span style="color: #fff">
+                            это супер эффектиное средство, которая укрепляет весь организм.
+                        </span>
+                        {{-- <span class="price-off">$ 129.00</span>
+                        <span class="price">$ 119.00</span> --}}
+                        {{-- <a class="btn-shop" href="#">
+                            <span class="icon-handbag"></span>
+                            <span>ADD TO CARD</span>
+                        </a> --}}
+                    </div>
+                </div>
+            </div><!-- banner-17 white end here -->           
+            <!-- banner-18 right start here -->
+            <div class="banner-18 right">
+                <img src="/custom2/img/banners/5.png" alt="image description">
+                <div class="holder">
+                    <h2><strong>Super Elixir <br>Hepato</strong></h2>                    
+                    <div class="price-tag">
+                        <span style="color: #fff">
+                            сильное регенеративное средство. Защищает и восстанавливает внутренную оболочку кровеносных сосудов.
+                        </span>
+                        {{-- <span class="price-off">$ 129.00</span>
+                        <span class="price">$ 119.00</span> --}}
+                        {{-- <a class="btn-shop" href="#">
+                            <span class="icon-handbag"></span>
+                            <span>ADD TO CARD</span>
+                        </a> --}}
+                    </div>
+                </div>
+            </div><!-- banner-18 right end here -->
+        </div><!-- banner-box sixth end here -->
+        <!-- banner-19 start here -->
+        <div class="banner-19">
+            <img src="/custom2/img/banners/8.png" alt="image description">
+            {{-- <div class="holder">
+                <div class="txt">
+                    <strong class="heading">Excepteur sint occaecat</strong>
+                    <h3><strong>WATCHES</strong> Counter stool</h3>
+                    <p>Consectetur adipisicing elit. Beatae accusamus, optio, repellendus inventore</p>
+                    <a href="#" class="now">SHOP NOW</a>
+                </div>
+            </div> --}}
+        </div><!-- banner-19 end here -->
+    </div><!-- banner-box fourth end here -->
+    <!-- banner-box fifth start here -->
+    <div class="banner-box fifth hidden-md hidden-sm hidden-xs">
+        <!-- banner-20 start here -->
+        <div class="banner-20">
+            <img src="/custom2/img/banners/6.png" alt="image description">
+            <div class="holder">
+                <h2>Super Elixir Grippo</h2>
+                <p style="color: #fff;">Иммуностимулирующее средство,  обладающяя противовирусными и бактерицидными свойствами.</p>
+                {{-- <span class="price-off">$ 129.00</span>
+                <span class="price">$ 99.00</span>
+                <a href="#" class="card">ADD TO CARD</a> --}}
+            </div>
+        </div><!-- banner-20 end here -->
+        <!-- banner-21 right start here -->
+        <div class="banner-21 right">
+            <img src="/custom2/img/banners/7.png" alt="image description">
+            <div class="holder">                
+                <h2><strong>Super Elixir Bronchi</strong></h2>
+                <p>
+
+                </p>
+                {{-- <a href="#" class="view">VIEW COLLECTION</a> --}}
+            </div>
+        </div><!-- banner-21 right end here -->
+    </div><!-- banner-box fifth end here -->
+</div><!-- banner-frame end here -->

@@ -20,6 +20,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        'App\Console\Commands\GlobalBonusBeginOfMonth',
+        'App\Console\Commands\RewriteStatus',
         CheckForActive::class,
     ];
 

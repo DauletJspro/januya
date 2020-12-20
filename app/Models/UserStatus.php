@@ -12,7 +12,7 @@ class UserStatus extends Model
     protected $table = 'user_status';
     protected $primaryKey = 'user_status_id';
 
-    const PARTNER = 1;
+    const CONSULTANT = 1;
     const MANAGER = 2;
     const DIRECTOR = 3;
     const SILVER_DIRECTOR = 4;
@@ -21,6 +21,16 @@ class UserStatus extends Model
     const SAPPHIRE_DIRECTOR = 7;
     const EMERALD_DIRECTOR = 8;
     const BRILLIANT_DIRECTOR = 9;
+
+    const VIP = 10;
+    const VIP_2 = 11;
+    const VIP_3 = 12;
+    const VIP_4 = 13;
+    const VIP_5 = 14;
+    const VIP_6 = 15;
+    const VIP_7 = 16;
+    const VIP_8 = 17;
+
 
     use SoftDeletes;
 

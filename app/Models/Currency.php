@@ -20,6 +20,7 @@ class Currency extends Model
     const PVtoKzt = 600;
     const GVtoKzt = 500;
     const DollarToKzt = 500;
+    const PartnerDiscount = 16.667/100;    
 
     public static function usdToKzt()
     {

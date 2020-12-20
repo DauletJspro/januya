@@ -9,7 +9,7 @@
     </section>
     <section class="content">
     <div class="row">
-        <div class="col-md-12">
+        <div class=" {{ Auth::user()->role_id == 1 ? 'col-md-8' : 'col-md-12'}}">
             <div class="box box-primary document-list">
                 <input type="hidden" value="{{$user_id}}" id="user_id"/>
                 <form id="document_upload_form" enctype="multipart/form-data" method="post">
@@ -59,7 +59,7 @@
                                                     <input type="hidden" value="{{$document_item['document_id']}}" class="document-id"/>
 
                                                   
-                                                        <a href="javascript:void(0)" onclick="deleteServiceDocument(this)"><i class="icons ic-del"></i></a>
+                                                    <a href="javascript:void(0)" onclick="deleteServiceDocument(this)"><i class="icons ic-del"></i></a>
 
                                                 </div>
 
@@ -69,10 +69,10 @@
 
 
 
-                                                <div class="i-docs">
-                                                    <input type="file" name="image_{{$item->document_id}}" onchange="uploadServiceDocument(this,'{{$item->document_id}}')">
-                                                    <input type="hidden" value="0" class="is_required_document"/>
-                                                </div>
+                                        <div class="i-docs">
+                                            <input type="file" name="image_{{$item->document_id}}" onchange="uploadServiceDocument(this,'{{$item->document_id}}')">
+                                            <input type="hidden" value="0" class="is_required_document"/>
+                                        </div>
 
 
                                     </div>
@@ -109,6 +109,37 @@
                 </div>
             </div>
         </div>
+        @if (Auth::user()->role_id == 1)
+            <div class="col-md-4"> 
+                <div class="box box-primary document-list">
+                    <h3>Данные пользователя:</h3>
+                    <ul style="width: 95%;" class="list-group list-group-unbordered">                                                                                       
+                        <li class="list-group-item">
+                            <b>Электронная почта</b> <a class="pull-right">{{ $user->email }}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Телефон</b> <a class="pull-right">{{ $user->phone }}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>ИИН</b> <a class="pull-right">{{ $user_info->iin }}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Номер карточки</b> <a class="pull-right">{{ $user_info->card_number }}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Название банка</b> <a class="pull-right">{{ $user_info->bank_name }}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>IBAN</b> <a class="pull-right">{{ $user_info->iban }}</a>
+                        </li>                                                                   
+                        <li class="list-group-item">
+                            <b>Пол</b> <a class="pull-right">  {{ $user_info->is_male ? 'Мужской' : 'Женский' }} </a>
+                        </li>
+                        
+                    </ul>
+                </div>                
+            </div>
+        @endif
     </div>
     </section>
     <style>

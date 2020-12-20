@@ -12,6 +12,7 @@ use App\Models\Rubric;
 use App\Models\UserConfirmDocument;
 use App\Models\UserDocument;
 use App\Models\Users;
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -39,19 +40,20 @@ class UserDocumentController extends Controller
         if($user_id == null) {
             $user_id = Auth::user()->user_id;
             $user = Auth::user();
+            $user_info = UserInfo::where('user_id', $user_id)->first();
             $is_own = 1;
         }
         else {
             $user = Users::find($user_id);
+            $user_info = UserInfo::where('user_id', $user_id)->first();
             if($user == null) abort(404);
         }
-
         $document_list = Document::where('is_show',1)->orderBy('sort_num','asc')->get();
-
         return  view('admin.document.index',[
             'document_list' => $document_list,
             'user_id' => $user_id,
             'user' => $user,
+            'user_info' => $user_info,
             'is_own' => $is_own
         ]);
     }
@@ -85,10 +87,17 @@ class UserDocumentController extends Controller
         ]);
     }
 
-    public function saveDocumentList(Request $request){
-        try {
+    public function saveDocumentList(Request $request){        
+        
+        if (!isset($request->user_document) || count($request->user_document) != 3) {
+            $result['error'] = 'Загрузите все документы';
+            $result['status'] = false;
+            return response()->json($result);
+        }
 
+        try {
             if(isset($request->user_document)){
+
                 UserDocument::where('user_id',$request->user_id)->forcedelete();
                 foreach ($request->user_document as $key => $item){
                     $user_document = new UserDocument();
@@ -130,6 +139,7 @@ class UserDocumentController extends Controller
             ->where('user_confirm_document.is_active',1)
             ->where('users.is_valid_document',0)
             ->orderBy('user_confirm_document.user_confirm_document_id','desc')
+            ->groupBy('users.user_id')
             ->select('users.*',
                 'user_confirm_document.*',
                 'user_info.*',
@@ -161,7 +171,6 @@ class UserDocumentController extends Controller
             });
 
         $row = $row->paginate(10);
-
         return  view('admin.document.confirm-list',[
             'row' => $row
         ]);

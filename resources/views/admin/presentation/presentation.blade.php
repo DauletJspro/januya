@@ -26,10 +26,10 @@
                                 </ul>
                                 <div class="tab-content" style="min-height: 400px">
                                     <div class="active tab-pane" id="qaz">
-                                        <iframe style="border:1px solid #666CCC" title="PDF in an i-Frame" src="/presentation/Jan Elim.pdf?v=1" frameborder="1" scrolling="auto" height="800" width="100%" ></iframe>
+                                        <iframe style="border:1px solid #666CCC" title="PDF in an i-Frame" src="/presentation/januya_rus.pdf?v=1" frameborder="1" scrolling="auto" height="800" width="100%" ></iframe>
                                     </div>
                                     <div class="tab-pane" id="rus">
-                                        <iframe style="border:1px solid #666CCC" title="PDF in an i-Frame" src="/presentation/Jan Elim.pdf?v=1" frameborder="1" scrolling="auto" height="800" width="100%" ></iframe>
+                                        <iframe style="border:1px solid #666CCC" title="PDF in an i-Frame" src="/presentation/januya_rus.pdf?v=1" frameborder="1" scrolling="auto" height="800" width="100%" ></iframe>
                                     </div>
                                 </div>
                             </div>

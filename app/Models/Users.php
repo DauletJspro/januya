@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Comment;
+use App\Models\Ticket;
+use http\Client\Curl\User;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -19,6 +22,8 @@ class Users extends Model implements AuthenticatableContract
     const ADMIN = 1;
     const CLIENT = 2;
     const MODERATOR = 3;
+
+    const USER_SEVEN_PERCENT = [2,3,4,5];
 
 //    use SoftDeletes;
 //    protected $dates = ['deleted_at'];
@@ -52,9 +57,30 @@ class Users extends Model implements AuthenticatableContract
             }
         }
         $followerStatusIds = array_filter($followerStatusIds);
-        if (count($followerStatusIds) >= 5) {
+        if (count($followerStatusIds) >= 3) {
             return true;
         }
         return false;
+    }
+    public function tickets()
+    {
+        return $this->hasMany(\App\Models\Ticket::class);
+    }
+
+    /**
+     * A user can have many comments
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Get the user that created ticket
+     * @param \App\User $user_id
+     */
+    public static function getTicketOwner($user_id)
+    {
+        return static::where('id', $user_id)->firstOrFail();
     }
 }

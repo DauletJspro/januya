@@ -2,9 +2,9 @@
 
 @section('meta-tags')
 
-    <title>JanElim.kz</title>
+    <title>Januya.kz</title>
     <meta name="description"
-          content="«JanELim» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
+          content="«Januya» - это уникальный медиа проект с широким набором возожностей для взаймодествия с участниками виртуального рынка"/>
     <meta name="keywords" content="Qpartners"/>
 
 @endsection
@@ -30,12 +30,12 @@
     <main id="mt-main">
         <section class="mt-contact-banner"
                  {{--                 style="background-image: url('/new_design/images/sign_in.png'); background-size: contain; background-repeat: no-repeat;"--}}
-                 style="background-color: lightgrey" ;
+                 style="background-color: green" ;
         >
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 text-center">
-                        <h1>Регистрация</h1>
+                        <h1 style="color: #fff;">Регистрация</h1>
                         <nav class="breadcrumbs">
                             <ul class="list-unstyled">
                                 {{--                                <li><a href="index.html">home <i class="fa fa-angle-right"></i></a></li>--}}
@@ -75,17 +75,42 @@
                                                        class="form-control input" placeholder="Логин"/>
                                                 <div>
                                                     <select required name="recommend_user_id"
-                                                            data-placeholder="Выберите спонсора"
+                                                            data-placeholder="Выберите спонсора (1 уровень)"
                                                             class="form-control selectpicker input"
                                                             data-live-search="true">
-                                                        <option value="">Ваш пригласитель</option>
+                                                        <option value="">Выберите спонсора (1 уровень)</option>
 
-                                                        @if( isset($row->recommend_user_id) || (isset($_GET['id']) && $_GET['id']))
+                                                        {{-- @if( isset($row->recommend_user_id) || (isset($_GET['id']) && $_GET['id']))
                                                             <?php  $item = \App\Models\Users::where(['user_id' => (isset($_GET['id']) ? $_GET['id'] : $row->recommend_user_id)])->first(); ?>
                                                             <option selected
                                                                     value="{{$item->user_id}}"> {{sprintf('%s (%s)',$item->login, $item->last_name)}}
                                                             </option>
-                                                        @endif
+                                                        @endif --}}
+                                                        @foreach($recommend_row as $item)
+                                                            <option @if($row->recommend_user_id == $item->user_id || (isset($_GET['id']) && $_GET['id'] == $item->user_id) ) {{'selected'}} @endif value="{{$item->user_id}}">
+                                                                {{sprintf('%s (%s)',$item['login'], $item['last_name'])}}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <select required name="inviter_user_id"
+                                                            data-placeholder="Выберите пригласитель"
+                                                            class="form-control selectpicker input"
+                                                            data-live-search="true">
+                                                        <option value="">Выберите пригласитель</option>
+
+                                                        {{-- @if( isset($row->inviter_user_id) || (isset($_GET['id']) && $_GET['id']))
+                                                            <?php  $item = \App\Models\Users::where(['user_id' => (isset($_GET['id']) ? $_GET['id'] : $row->recommend_user_id)])->first(); ?>
+                                                            <option selected
+                                                                    value="{{$item->user_id}}"> {{sprintf('%s (%s)',$item->login, $item->last_name)}}
+                                                            </option>
+                                                        @endif --}}
+                                                        @foreach($recommend_row as $item)
+                                                            <option @if($row->recommend_user_id == $item->user_id || (isset($_GET['id']) && $_GET['id'] == $item->user_id) ) {{'selected'}} @endif value="{{$item->user_id}}">
+                                                                {{sprintf('%s (%s)',$item['login'], $item['last_name'])}}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -103,7 +128,7 @@
                                             </div>
                                         </div>
                                         <br>
-                                        <button type="submit" class="btn btn-danger btn-type1">Зарегистрироваться
+                                        <button type="submit" class="btn btn-danger btn-type1" style="background: green; border-color: green;">Зарегистрироваться
                                         </button>
                                     </form>
                                     <header>
