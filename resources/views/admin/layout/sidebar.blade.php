@@ -118,14 +118,14 @@
     </li>
     @endif
 
-    @if ($vip_user > 0 && Auth::user()->user_id != 158)
-        <li class="treeview">
-            <a href="/admin/vip_client">
-                <i class="fa fa-users"></i>
-                <span>VIP Пользователи</span>
-            </a>
-        </li>
-    @endif
+{{--    @if ($vip_user > 0 && Auth::user()->user_id != 158)--}}
+{{--        <li class="treeview">--}}
+{{--            <a href="/admin/vip_client">--}}
+{{--                <i class="fa fa-users"></i>--}}
+{{--                <span>VIP Пользователи</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
+{{--    @endif--}}
 
     <li class="treeview">
         <a href="/admin/online"  style="pointer-events: none;">
