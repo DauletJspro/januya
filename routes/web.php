@@ -49,6 +49,18 @@ Route::group([
     Route::get('support', 'SupportController@index')->name('support.index');
     Route::get('support/{id}', 'SupportController@edit')->name('support.edit');
 
+    Route::get('new_ticket', 'TicketsController@create');
+    Route::post('new_ticket', 'TicketsController@store');
+    Route::get('tickets/{ticket_id}', 'TicketsController@show');
+    Route::get('my_tickets', 'TicketsController@userTickets');
+
+    Route::get('tickets', 'TicketsController@index');
+    Route::post('close_ticket/{ticket_id}', 'TicketsController@close');
+
+    Route::post('comment', 'CommentsController@postComment');
+
+
+
     Route::group([
         'prefix' => 'profile'
     ], function () {

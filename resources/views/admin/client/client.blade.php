@@ -61,6 +61,7 @@
 
                                     <tr>
                                         <th style="width: 30px">№</th>
+                                        <th>ID</th>
                                         <th style="width: 15px">Аватар</th>
                                         <th>Пользователь</th>
                                         <th>Спонсор</th>
@@ -83,8 +84,12 @@
                                     <tr>
                                         <td></td>
                                         <td>
-
+                                            <form>
+                                                <input value="{{$request->user_id}}" type="text" class="form-control"
+                                                       name="user_id" placeholder="Поиск">
+                                            </form>
                                         </td>
+                                        <td></td>
                                         <td>
                                             <form>
                                                 <input value="{{$request->user_name}}" type="text" class="form-control"
@@ -97,7 +102,12 @@
                                                        class="form-control" name="sponsor_name" placeholder="Поиск">
                                             </form>
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <form>
+                                                <input value="{{$request->phone}}" type="text"
+                                                       class="form-control" name="phone" placeholder="Поиск">
+                                            </form>
+                                        </td>
                                         <td>
                                             <form>
                                                 <input value="{{$request->packet_name}}" type="text"
@@ -128,6 +138,7 @@
 
                                         <tr>
                                             <td> {{ $key + 1 }}</td>
+                                            <td>{{$val->user_id}}</td>
                                             <td>
                                                 <div class="object-image client-image">
                                                     <a href="/admin/profile/{{$val->user_id}}" target="_blank">
