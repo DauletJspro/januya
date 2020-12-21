@@ -642,7 +642,7 @@ class PacketController extends Controller
                 $packetPrice = $userPacket->packet_price;
                 $inviterPacketId = UserPacket::where(['user_id' => $inviter->user_id])->where(['is_active' => true])->get();
                 $inviterCount = (count($inviterPacketId));
-                
+
                 $inviterPacketId = collect($inviterPacketId);
                 $inviterPacketId = $inviterPacketId->map(function ($item) {
                     return $item->packet_id;
@@ -653,7 +653,7 @@ class PacketController extends Controller
                 $packetPercentage = $packet->level_percentage;
                 $packetPercentage = explode('-', $packetPercentage);
                 $limit = Packet::limitBonus($inviter, $inviterPacketId);
-                if ($inviterCount) {                    
+                if ($inviterCount) {
                     if ($limit['success']) {                        
                         if ($inviter_order == 1 && in_array($inviter->status_id, $actualStatuses)) {
                             $bonusPercentage = (3 / 100);
@@ -728,7 +728,7 @@ class PacketController extends Controller
             $operation->recipient_id = $inviter->user_id;
             $operation->money = $bonus;
             $operation->operation_id = 1;
-            $operation->operation_type_id = 1;
+            $operation->operation_type_id = 35;
             $operation->operation_comment = 'Кураторский бонус. "' . $packet->packet_name_ru . '".';
             $operation->save();
 
@@ -793,7 +793,7 @@ class PacketController extends Controller
             $operation->recipient_id = $user_seven->user_id;
             $operation->money = $bonus;
             $operation->operation_id = 1;
-            $operation->operation_type_id = 35;
+            $operation->operation_type_id = 50;
             $operation->operation_comment = 'За покупку пакета "' . $packet->packet_name_ru . '"';
             $operation->save();
             $user_seven->user_money = $user_seven->user_money + $bonus;
@@ -959,7 +959,7 @@ class PacketController extends Controller
 
     public function hasNeedPackets($packet, $inviterPacketId, $order)
     {
-        $actualPackets = [Packet::SMALL, Packet::MEDIUM, Packet::LARGE, Packet::VIP];
+        $actualPackets = [Packet::BRONZE, Packet::SILVER, Packet::GOLD];
         $boolean = false;        
         $inviterPacket = Packet::where(['packet_id' => $inviterPacketId])->first();
         Log::info($inviterPacket);        

@@ -23,6 +23,11 @@ class Packet extends Model
     const LARGE = 3; // Gold
     const VIP = 4; //VIP
 
+
+    const BRONZE = 1;
+    const SILVER = 2;
+    const GOLD = 3;
+
     const VIP_ECONOMY = 5;
     const VIP_STANDARD = 6;
     const VIP_PREMIUM = 7;
@@ -228,6 +233,4 @@ class Packet extends Model
     {
         return count(UserPacket::where(['packet_id' => $packet_id, 'user_id' => Auth::user()->user_id])->get());
     }
-
-
 }
