@@ -13,7 +13,7 @@
             </p>
         </li>
     @endif
-
+        @if(Auth::user()->user_id !=158)
     <li class="header" style="background: #fff; font-size: 14px; padding:5px 25px 0px">
         <p style="color:#2e2e2e;margin:0px;">Баланс: {{Auth::user()->user_money}}$
             ( {{Auth::user()->user_money * \App\Models\Currency::usdToKzt()}}тг)</p>
@@ -43,7 +43,6 @@
             <span style="color: black">Реферальная ссылка</span>
         </a>
     </li>
-    @if(Auth::user()->user_id !=158)
     <li class="treeview">
         <a href="/admin/index">
             <i class="fa fa-user"></i>
@@ -116,8 +115,6 @@
             <span>Структура</span>
         </a>
     </li>
-    @endif
-
 {{--    @if ($vip_user > 0 && Auth::user()->user_id != 158)--}}
 {{--        <li class="treeview">--}}
 {{--            <a href="/admin/vip_client">--}}
@@ -133,7 +130,6 @@
             <span>Интернет магазин</span>
         </a>
     </li>
-    @if(Auth::user()->user_id !=158)
     <li class="treeview">
         <a href="/admin/orders">
             <i class="fa fa-shopping-cart"></i>
@@ -334,7 +330,6 @@
                 </a>
             </li>
     @endif--}}
-    @endif
     <li class="treeview">
         <a href="/admin/structure">
             <i class="fa fa-sitemap"></i>
@@ -347,7 +342,8 @@
 {{--            <span>Интернет магазин</span>--}}
 {{--        </a>--}}
 {{--    </li>--}}
-    <li class="treeview">
+        @if(Auth::user()->user_id !=158)
+        <li class="treeview">
         <a href="/admin/request/send">
             <i class="fa fa-money"></i>
             <span>Снятие денег</span>
@@ -359,6 +355,8 @@
             <span>Отправить деньги</span>
         </a>
     </li>
+            @endif
+        @endif
 
     <li class="treeview">
         <a href="/admin/password">

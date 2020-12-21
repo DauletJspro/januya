@@ -55,7 +55,12 @@
                              <div class="clear-float"></div>
                          </td>
                          <td class="arial-font">
-                             <a class="main-label" href="/admin/profile/{{$val->user_id}}" target="_blank"><p class="login">{{$val->login}}</p>@if(Auth::user()->user_id == 1)<p class="client-name">{{ $val->name }} {{ $val->last_name }} {{ $val->middle_name }}</p>@endif</a>
+                             <a class="main-label" href="/admin/profile/{{$val->user_id}}" target="_blank">
+                                 <p class="login">{{$val->login}}</p>
+                                 @if(Auth::user()->user_id == 1)
+                                     <p class="client-name">{{ $val->name }} {{ $val->last_name }} {{ $val->middle_name }}</p>
+                                 @endif
+                             </a>
                          </td>
                          <td class="arial-font">
                             <p style="margin: 0px"><b>ИИН: </b>{{$val->iin}}</p>

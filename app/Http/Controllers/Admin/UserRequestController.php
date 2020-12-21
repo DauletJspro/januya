@@ -62,6 +62,7 @@ class UserRequestController extends Controller
             ->leftJoin('users as recommend','recommend.user_id','=','users.recommend_user_id')
             ->where('user_request.is_accept',0)
             ->orderBy('user_request.user_request_id','desc')
+            ->groupBy('user_request.user_id')
             ->select('users.*',
                 'user_request.*',
                 'user_info.*',
@@ -71,7 +72,6 @@ class UserRequestController extends Controller
                 'recommend.last_name as recommend_last_name',
                 'recommend.user_id as recommend_user_id',
                 DB::raw('DATE_FORMAT(user_request.created_at,"%d.%m.%Y %H:%i") as date'));
-
         if(isset($request->user_name) && $request->user_name != '')
             $row->where(function($query) use ($request){
                 $query->where('users.name','like','%' .$request->user_name .'%')
@@ -262,7 +262,7 @@ class UserRequestController extends Controller
         }
 
         if($request->money < 40){
-            $result['message'] = 'Вы можете снять минимум '.$request->money.'$';
+            $result['message'] = 'Вы можете снять минимум 40 $';
             $result['status'] = false;
             return response()->json($result);
         }
