@@ -17,9 +17,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use View;
 use DB;
+use const http\Client\Curl\AUTH_ANY;
 
 class UserRequestController extends Controller
 {
+
+
     public function __construct()
     {
         $this->middleware('profile');
@@ -250,6 +253,12 @@ class UserRequestController extends Controller
         }*/
 
         if (Auth::user()->user_money < 25){
+            $result['message'] = 'Чтобы снять деньги минимальный остаток на счету должно быть 12500 тенге';
+            $result['status'] = false;
+            return response()->json($result);
+        }
+
+        if (Auth::user()->user_money - $request->money < 25){
             $result['message'] = 'Чтобы снять деньги минимальный остаток на счету должно быть 12500 тенге';
             $result['status'] = false;
             return response()->json($result);
