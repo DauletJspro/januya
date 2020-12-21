@@ -249,6 +249,12 @@ class UserRequestController extends Controller
             return response()->json($result);
         }*/
 
+        if (Auth::user()->user_money < 25){
+            $result['message'] = 'Чтобы снять деньги минимальный остаток на счету должно быть 12500 тенге';
+            $result['status'] = false;
+            return response()->json($result);
+        }
+
         if(Auth::user()->user_money - $request->money < 0){
             $result['message'] = 'Вы можете снять максимум '.Auth::user()->user_money.'$';
             $result['status'] = false;
@@ -308,6 +314,11 @@ class UserRequestController extends Controller
 
         if(Auth::user()->user_money - $request->money < 0){
             $result['message'] = 'Вы можете отправить максимум '.Auth::user()->user_money.'$';
+            $result['status'] = false;
+            return response()->json($result);
+        }
+        if (Auth::user()->user_money < 25){
+            $result['message'] = 'Чтобы отправить деньги минимальный остаток на счету должно быть 12500 тенге';
             $result['status'] = false;
             return response()->json($result);
         }
