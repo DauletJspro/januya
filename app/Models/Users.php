@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class Users extends Model implements AuthenticatableContract
 {
     use Authenticatable;
-//    use SoftDeletes;
+    use SoftDeletes;
 
     protected $table = 'users';
     protected $primaryKey = 'user_id';
@@ -24,9 +24,6 @@ class Users extends Model implements AuthenticatableContract
     const MODERATOR = 3;
 
     const USER_SEVEN_PERCENT = [2,3,4,5];
-
-//    use SoftDeletes;
-//    protected $dates = ['deleted_at'];
 
 
     public function packets()

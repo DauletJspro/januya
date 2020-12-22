@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Users;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class   CheckForActive extends Command
@@ -39,12 +40,11 @@ class   CheckForActive extends Command
     public function handle()
     {
 
-        $users = Users::where('created_at', date('Y-m-d'))->get();
+        $users = Users::whereDate('created_at', date('Y-m-d'))->get();
         foreach ($users as $user) {
-            if (!$user->packets) {
+            if (!count($user->packets)) {
                 $user->delete();
             }
         }
-
     }
 }
