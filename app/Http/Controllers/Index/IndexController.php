@@ -67,7 +67,7 @@ class IndexController extends Controller
         // $sprays = Product::where(['category_id' => Category::SPRAY])->get();
         // $creams = Product::where(['category_id' => Category::CREAM])->get();
 
-        // return 'Сайт в стадии разработки';
+         return 'сайт находится на техническом обслуживании';
 
         return view('new_design.index.index',
             [
